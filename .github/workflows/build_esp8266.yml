@@ -1,4 +1,4 @@
-name: ESP8266 platforms (dynamic)
+name: Build ESP8266 Platforms
 
 on:
   push:

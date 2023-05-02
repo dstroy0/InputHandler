@@ -1,4 +1,4 @@
-name: Teensyduino platforms (dynamic)
+name: Build Adafruit Platforms
 
 on:
   push:
@@ -22,19 +22,19 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build_platform.yml
+    uses: ./.github/workflows/_build_platform.yml
     with:
-      platform: teensyduino
+      platform: adafruit
       platform-packages-enabled: true
       platform-packages: |
-        - source-url: "https://www.pjrc.com/teensy/td_156/package_teensy_index.json"
-          name: "teensy:avr"
+        - source-url: "https://adafruit.github.io/arduino-board-index/package_adafruit_index.json"
+          name: "adafruit:samd"
 
   # checkpoint
-  build-teensyduino-success:
+  build-adafruit-success:
     runs-on: ubuntu-latest
-    name: build-teensyduino-platforms-success
+    name: build-adafruit-platforms-success
     needs: [build]
     steps:
       - name: echo
-        run: echo Build Teensyduino platforms success!
+        run: echo Build Adafruit platforms success!

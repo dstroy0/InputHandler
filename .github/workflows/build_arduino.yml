@@ -1,4 +1,4 @@
-name: Arduino platforms (dynamic)
+name: Build Arduino Platforms
 
 on:
   push:
@@ -22,7 +22,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build_platform.yml
+    uses: ./.github/workflows/_build_platform.yml
     with:
       platform: arduino
       platform-packages-enabled: false

@@ -1,4 +1,4 @@
-name: ESP32 platforms (dynamic)
+name: Build Teensyduino Platforms
 
 on:
   push:
@@ -24,17 +24,17 @@ jobs:
   build:
     uses: ./.github/workflows/build_platform.yml
     with:
-      platform: esp32
+      platform: teensyduino
       platform-packages-enabled: true
       platform-packages: |
-        - source-url: "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
-          name: "esp32"
+        - source-url: "https://www.pjrc.com/teensy/td_156/package_teensy_index.json"
+          name: "teensy:avr"
 
   # checkpoint
-  build-adafruit-success:
+  build-teensyduino-success:
     runs-on: ubuntu-latest
-    name: build-adafruit-platforms-success
+    name: build-teensyduino-platforms-success
     needs: [build]
     steps:
       - name: echo
-        run: echo Build ESP32 platforms success!
+        run: echo Build Teensyduino platforms success!

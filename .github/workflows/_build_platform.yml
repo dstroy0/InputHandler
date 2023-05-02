@@ -1,8 +1,6 @@
-name: Build platform
-
 on:
   workflow_call:
-    inputs:      
+    inputs:
       platform:
         required: true
         type: string
@@ -11,24 +9,24 @@ on:
         type: boolean
       platform-packages:
         required: false
-        type: string      
+        type: string
 
 jobs:
   get-arduino-build:
-    uses: ./.github/workflows/transcode_workflow.yml
+    uses: ./.github/workflows/_transcode_workflow.yml
     with:
       compiler: arduino
       platform: ${{ inputs.platform }}
 
   get-platformio-build:
-    uses: ./.github/workflows/transcode_workflow.yml
+    uses: ./.github/workflows/_transcode_workflow.yml
     with:
       compiler: platformio
       platform: ${{ inputs.platform }}
 
   build-library-arduino:
     needs: get-arduino-build
-    uses: ./.github/workflows/compile_using_arduino.yml
+    uses: ./.github/workflows/_compile_using_arduino.yml
     with:
       platform-packages-enabled: ${{ inputs.platform-packages-enabled }}
       platform-packages: |
@@ -38,7 +36,7 @@ jobs:
 
   build-test-cli-arduino:
     needs: get-arduino-build
-    uses: ./.github/workflows/compile_using_arduino.yml
+    uses: ./.github/workflows/_compile_using_arduino.yml
     with:
       platform-packages-enabled: ${{ inputs.platform-packages-enabled }}
       platform-packages: |
@@ -48,7 +46,7 @@ jobs:
 
   build-library-platformio:
     needs: get-platformio-build
-    uses: ./.github/workflows/compile_using_platformio.yml
+    uses: ./.github/workflows/_compile_using_platformio.yml
     with:
       boards: ${{ needs.get-platformio-build.outputs.boards }}
       examples: ${{ needs.get-platformio-build.outputs.examples }}
@@ -56,7 +54,7 @@ jobs:
 
   build-test-cli-platformio:
     needs: get-platformio-build
-    uses: ./.github/workflows/compile_using_platformio.yml
+    uses: ./.github/workflows/_compile_using_platformio.yml
     with:
       boards: ${{ needs.get-platformio-build.outputs.boards }}
       examples: ${{ needs.get-platformio-build.outputs.test-cli }}

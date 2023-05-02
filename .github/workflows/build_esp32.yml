@@ -1,4 +1,4 @@
-name: RPi platforms (dynamic)
+name: Build ESP32 Platforms
 
 on:
   push:
@@ -24,15 +24,17 @@ jobs:
   build:
     uses: ./.github/workflows/build_platform.yml
     with:
-      platform: rpi
-      platform-packages-enabled: false
-      platform-packages: ""
+      platform: esp32
+      platform-packages-enabled: true
+      platform-packages: |
+        - source-url: "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
+          name: "esp32"
 
   # checkpoint
-  build-rpi-success:
+  build-adafruit-success:
     runs-on: ubuntu-latest
-    name: build-rpi-platforms-success
+    name: build-adafruit-platforms-success
     needs: [build]
     steps:
       - name: echo
-        run: echo Build Raspberry Pi platforms success!
+        run: echo Build ESP32 platforms success!

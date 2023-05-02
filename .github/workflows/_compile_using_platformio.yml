@@ -1,5 +1,3 @@
-name: Compile with platformio
-
 on:
   workflow_call:
     inputs:

@@ -1,4 +1,4 @@
-name: cli_gen_tool build release binaries
+name: Build Release cli_gen_tool Binaries
 
 on:
   release:

@@ -1,3 +1,5 @@
+# Disabled until outside contributions are enabled
+
 # Workflow syntax:
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
 name: src/ linter
