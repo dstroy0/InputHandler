@@ -1,4 +1,4 @@
-name: Build Library Docs
+name: Source Docs Build
 
 on:
   push:
