@@ -2,8 +2,7 @@
 
 # Workflow syntax:
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
-name: src/ linter
-
+name: Lint InputHandler/src/**
 on:
   push:
     branches:
