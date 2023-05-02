@@ -1,4 +1,4 @@
-name: Build Latest cli_gen_tool Binaries
+name: Build Tool Binaries (Latest)
 
 on:
   push:
