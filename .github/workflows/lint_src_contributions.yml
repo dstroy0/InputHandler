@@ -20,8 +20,7 @@ jobs:
 
       - name: Install Arduino CLI (dependency)
         run: |
-          brew update
-          brew install arduino-cli
+          curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 
       - name: Lint src
         uses: shenxianpeng/cpp-linter-action@master
