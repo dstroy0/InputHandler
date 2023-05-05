@@ -32,6 +32,15 @@ jobs:
           ignore: docs | examples | tools | supported_boards
           lines-changed-only: false
           files-changed-only: false
+          extra-args: |
+            -w
+            -std=gnu++11
+            -fpermissive
+            -fno-exceptions
+            -ffunction-sections
+            -fdata-sections
+            -fno-threadsafe-statics
+            -Wno-error=narrowing
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
