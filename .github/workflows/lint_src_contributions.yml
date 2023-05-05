@@ -20,6 +20,7 @@ jobs:
 
       - name: Install Arduino CLI (dependency)
         run: |
+          export PATH="$GITHUB_WORKSPACE"
           curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=$GITHUB_WORKSPACE sh
 
       - name: Lint src
