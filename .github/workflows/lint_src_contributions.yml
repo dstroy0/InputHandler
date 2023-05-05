@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Arduino CLI (dependency)
         run: |
-          curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/local/bin sh
+          curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=$GITHUB_WORKSPACE sh
 
       - name: Lint src
         uses: shenxianpeng/cpp-linter-action@v2
