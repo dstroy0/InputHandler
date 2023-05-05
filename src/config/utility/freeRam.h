@@ -21,9 +21,9 @@
     #include <Arduino.h>
 
     #if defined(DOXYGEN_XML_BUILD) // this section is for doxygen
-extern unsigned long _heap_start;  ///< pointer to heap start
-extern unsigned long _heap_end;    ///< pointer to heap end
-extern char* __brkval;             ///< pointer to current memory position
+extern unsigned long _heap_start; ///< pointer to heap start
+extern unsigned long _heap_end; ///< pointer to heap end
+extern char* __brkval; ///< pointer to current memory position
 /**
  * @brief cross platform freeRam().
  *
@@ -36,9 +36,9 @@ extern char* __brkval;             ///< pointer to current memory position
  * int freeRam() { return (char*)&_heap_end - __brkval; }
  * @endcode
  * Please see your platform's specific implementation.
- *   
+ *
  * [freeRam src](https://github.com/dstroy0/InputHandler/blob/main/src/utility/freeRam.h)
- * 
+ *
  * @returns The amount of free memory on the heap, in bytes;
  * returns zero if not implemented on your platform.
  */
@@ -70,9 +70,7 @@ int freeRam() { return (char*)&_heap_end - __brkval; }
 
     // SAM, teensy3.x
     // Paul Stoffregen - https://forum.pjrc.com/threads/62104-Teensy-4-and-4-1-pre-processor-defines
-    #elif (defined(__arm__) || defined(__ARM__)) && defined(DARDUINO_TEENSY31)                     \
-        || defined(DARDUINO_TEENSY32) || defined(DARDUINO_TEENSY35) || defined(DARDUINO_TEENSY36)  \
-        || (ARDUINO > 103 && ARDUINO != 151) // arduino and teensy model macros
+    #elif (defined(__arm__) || defined(__ARM__)) && defined(DARDUINO_TEENSY31) || defined(DARDUINO_TEENSY32) || defined(DARDUINO_TEENSY35) || defined(DARDUINO_TEENSY36) || (ARDUINO > 103 && ARDUINO != 151) // arduino and teensy model macros
         #if defined(__arm__)
 extern "C" char* sbrk(int incr);
         #else
@@ -83,9 +81,7 @@ int freeRam()
     char top;
         #if defined(__arm__)
     return &top - reinterpret_cast<char*>(sbrk(0));
-        #elif defined(DARDUINO_TEENSY31) || defined(DARDUINO_TEENSY32)                             \
-            || defined(DARDUINO_TEENSY35) || defined(DARDUINO_TEENSY36)                            \
-            || (ARDUINO > 103 && ARDUINO != 151) // arduino and teensy model macros
+        #elif defined(DARDUINO_TEENSY31) || defined(DARDUINO_TEENSY32) || defined(DARDUINO_TEENSY35) || defined(DARDUINO_TEENSY36) || (ARDUINO > 103 && ARDUINO != 151) // arduino and teensy model macros
     return &top - __brkval;
         #else
     return __brkval ? &top - __brkval : &top - __malloc_heap_start;

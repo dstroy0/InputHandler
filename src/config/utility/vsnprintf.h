@@ -38,7 +38,7 @@ typedef __gnuc_va_list va_list;
      * [va_start ref](https://www.tutorialspoint.com/c_standard_library/c_macro_va_start.htm)
      */
     #if !defined(va_start)
-    #define va_start(v, l) __builtin_va_start(v, l)
+        #define va_start(v, l) __builtin_va_start(v, l)
     #endif
     /**
      * @def va_end
@@ -50,7 +50,7 @@ typedef __gnuc_va_list va_list;
      * [va_end ref](https://www.tutorialspoint.com/c_standard_library/c_macro_va_end.htm)
      */
     #if !defined(va_end)
-    #define va_end(v) __builtin_va_end(v)
+        #define va_end(v) __builtin_va_end(v)
     #endif
     /**
      * @def va_arg
@@ -61,7 +61,7 @@ typedef __gnuc_va_list va_list;
      * [va_arg ref](https://www.tutorialspoint.com/c_standard_library/c_macro_va_arg.htm)
      */
     #if !defined(va_arg)
-    #define va_arg(v, l) __builtin_va_arg(v, l)
+        #define va_arg(v, l) __builtin_va_arg(v, l)
     #endif
 
     /**
@@ -86,8 +86,7 @@ typedef __gnuc_va_list va_list;
 int vsnprintf(char* str, size_t size, const char* format, va_list args);
     #else
 /** @cond */
-int vsnprintf(char* __restrict, size_t, const char* __restrict, __VALIST)
-    _ATTRIBUTE((__format__(__printf__, 3, 0)));
+int vsnprintf(char* __restrict, size_t, const char* __restrict, __VALIST) _ATTRIBUTE((__format__(__printf__, 3, 0)));
 
     /** @endcond */
     #endif

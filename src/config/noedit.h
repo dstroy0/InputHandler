@@ -73,67 +73,67 @@
     /** @cond */
     // portability directives
     #if defined(ARDUINO_SAMD_VARIANT_COMPLIANCE) // SAMD portability
-        #include "utility/vsnprintf.h"           // implement vsnprintf
-        #include <avr/dtostrf.h>                 // implement dtostrf
+        #include "utility/vsnprintf.h" // implement vsnprintf
+        #include <avr/dtostrf.h> // implement dtostrf
 
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
-        #undef pgm_read_dword         // use a different macro for pgm_read_dword
+        #undef pgm_read_dword // use a different macro for pgm_read_dword
         // PROGMEM fix macro
-        #define pgm_read_dword(addr)                                                               \
-            ({                                                                                     \
-                typeof(addr) _addr = (addr);                                                       \
-                *(const unsigned long*)(_addr);                                                    \
+        #define pgm_read_dword(addr)                                                                                                                                                                                                           \
+            ({                                                                                                                                                                                                                                 \
+                typeof(addr) _addr = (addr);                                                                                                                                                                                                   \
+                *(const unsigned long*)(_addr);                                                                                                                                                                                                \
             })
 
     #elif defined(__MBED_CONFIG_DATA__) // MBED portability
-        #include "utility/vsnprintf.h"  // implement vsnprintf
-        #include <avr/dtostrf.h>        // implement dtostrf
+        #include "utility/vsnprintf.h" // implement vsnprintf
+        #include <avr/dtostrf.h> // implement dtostrf
 
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
-        #undef pgm_read_dword         // use a different macro for pgm_read_dword
+        #undef pgm_read_dword // use a different macro for pgm_read_dword
         // PROGMEM fix macro
-        #define pgm_read_dword(addr)                                                               \
-            ({                                                                                     \
-                typeof(addr) _addr = (addr);                                                       \
-                *(const unsigned long*)(_addr);                                                    \
+        #define pgm_read_dword(addr)                                                                                                                                                                                                           \
+            ({                                                                                                                                                                                                                                 \
+                typeof(addr) _addr = (addr);                                                                                                                                                                                                   \
+                *(const unsigned long*)(_addr);                                                                                                                                                                                                \
             })
 
-    #elif defined(ARDUINO_SAM_DUE)     // DUE portability
+    #elif defined(ARDUINO_SAM_DUE) // DUE portability
         #include "utility/vsnprintf.h" // implement vsnprintf
-        #include <avr/dtostrf.h>       // implement dtostrf
+        #include <avr/dtostrf.h> // implement dtostrf
 
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
-        #undef pgm_read_dword         // use a different macro for pgm_read_dword
+        #undef pgm_read_dword // use a different macro for pgm_read_dword
         // PROGMEM fix macro
-        #define pgm_read_dword(addr)                                                               \
-            ({                                                                                     \
-                typeof(addr) _addr = (addr);                                                       \
-                *(const unsigned long*)(_addr);                                                    \
+        #define pgm_read_dword(addr)                                                                                                                                                                                                           \
+            ({                                                                                                                                                                                                                                 \
+                typeof(addr) _addr = (addr);                                                                                                                                                                                                   \
+                *(const unsigned long*)(_addr);                                                                                                                                                                                                \
             })
 
     #elif defined(TEENSYDUINO) // teensy portability
         // pgm/ram section type conflict fix macros (fixes PROGMEM addressing)
         #define QUO(x) #x
-        #define QLINE(x, y)                                                                        \
-            QUO(x)                                                                                 \
+        #define QLINE(x, y)                                                                                                                                                                                                                    \
+            QUO(x)                                                                                                                                                                                                                             \
             QUO(y)
         #define PFIX QLINE(.progmem.variable, __COUNTER__)
         #undef PROGMEM
         #define PROGMEM __attribute__((section(PFIX)))
-    
+
     #elif defined(NRF_H) // Nordic NRF portability
-        #include "utility/vsnprintf.h"           // implement vsnprintf
-        #include <avr/dtostrf.h>                 // implement dtostrf
+        #include "utility/vsnprintf.h" // implement vsnprintf
+        #include <avr/dtostrf.h> // implement dtostrf
         #define snprintf_P snprintf
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
-        #undef pgm_read_dword         // use a different macro for pgm_read_dword
+        #undef pgm_read_dword // use a different macro for pgm_read_dword
         // PROGMEM fix macro
-        #define pgm_read_dword(addr)                                                               \
-            ({                                                                                     \
-                typeof(addr) _addr = (addr);                                                       \
-                *(const unsigned long*)(_addr);                                                    \
+        #define pgm_read_dword(addr)                                                                                                                                                                                                           \
+            ({                                                                                                                                                                                                                                 \
+                typeof(addr) _addr = (addr);                                                                                                                                                                                                   \
+                *(const unsigned long*)(_addr);                                                                                                                                                                                                \
             })
-    
+
     #endif
 // end portability directives
 /** @endcond */
@@ -218,5 +218,5 @@
 // end OPTIONAL METHODS
 /** @endcond */
     #include "utility/namespace.h" // lib specific namespaces
-#endif                             // end include guard
+#endif // end include guard
 // end of file

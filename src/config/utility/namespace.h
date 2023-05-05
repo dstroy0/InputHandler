@@ -155,8 +155,7 @@ typedef uint8_t max_tree_depth_per_cmd;
 typedef uint16_t max_tree_depth_per_cmd;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_TREE_DEPTH_PER_COMMAND|max_args_per_cmd changed from uint8_t to uint16_t
-    #elif (                                                                                        \
-        IH_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && IH_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
+    #elif (IH_MAX_TREE_DEPTH_PER_COMMAND > UINT16_MAX && IH_MAX_TREE_DEPTH_PER_COMMAND <= UINT32_MAX)
 typedef uint32_t max_tree_depth_per_cmd;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_TREE_DEPTH_PER_COMMAND|max_args_per_cmd changed from uint8_t to uint32_t
@@ -183,13 +182,11 @@ typedef uint32_t max_tree_depth_per_cmd;
  * @endcode
  */
 typedef uint8_t max_num_child_cmds;
-    #elif (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT > UINT8_MAX                                          \
-        && IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT <= UINT16_MAX)
+    #elif (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT > UINT8_MAX && IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT <= UINT16_MAX)
 typedef uint16_t max_num_child_cmds;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT|max_args_per_cmd changed from uint8_t to uint16_t
-    #elif (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT > UINT16_MAX                                         \
-        && IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT <= UINT32_MAX)
+    #elif (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT > UINT16_MAX && IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT <= UINT32_MAX)
 typedef uint32_t max_num_child_cmds;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT|max_args_per_cmd changed from uint8_t to uint32_t
@@ -372,8 +369,7 @@ typedef uint16_t max_per_root_memcmp_ranges;
 typedef uint16_t memcmp_idx_t;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_PER_ROOT_MEMCMP_RANGES|max_per_root_memcmp_ranges, memcmp_idx_t changed from uint8_t to uint16_t
-    #elif (                                                                                        \
-        IH_MAX_PER_ROOT_MEMCMP_RANGES > UINT16_MAX && IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT32_MAX)
+    #elif (IH_MAX_PER_ROOT_MEMCMP_RANGES > UINT16_MAX && IH_MAX_PER_ROOT_MEMCMP_RANGES <= UINT32_MAX)
 typedef uint32_t max_per_root_memcmp_ranges;
 typedef uint32_t memcmp_idx_t;
         #pragma message(" at " LOCATION)
@@ -464,7 +460,7 @@ enum CMD_ID
 enum WC_FLAG
 {
     no_wildcards = false, ///< this command has no wildcard char (false (0))
-    has_wildcards = true  ///< this command contains one or more wildcard char (true (1))
+    has_wildcards = true ///< this command contains one or more wildcard char (true (1))
 };
 
 /**
@@ -477,9 +473,9 @@ enum WC_FLAG
  */
 enum UI_COMPARE
 {
-    no_match,          ///< no match
+    no_match, ///< no match
     match_all_wcc_cmd, ///< match all wcc command
-    match              ///< match command
+    match ///< match command
 };
 
 /**
@@ -491,9 +487,9 @@ enum UI_COMPARE
  */
 enum class UI_ARG_HANDLING
 {
-    no_args,  ///<  no arguments expected
+    no_args, ///<  no arguments expected
     one_type, ///<  every argument is of the same type
-    type_arr  ///<  there is an array of input types
+    type_arr ///<  there is an array of input types
 };
 
 /**
@@ -507,16 +503,16 @@ enum class UI_ARG_HANDLING
  */
 enum class UITYPE
 {
-    UINT8_T,    ///<  8-bit unsigned integer
-    UINT16_T,   ///<  16-bit unsigned integer
-    UINT32_T,   ///<  32-bit unsigned integer
-    INT16_T,    ///<  16-bit signed integer
-    FLOAT,      ///<  32-bit float
-    CHAR,       ///<  8-bit char
+    UINT8_T, ///<  8-bit unsigned integer
+    UINT16_T, ///<  16-bit unsigned integer
+    UINT32_T, ///<  32-bit unsigned integer
+    INT16_T, ///<  16-bit signed integer
+    FLOAT, ///<  32-bit float
+    CHAR, ///<  8-bit char
     START_STOP, ///<  array of 8-bit char
-    NOTYPE,     ///<  no type validation
-    NO_ARGS,    ///<  no arguments expected
-    _LAST       ///<  reserved
+    NOTYPE, ///<  no type validation
+    NO_ARGS, ///<  no arguments expected
+    _LAST ///<  reserved
 };
 ///@}
 
@@ -537,14 +533,12 @@ enum class UITYPE
 struct DelimiterSequences
 {
     size_t num_seq; ///< the number of token delimiters in delimiter_sequences
-    ih_auto::max_num_delim_seq
-        delimiter_lens[IH_MAX_NUM_PROC_DELIM_SEQ]; ///< delimiter sequence lens delimiter_lens
-                                                   ///< [@link IH_MAX_NUM_PROC_DELIM_SEQ @endlink]
-    char delimiter_sequences[IH_MAX_NUM_PROC_DELIM_SEQ]
-                            [IH_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
-                                                    ///< delimiter_sequences
-                                                    ///< [@link IH_MAX_NUM_PROC_DELIM_SEQ @endlink]
-                                                    ///< [@link IH_DELIM_SEQ_PGM_LEN @endlink]
+    ih_auto::max_num_delim_seq delimiter_lens[IH_MAX_NUM_PROC_DELIM_SEQ]; ///< delimiter sequence lens delimiter_lens
+                                                                          ///< [@link IH_MAX_NUM_PROC_DELIM_SEQ @endlink]
+    char delimiter_sequences[IH_MAX_NUM_PROC_DELIM_SEQ][IH_DELIM_SEQ_PGM_LEN]; ///< string-literal "" delimiter sequence array
+                                                                               ///< delimiter_sequences
+                                                                               ///< [@link IH_MAX_NUM_PROC_DELIM_SEQ @endlink]
+                                                                               ///< [@link IH_DELIM_SEQ_PGM_LEN @endlink]
 };
 
 /**
@@ -561,16 +555,13 @@ struct DelimiterSequences
 struct StartStopSequences
 {
     size_t num_seq; ///< num start/stop sequences
-    ih_auto::max_num_start_stop_seq start_stop_sequence_lens
-        [IH_MAX_NUM_START_STOP_SEQ]; ///< start stop sequence lens start_stop_sequence_lens
-                                     ///< [@link IH_MAX_NUM_START_STOP_SEQ @endlink]
-    char start_stop_sequence_pairs
-        [IH_MAX_NUM_START_STOP_SEQ]
-        [IH_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match
-                                     ///< start, match end, copy what is
-                                     ///< between markers start_stop_sequence_pairs
-                                     ///< [@link IH_MAX_NUM_START_STOP_SEQ @endlink]
-                                     ///< [@link IH_START_STOP_SEQ_PGM_LEN @endlink]
+    ih_auto::max_num_start_stop_seq start_stop_sequence_lens[IH_MAX_NUM_START_STOP_SEQ]; ///< start stop sequence lens start_stop_sequence_lens
+                                                                                         ///< [@link IH_MAX_NUM_START_STOP_SEQ @endlink]
+    char start_stop_sequence_pairs[IH_MAX_NUM_START_STOP_SEQ][IH_START_STOP_SEQ_PGM_LEN]; ///< start/stop sequences.  Match
+                                                                                          ///< start, match end, copy what is
+                                                                                          ///< between markers start_stop_sequence_pairs
+                                                                                          ///< [@link IH_MAX_NUM_START_STOP_SEQ @endlink]
+                                                                                          ///< [@link IH_START_STOP_SEQ_PGM_LEN @endlink]
 };
 
 /**
@@ -584,12 +575,10 @@ struct InputParameters
 {
     const ProcessName* process_name; ///< this process' name, can be NULL; MAX len ==
                                      ///< @link IH_PROCESS_NAME_PGM_LEN @endlink
-    const EndOfLineChar*
-        eol_char; ///< end of line term; MAX len == @link IH_EOL_SEQ_PGM_LEN @endlink
-    const ControlCharSeq*
-        input_control_char_sequence;   ///< two char len sequence to input a control char
+    const EndOfLineChar* eol_char; ///< end of line term; MAX len == @link IH_EOL_SEQ_PGM_LEN @endlink
+    const ControlCharSeq* input_control_char_sequence; ///< two char len sequence to input a control char
     const WildcardChar* wildcard_char; ///< single char wildcard char
-    const DelimiterSequences* delimiter_sequences;  ///< reference to ih::DelimiterSequences struct
+    const DelimiterSequences* delimiter_sequences; ///< reference to ih::DelimiterSequences struct
     const StartStopSequences* start_stop_sequences; ///< reference to ih::StartStopSequences struct
 };
 
@@ -601,17 +590,13 @@ struct InputParameters
  */
 struct CommandRuntimeCalc
 {
-    ih_auto::memcmp_idx_t
-        num_prm_with_wc; ///< the number of CommandParameters structs in this command
-                         ///< that contain char(ih::WildcardChar[0]); the WildCard Character
-    ih_auto::memcmp_idx_t*
-        idx_of_prm_with_wc; ///< indices of CommandParameters struct that contain wcc
-    ih_auto::max_per_root_memcmp_ranges*
-        num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command
-                                    ///< string, array members always an even number
-    ih_auto::max_per_root_memcmp_ranges**
-        memcmp_ranges_arr; ///< 2d array[row][col], each [row] is for one Parameters command string
-                           ///< which contains wcc
+    ih_auto::memcmp_idx_t num_prm_with_wc; ///< the number of CommandParameters structs in this command
+                                           ///< that contain char(ih::WildcardChar[0]); the WildCard Character
+    ih_auto::memcmp_idx_t* idx_of_prm_with_wc; ///< indices of CommandParameters struct that contain wcc
+    ih_auto::max_per_root_memcmp_ranges* num_memcmp_ranges_this_row; ///< the number of memcmp ranges for this Parameters command
+                                                                     ///< string, array members always an even number
+    ih_auto::max_per_root_memcmp_ranges** memcmp_ranges_arr; ///< 2d array[row][col], each [row] is for one Parameters command string
+                                                             ///< which contains wcc
 };
 // end group structs
 ///@}
@@ -639,23 +624,22 @@ namespace ihc
  *
  */
 const char PROGMEM type_strings[10][IH_INPUT_TYPE_STRINGS_PGM_LEN] = {
-    "UINT8_T",   ///< 8-bit unsigned integer
-    "UINT16_T",  ///< 16-bit unsigned integer
-    "UINT32_T",  ///< 32-bit unsigned integer
-    "INT16_T",   ///< 16-bit signed integer
-    "FLOAT",     ///< 32-bit floating point number
-    "CHAR",      ///< single char
+    "UINT8_T", ///< 8-bit unsigned integer
+    "UINT16_T", ///< 16-bit unsigned integer
+    "UINT32_T", ///< 32-bit unsigned integer
+    "INT16_T", ///< 16-bit signed integer
+    "FLOAT", ///< 32-bit floating point number
+    "CHAR", ///< single char
     "STARTSTOP", ///< c-string enclosed with start/stop delimiters
-    "NOTYPE",    ///< user defined NOTYPE
-    "NO_ARGS",   ///< no arguments expected
-    "error"      ///< error
+    "NOTYPE", ///< user defined NOTYPE
+    "NO_ARGS", ///< no arguments expected
+    "error" ///< error
 };
 
 // default constructor paramters
-const ih::ProcessName PROGMEM _process_name = "";   ///< default process name is an empty string
+const ih::ProcessName PROGMEM _process_name = ""; ///< default process name is an empty string
 const ih::EndOfLineChar PROGMEM _eol_char = "\r\n"; ///< default process eol characters CRLF
-const ih::ControlCharSeq PROGMEM _input_control_char_sequence =
-    "##"; ///< default process input control character sequence "##"
+const ih::ControlCharSeq PROGMEM _input_control_char_sequence = "##"; ///< default process input control character sequence "##"
 const ih::WildcardChar PROGMEM _wildcard_char = "*"; ///< default process wildcard char '*'
 
 /**
@@ -663,8 +647,8 @@ const ih::WildcardChar PROGMEM _wildcard_char = "*"; ///< default process wildca
  *
  */
 const ih::DelimiterSequences PROGMEM _delimiter_sequences = {
-    2,         ///< number of delimiter sequences
-    {1, 1},    ///< delimiter sequence lens
+    2, ///< number of delimiter sequences
+    {1, 1}, ///< delimiter sequence lens
     {" ", ","} ///< delimiter sequences
 };
 
@@ -673,8 +657,8 @@ const ih::DelimiterSequences PROGMEM _delimiter_sequences = {
  *
  */
 const ih::StartStopSequences PROGMEM _start_stop_sequences = {
-    1,           ///< num start stop sequence pairs
-    {1, 1},      ///< start stop sequence lens
+    1, ///< num start stop sequence pairs
+    {1, 1}, ///< start stop sequence lens
     {"\"", "\""} ///< start stop sequence pair sequences
 };
 
@@ -683,12 +667,12 @@ const ih::StartStopSequences PROGMEM _start_stop_sequences = {
  *
  */
 const ih::InputParameters PROGMEM default_parameters = {
-    &ihc::_process_name,                ///< process name
-    &ihc::_eol_char,                    ///< process eol term
+    &ihc::_process_name, ///< process name
+    &ihc::_eol_char, ///< process eol term
     &ihc::_input_control_char_sequence, ///< process input control char sequence
-    &ihc::_wildcard_char,               ///< process wildcard char
-    &ihc::_delimiter_sequences,         ///< process default delimiter sequences
-    &ihc::_start_stop_sequences         ///< process default start/stop sequences
+    &ihc::_wildcard_char, ///< process wildcard char
+    &ihc::_delimiter_sequences, ///< process default delimiter sequences
+    &ihc::_start_stop_sequences ///< process default start/stop sequences
 };
 
 // messages
@@ -817,8 +801,7 @@ enum class VAR_ID
 const char command_string[] PROGMEM = "command <%s> %S.\n";
 const char root_pointer_warn[] PROGMEM = "root command function pointer cannot be NULL";
 const char wcc_warn[] PROGMEM = "has_wildcard is set, but no wildcards were found in the command";
-const char cmd_len_warn[] PROGMEM =
-    "command too long, increase IH_MAX_CMD_STR_LEN or reduce command length";
+const char cmd_len_warn[] PROGMEM = "command too long, increase IH_MAX_CMD_STR_LEN or reduce command length";
 const char cmd_len_dec_warn[] PROGMEM = "command_length too large for command";
 const char cmd_len_inc_warn[] PROGMEM = "command_length too small for command";
 const char cmd_depth_inc_warn[] PROGMEM = "depth exceeds UI_MAX_DEPTH";
