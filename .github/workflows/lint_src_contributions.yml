@@ -34,13 +34,13 @@ jobs:
           lines-changed-only: false
           files-changed-only: false
           extra-args: |
-            -w
-            -std=gnu++11
-            -fpermissive
-            -fno-exceptions
-            -ffunction-sections
-            -fdata-sections
-            -fno-threadsafe-statics
+            -w,
+            -std=gnu++11,
+            -fpermissive,
+            -fno-exceptions,
+            -ffunction-sections,
+            -fdata-sections,
+            -fno-threadsafe-statics,
             -Wno-error=narrowing
 
       - name: Fail fast?!
