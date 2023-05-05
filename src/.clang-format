@@ -1,15 +1,10 @@
 # Format Style Options - Created with Clang Power Tools
 ---
 BasedOnStyle: WebKit
-AlignTrailingComments: true
-AllowShortEnumsOnASingleLine: false
-BreakBeforeBraces: Allman
-BreakConstructorInitializers: BeforeColon
-ColumnLimit: 100
-ConstructorInitializerAllOnOneLineOrOnePerLine: true
-Cpp11BracedListStyle: true
-IndentPPDirectives: BeforeHash
 BreakBeforeBinaryOperators: NonAssignment
-DerivePointerAlignment: false
-PointerAlignment: Left
+BreakBeforeBraces: Allman
+ColumnLimit: 240
+Cpp11BracedListStyle: true
+ExperimentalAutoDetectBinPacking: true
+IndentPPDirectives: BeforeHash
 ...

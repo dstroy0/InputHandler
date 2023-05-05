@@ -31,6 +31,8 @@ jobs:
             examples
             tools
             supported_boards
+          lines-changed-only: false
+          files-changed-only: false
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
