@@ -1,7 +1,3 @@
-# Disabled until outside contributions are enabled
-
-# Workflow syntax:
-# https://help.github.com/en/articles/workflow-syntax-for-github-actions
 name: Lint InputHandler/src/** contrib
 on:
   push:
@@ -16,11 +12,19 @@ on:
       - '**/src/**'
 
 jobs:
-  cpp-linter:
+  src-cpp-linter:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: shenxianpeng/cpp-linter-action@master
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Arduino CLI (dependency)
+        run: |
+          brew update
+          brew install arduino-cli
+
+      - name: Lint src
+        uses: shenxianpeng/cpp-linter-action@master
         id: linter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
