@@ -2,7 +2,7 @@
 
 # Workflow syntax:
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
-name: Lint InputHandler/src/**
+name: Lint InputHandler/src/** contrib
 on:
   push:
     branches:
@@ -12,6 +12,8 @@ on:
   workflow_dispatch:
     branches:
       - main
+    paths: |
+      - '**/src/**'
 
 jobs:
   cpp-linter:
@@ -24,11 +26,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: file
-          tidy-checks: "-*"
           ignore: |
             docs
             examples
             tools
+            supported_boards
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0

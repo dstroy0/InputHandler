@@ -1,4 +1,4 @@
-name: Build Tool Binaries (Release)
+name: Build Tool Binaries (release)
 
 on:
   release:
@@ -7,11 +7,27 @@ on:
     paths:
       - "**/cli_gen_tool_src/**"
 
+  workflow_dispatch:
+    branches:
+      - main
+    paths:
+      - "**/cli_gen_tool_src/**"
+
 jobs:
   build-release-linux-binary:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-release
 
     steps:
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install Python dependencies
+        run: |
+          python -VV          
+          pip install -r https://raw.githubusercontent.com/dstroy0/InputHandler/main/tools/cli_gen_tool_src/requirements.txt
+          pip freeze
+
       - name: Update linux and install build dependencies
         run: |
           sudo add-apt-repository -y "deb http://cz.archive.ubuntu.com/ubuntu jammy main universe"
@@ -29,10 +45,42 @@ jobs:
           sudo apt-get -y install qt6-webengine-dev
           sudo apt-get -y install p7zip-full
 
-      - uses: actions/checkout@v3
+      - name: get main
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          ref: main
 
+      - name: get binaries
+        uses: actions/checkout@v3
+        with:
+          ref: binaries
+
+      - name: Build and zip binary, push to binaries branch
+        run: |
+          git config user.name "dstroy0"
+          git config user.email "dstroy0@users.noreply.github.com"                                               
+
+          git checkout origin/binaries
+          git checkout origin/main -- tools
+          git checkout origin/main -- docs/img
+          git add tools
+          git add docs/img
+          git commit -m "pull tools folder to binaries branch"          
+
+          pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./release/linux/
+          7z a -tzip './release/linux/cli_gen_tool.zip' './release/linux/cli_gen_tool'
+          7z t './release/linux/cli_gen_tool.zip' *.
+
+          git rm -r tools                
+          git rm -r docs  
+          git add release/linux/cli_gen_tool.zip
+          git commit -m "built release linux binary" -a
+          git push origin HEAD:binaries
+
+  build-release-macos-binary:
+    runs-on: macos-release
+    needs: build-release-linux-binary
+    steps:
       - uses: actions/setup-python@v4
         with:
           python-version: 3.9
@@ -40,42 +88,49 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -VV          
-          pip install -r ./tools/cli_gen_tool_src/requirements.txt
+          pip install -r https://raw.githubusercontent.com/dstroy0/InputHandler/main/tools/cli_gen_tool_src/requirements.txt
+          pip install PyQt6-WebEngine
+          pip3 install PyQt6-WebEngine
+          pip3 install Pillow
+          pip3 install PyQt6-WebEngine
           pip freeze
 
-      - name: Build and zip binary
-        run: |
-          pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/release/linux_macos/
-          7z a -tzip './tools/bin/release/linux_macos/cli_gen_tool.zip' './tools/bin/release/linux_macos/cli_gen_tool'
-          7z t './tools/bin/release/linux_macos/cli_gen_tool.zip' *.
-          rm './tools/bin/release/linux_macos/cli_gen_tool'
+      - name: get main
+        uses: actions/checkout@v3
+        with:
+          ref: main
 
-      - name: Commit and push files
-        id: commit
+      - name: get binaries
+        uses: actions/checkout@v3
+        with:
+          ref: binaries
+
+      - name: Build and zip binary, push to binaries branch
         run: |
-          git config --global user.email "dstroy0@users.noreply.github.com"
-          git config --global user.name "dstroy0"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git checkout main
-          git pull origin
-          git add --all
-          if [-z "$(git status --porcelain)"]; then
-            echo "Unable to push"
-          else
-            git commit -m "cli_gen_tool linux binary release" -a
-            echo "Pushing"
-            git push
-          fi
-        shell: bash
+          git config user.name "dstroy0"
+          git config user.email "dstroy0@users.noreply.github.com"                                               
+
+          git checkout origin/binaries
+          git checkout origin/main -- tools
+          git checkout origin/main -- docs/img
+          git add tools
+          git add docs/img
+          git commit -m "pull tools folder to binaries branch"          
+
+          pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./release/macos/
+          7z a -tzip './release/macos/cli_gen_tool.zip' './release/macos/cli_gen_tool'
+          7z t './release/macos/cli_gen_tool.zip' *.               
+
+          git rm -r tools                  
+          git rm -r docs
+          git add release/macos/cli_gen_tool.zip
+          git commit -m "built release macos binary" -a
+          git push origin HEAD:binaries
 
   build-release-windows-binary:
-    runs-on: windows-latest
-
+    runs-on: windows-release
+    needs: build-release-macos-binary
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
       - uses: actions/setup-python@v4
         with:
           python-version: 3.9
@@ -84,30 +139,38 @@ jobs:
         run: |
           python -VV          
           pip install wheel
-          pip install -r ./tools/cli_gen_tool_src/requirements.txt          
+          pip install -r https://raw.githubusercontent.com/dstroy0/InputHandler/main/tools/cli_gen_tool_src/requirements.txt
           pip install PyQt6-WebEngine
           pip freeze
 
-      - name: Build and zip binary
+      - name: get main
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: get binaries
+        uses: actions/checkout@v3
+        with:
+          ref: binaries
+
+      - name: Build and zip binary, push to binaries branch
         run: |
-          pyinstaller -p ./tools/resources -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./tools/bin/release/windows/
-          7z a -tzip './tools/bin/release/windows/cli_gen_tool.zip' './tools/bin/release/windows/cli_gen_tool.exe'
-          7z t './tools/bin/release/windows/cli_gen_tool.zip' *. -r          
-          rm './tools/bin/release/windows/cli_gen_tool.exe'
-      - name: Commit and push files
-        id: commit
-        run: |
-          git config --global user.email "dstroy0@users.noreply.github.com"
-          git config --global user.name "dstroy0"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git checkout main
-          git pull origin
-          git add --all
-          if [-z "$(git status --porcelain)"]; then
-            echo "Unable to push"
-          else
-            git commit -m "cli_gen_tool windows binary release" -a
-            echo "Pushing"
-            git push
-          fi
-        shell: bash
+          git config user.name "dstroy0"
+          git config user.email "dstroy0@users.noreply.github.com"                                               
+
+          git checkout binaries
+          git checkout main -- tools
+          git checkout main -- docs/img
+          git add tools
+          git add docs/img
+          git commit -m "pull tools folder to binaries branch"          
+
+          pyinstaller --paths './tools/resources/' -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./release/windows/
+          7z a -tzip './release/windows/cli_gen_tool.zip' './release/windows/cli_gen_tool.exe'
+          7z t './release/windows/cli_gen_tool.zip' *. -r          
+
+          git rm -r tools 
+          git rm -r docs                 
+          git add release/windows/cli_gen_tool.zip
+          git commit -m "built release windows binary" -a
+          git push origin HEAD:binaries
