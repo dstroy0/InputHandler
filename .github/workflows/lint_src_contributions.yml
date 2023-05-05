@@ -26,11 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: file
-          ignore: |
-            docs
-            examples
-            tools
-            supported_boards
+          ignore: docs | examples | tools | supported_boards
           lines-changed-only: false
           files-changed-only: false
 
