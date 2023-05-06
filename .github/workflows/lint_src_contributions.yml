@@ -27,7 +27,8 @@ jobs:
           git clone https://github.com/arduino/ArduinoCore-avr
           git checkout
           ls
-          cd cores
+          cd "ArduinoCore-avr\cores"
+          ls
           mv arduino $GITHUB_WORKSPACE\arduino
 
       - name: Lint src
