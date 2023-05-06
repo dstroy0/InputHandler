@@ -27,9 +27,9 @@ jobs:
           git clone https://github.com/arduino/ArduinoCore-avr
           git checkout
           ls
-          cd "ArduinoCore-avr\cores"
+          cd "ArduinoCore-avr/cores"
           ls
-          mv arduino $GITHUB_WORKSPACE\arduino
+          mv arduino $GITHUB_WORKSPACE/arduino
 
       - name: Lint src
         uses: shenxianpeng/cpp-linter-action@v2
