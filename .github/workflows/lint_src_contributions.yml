@@ -5,7 +5,7 @@ on:
       - main
     paths: |
       - '**/src/**'
-      - '**/lint_src_contributions.yml'
+      - '**.github/workflows/lint_src_contributions.yml'
   workflow_dispatch:
     branches:
       - main
