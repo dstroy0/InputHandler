@@ -39,7 +39,7 @@ jobs:
         with:
           style: file
           tidy-checks: "performance-*,clang-analyzer-*"
-          ignore: docs | examples | tools | supported_boards | deps
+          ignore: docs | examples | tools | supported_boards | deps | arduino
           lines-changed-only: false
           files-changed-only: false
           extra-args: -w -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing
