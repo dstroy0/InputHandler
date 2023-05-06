@@ -35,7 +35,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: file
-          ignore: docs | examples | tools | supported_boards
+          ignore: docs | examples | tools | supported_boards | deps
           lines-changed-only: false
           files-changed-only: false
           extra-args: -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing
