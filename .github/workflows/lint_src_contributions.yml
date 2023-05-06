@@ -26,7 +26,8 @@ jobs:
           cd deps          
           git clone https://github.com/arduino/ArduinoCore-avr          
           git checkout
-          export PATH="$GITHUB_WORKSPACE/deps/ArduinoCore-avr/tree/master/cores/arduino:$PATH"
+          export PATH=":$PATH"
+          mvdir $GITHUB_WORKSPACE/deps/ArduinoCore-avr/tree/master/cores/arduino $GITHUB_WORKSPACE/src/utility/arduino
 
       - name: Lint src
         uses: shenxianpeng/cpp-linter-action@v2
@@ -39,7 +40,7 @@ jobs:
           ignore: docs | examples | tools | supported_boards | deps
           lines-changed-only: false
           files-changed-only: false
-          extra-args: -w -std=gnu++11 -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing
+          extra-args: -w -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
