@@ -25,11 +25,11 @@ jobs:
           mkdir deps
           cd deps
           git clone https://github.com/arduino/ArduinoCore-avr
-          git checkout
-          ls
+          git checkout          
           cd "ArduinoCore-avr/cores"
-          ls
           mv arduino $GITHUB_WORKSPACE/src/
+          cd "$GITHUB_WORKSPACE/src/"
+          ls
 
       - name: Lint src
         uses: shenxianpeng/cpp-linter-action@v2
