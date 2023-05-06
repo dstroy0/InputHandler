@@ -27,7 +27,7 @@ jobs:
           git clone https://github.com/arduino/ArduinoCore-avr
           git checkout          
           cd "ArduinoCore-avr/cores"
-          mv arduino $GITHUB_WORKSPACE/src/
+          mv arduino/* $GITHUB_WORKSPACE/src/
           cd "$GITHUB_WORKSPACE/src/"
           ls
 
