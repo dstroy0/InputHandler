@@ -35,6 +35,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: file
+          tidy-checks: "performance-*,clang-analyzer-*"
           ignore: docs | examples | tools | supported_boards | deps
           lines-changed-only: false
           files-changed-only: false
