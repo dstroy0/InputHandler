@@ -24,9 +24,7 @@ jobs:
           export PATH="$GITHUB_WORKSPACE:$PATH"
           mkdir deps
           cd deps          
-          git clone -n --depth=1 --filter=tree:0 https://github.com/arduino/ArduinoCore-avr/tree/master/cores/arduino          
-          cd ArduinoCore-avr/tree/master/cores/arduino          
-          git sparse-checkout set --no-cone small
+          git clone https://github.com/arduino/ArduinoCore-avr          
           git checkout
           export PATH="$GITHUB_WORKSPACE/deps/ArduinoCore-avr/tree/master/cores/arduino:$PATH"
 
