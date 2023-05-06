@@ -19,10 +19,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Arduino CLI (dependency)
+      - name: Fetch Arduino Core (dependency)
         run: |
           export PATH="$GITHUB_WORKSPACE:$PATH"
-          curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=$GITHUB_WORKSPACE sh
+          mkdir deps
+          cd deps          
+          git clone -n --depth=1 --filter=tree:0 
+          echo "" >> .git/info/sparse-checkout
+          git remote add -f origin https://github.com/arduino/ArduinoCore-avr/tree/master/cores/arduino
+          cd ArduinoCore-avr/tree/master/cores/arduino
+          git sparse-checkout set --no-cone small
+          git checkout
 
       - name: Lint src
         uses: shenxianpeng/cpp-linter-action@v2
