@@ -23,10 +23,11 @@ jobs:
         run: |
           export PATH="$GITHUB_WORKSPACE:$PATH"
           mkdir deps
-          cd deps          
-          git clone https://github.com/arduino/ArduinoCore-avr          
-          git checkout          
-          mv "$GITHUB_WORKSPACE/deps/ArduinoCore-avr/tree/master/cores/arduino" "$GITHUB_WORKSPACE/src/utility/arduino"
+          cd deps
+          git clone https://github.com/arduino/ArduinoCore-avr
+          git checkout
+          cd ArduinoCore-avr
+          ls
 
       - name: Lint src
         uses: shenxianpeng/cpp-linter-action@v2
