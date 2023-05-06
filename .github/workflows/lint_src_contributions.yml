@@ -27,9 +27,10 @@ jobs:
           git clone -n --depth=1 --filter=tree:0 
           echo "" >> .git/info/sparse-checkout
           git remote add -f origin https://github.com/arduino/ArduinoCore-avr/tree/master/cores/arduino
-          cd ArduinoCore-avr/tree/master/cores/arduino
+          cd ArduinoCore-avr/tree/master/cores/arduino          
           git sparse-checkout set --no-cone small
           git checkout
+          export PATH="$GITHUB_WORKSPACE/deps/ArduinoCore-avr/tree/master/cores/arduino:$PATH"
 
       - name: Lint src
         uses: shenxianpeng/cpp-linter-action@v2
