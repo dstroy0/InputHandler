@@ -1,4 +1,4 @@
-name: Lint InputHandler/src/** contrib
+name: Lint InputHandler/examples/** contrib
 on:
   push:
     branches:

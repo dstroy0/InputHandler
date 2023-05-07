@@ -1,4 +1,4 @@
-name: Build RPi Platforms (dynamic)
+name: Build RPi Platforms
 
 on:
   push:
