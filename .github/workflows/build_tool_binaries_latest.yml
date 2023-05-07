@@ -174,3 +174,12 @@ jobs:
           git add latest/windows/cli_gen_tool.zip
           git commit -m "built latest windows binary" -a
           git push origin HEAD:binaries
+
+  # checkpoint
+  build-latest-binaries-success:
+    runs-on: ubuntu-latest
+    name: build-latest-binaries-success
+    needs: [build]
+    steps:
+      - name: echo
+        run: echo Build latest cli_gen_tool binaries success!

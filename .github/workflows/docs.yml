@@ -72,3 +72,12 @@ jobs:
           # build dir needs to contain redirect to either index.html
           publish_dir: ./docs/build
           exclude_assets: "requirements.txt"
+
+  # checkpoint
+  build-documentation-success:
+    runs-on: ubuntu-latest
+    name: build-documentation-success
+    needs: [build-and-deploy-docs]
+    steps:
+      - name: echo
+        run: echo Built InputHandler and cli_gen_tool documentation successfully!

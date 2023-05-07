@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths: |
-      - '**/examples/**'      
+      - '**/examples/**'
   workflow_dispatch:
     branches:
       - main
@@ -37,3 +37,12 @@ jobs:
         run: |
           echo "Some files failed the linting checks!"
           exit 1
+
+  # checkpoint
+  lint-examples-success:
+    runs-on: ubuntu-latest
+    name: lint-examples-success
+    needs: [examples-linter]
+    steps:
+      - name: echo
+        run: echo Examples linted successfully!

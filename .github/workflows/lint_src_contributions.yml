@@ -37,3 +37,12 @@ jobs:
         run: |
           echo "Some files failed the linting checks!"
           exit 1
+
+  # checkpoint
+  lint-src-success:
+    runs-on: ubuntu-latest
+    name: lint-src-success
+    needs: [src-linter]
+    steps:
+      - name: echo
+        run: echo Source linting successful!
