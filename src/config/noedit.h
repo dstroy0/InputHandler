@@ -28,33 +28,40 @@
     */
     #include <Arduino.h>
 
-// clang-format off
     // function-like macros
     // TODO make this less bad later
-    #define TRM(x) ihc::terminal_strings[static_cast<int>(ihc::TRM::x)]    
+    #define TRM(x) ihc::terminal_strings[static_cast<int>(ihc::TRM::x)]
     #define CMD_ERR_MSG ihc::command_error_strings[static_cast<int>(ihc::CMD_ERR_IDX::command_string)]
-    #define CMD_ERR(x) ihc::command_error_strings[static_cast<int>(ihc::CMD_ERR_IDX::x)]     
-    #define AE_CMD_ERR(x) ihc::command_error_strings[static_cast<int>(x)]     
+    #define CMD_ERR(x) ihc::command_error_strings[static_cast<int>(ihc::CMD_ERR_IDX::x)]
+    #define AE_CMD_ERR(x) ihc::command_error_strings[static_cast<int>(x)]
     #define ERR_TYP(x) ihc::error_type_strings[static_cast<int>(ihc::ERR_TYP::x)]
     #define ERR_MSG(x) ihc::error_message_strings[static_cast<int>(ihc::ERR_MSG::x)]
     #define VAR_ID(x) ihc::var_id_strings[static_cast<int>(ihc::VAR_ID::x)]
     #define FE_VAR_ID(x) ihc::var_id_strings[static_cast<int>(x)]
     #define nprms(x) (sizeof(x) / sizeof((x)[0])) ///< gets the number of elements in an array
-    #define buffsz(x) nprms(x)                    ///< gets the number of elements in an array
-    #define nelems(x) nprms(x)                    ///< gets the number of elements in an array
-    
-    #define S(s) #s                               ///< gnu direct # stringify macro
-    #define STR(s) S(s)                           ///< gnu indirect # stringify macro
+    #define buffsz(x) nprms(x) ///< gets the number of elements in an array
+    #define nelems(x) nprms(x) ///< gets the number of elements in an array
+
+    #define S(s) #s ///< gnu direct # stringify macro
+    #define STR(s) S(s) ///< gnu indirect # stringify macro
     // file location directive
-    #define LOC __FILE__:__LINE__  ///< direct non-stringified file and line macro
-    #define LOCATION STR(LOC)      ///< indirect stringified file and line macro
-    // end file location directive    
-    // "auto" Type macro        
+    #define LOC                                                                                                                                                                                                                                \
+    __FILE__:                                                                                                                                                                                                                                  \
+        __LINE__ ///< direct non-stringified file and line macro
+    #define LOCATION STR(LOC) ///< indirect stringified file and line macro
+    // end file location directive
+    // "auto" Type macro
     #define UI_ALL_WCC_CMD /** @cond */ ((ih_auto::max_per_root_memcmp_ranges)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX is equal to ih_auto::max_per_root_memcmp_ranges - 1
+    // clang-format off
+    #define ih_pgm_read_dword(addr)                                                                                                                                                                                                            \
+        ({                                                                                                                                                                                                                                     \
+            typeof(addr) _addr = (addr);                                                                                                                                                                                                       \
+            *(const unsigned long*)(_addr);                                                                                                                                                                                                    \
+        })
+    // clang-format on
     // end function-like macros
-    // sizing macros
+    // sizing macro
     #define UI_ESCAPED_CHAR_STRLEN /** @cond */ 3 /** @endcond */ ///< sram buffer size in bytes for a single escaped char
-// clang-format on
 
     #if defined(DOXYGEN_XML_BUILD)
         /**
@@ -78,12 +85,7 @@
 
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
         #undef pgm_read_dword // use a different macro for pgm_read_dword
-        // PROGMEM fix macro
-        #define pgm_read_dword(addr)                                                                                                                                                                                                           \
-            ({                                                                                                                                                                                                                                 \
-                typeof(addr) _addr = (addr);                                                                                                                                                                                                   \
-                *(const unsigned long*)(_addr);                                                                                                                                                                                                \
-            })
+        #define pgm_read_dword ih_pgm_read_dword
 
     #elif defined(__MBED_CONFIG_DATA__) // MBED portability
         #include "utility/vsnprintf.h" // implement vsnprintf
@@ -91,25 +93,14 @@
 
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
         #undef pgm_read_dword // use a different macro for pgm_read_dword
-        // PROGMEM fix macro
-        #define pgm_read_dword(addr)                                                                                                                                                                                                           \
-            ({                                                                                                                                                                                                                                 \
-                typeof(addr) _addr = (addr);                                                                                                                                                                                                   \
-                *(const unsigned long*)(_addr);                                                                                                                                                                                                \
-            })
+        #define pgm_read_dword ih_pgm_read_dword
 
     #elif defined(ARDUINO_SAM_DUE) // DUE portability
         #include "utility/vsnprintf.h" // implement vsnprintf
         #include <avr/dtostrf.h> // implement dtostrf
-
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
         #undef pgm_read_dword // use a different macro for pgm_read_dword
-        // PROGMEM fix macro
-        #define pgm_read_dword(addr)                                                                                                                                                                                                           \
-            ({                                                                                                                                                                                                                                 \
-                typeof(addr) _addr = (addr);                                                                                                                                                                                                   \
-                *(const unsigned long*)(_addr);                                                                                                                                                                                                \
-            })
+        #define pgm_read_dword ih_pgm_read_dword
 
     #elif defined(TEENSYDUINO) // teensy portability
         // pgm/ram section type conflict fix macros (fixes PROGMEM addressing)
@@ -127,12 +118,7 @@
         #define snprintf_P snprintf
         #define vsnprintf_P vsnprintf // this platform does not use vsnprintf_P
         #undef pgm_read_dword // use a different macro for pgm_read_dword
-        // PROGMEM fix macro
-        #define pgm_read_dword(addr)                                                                                                                                                                                                           \
-            ({                                                                                                                                                                                                                                 \
-                typeof(addr) _addr = (addr);                                                                                                                                                                                                   \
-                *(const unsigned long*)(_addr);                                                                                                                                                                                                \
-            })
+        #define pgm_read_dword ih_pgm_read_dword
 
     #endif
 // end portability directives
