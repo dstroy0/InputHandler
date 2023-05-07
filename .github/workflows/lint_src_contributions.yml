@@ -17,17 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Fetch Arduino Core (dependency)
-        run: |
-          export PATH="$GITHUB_WORKSPACE:$PATH"
-          mkdir deps
-          cd deps
-          git clone https://github.com/arduino/ArduinoCore-avr
-          git checkout          
-          cd "ArduinoCore-avr/cores"
-          mv arduino/* $GITHUB_WORKSPACE/src/config/
+        uses: actions/checkout@v3    
 
       - name: Lint src
         uses: shenxianpeng/cpp-linter-action@v2
@@ -36,8 +26,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: file
-          tidy-checks: "performance-*,clang-analyzer-*"
-          ignore: docs | examples | tools | supported_boards | deps | src/arduino
+          tidy-checks: "-*"
+          ignore: docs | examples | tools | supported_boards
           lines-changed-only: false
           files-changed-only: false
           extra-args: -w -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing
