@@ -179,7 +179,7 @@ jobs:
   build-latest-binaries-success:
     runs-on: ubuntu-latest
     name: build-latest-binaries-success
-    needs: [build]
+    needs: [build-latest-windows-binary, build-latest-macos-binary, build-latest-linux-binary]
     steps:
       - name: echo
         run: echo Build latest cli_gen_tool binaries success!
