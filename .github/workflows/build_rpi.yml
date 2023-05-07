@@ -22,7 +22,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build_platform.yml
+    uses: ./.github/workflows/_build_platform.yml
     with:
       platform: rpi
       platform-packages-enabled: false
