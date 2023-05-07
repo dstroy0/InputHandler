@@ -85,9 +85,10 @@ void setup()
     if (!radio.begin())
     {
         Serial.println(F("RF24 radio hardware is not responding!!"));
-        while (1)
+        while (true)
         {
-        } // hold in infinite loop
+            // hold in infinite loop
+        }
     }
 
     // print example's introductory prompt

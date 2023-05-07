@@ -66,6 +66,7 @@ version = 1.0  # save serialization
 ## How long should the splash be displayed (in ms)
 splashscreen_duration = 750
 
+
 ## mainwindow runs on top of "RootWidget"
 class RootWidget(QWidget, object):
     def __init__(self, parent) -> None:
@@ -596,6 +597,7 @@ class MainWindow(
 
 
 # end MainWindow
+
 
 ## main function
 def main():
