@@ -221,26 +221,25 @@
 
 char output_buffer[1] = {'\0'}; // output buffer
 
-const PROGMEM ih::ProcessName process_name = "";       // process name
-const PROGMEM ih::EndOfLineChar process_eol = "\r\n";  // process end of line char
+const PROGMEM ih::ProcessName process_name = ""; // process name
+const PROGMEM ih::EndOfLineChar process_eol = "\r\n"; // process end of line char
 const PROGMEM ih::ControlCharSeq process_ccseq = "##"; // input control character sequence
-const PROGMEM ih::WildcardChar process_wcc = "*";      // process wildcard char
+const PROGMEM ih::WildcardChar process_wcc = "*"; // process wildcard char
 const PROGMEM ih::DelimiterSequences pdelimseq = {
-    2,         // number of delimiter sequences
-    {1, 1},    // delimiter sequence lens
+    2, // number of delimiter sequences
+    {1, 1}, // delimiter sequence lens
     {" ", ","} // delimiter sequences
 };
 
 const PROGMEM ih::StartStopSequences process_ststpseq = {
-    1.0,    // num start stop sequence pairs
+    1.0, // num start stop sequence pairs
     {1, 1}, // start stop sequence lens
     {""
      ", "
      ""} // start stop sequence pairs
 };
 
-const PROGMEM ih::InputParameters input_prm[1] = {
-    &process_name, &process_eol, &process_ccseq, &process_wcc, &pdelimseq, &process_ststpseq};
+const PROGMEM ih::InputParameters input_prm[1] = {&process_name, &process_eol, &process_ccseq, &process_wcc, &pdelimseq, &process_ststpseq};
 ih::Input inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 // default function, called if nothing matches or if there is an error
@@ -253,8 +252,7 @@ void unrecognized(ih::Input* inputProcess)
 void InputHandler_setup()
 {
     Serial.println(F("Setting up InputHandler..."));
-    inputHandler.defaultFunction(
-        unrecognized); // set default function, called when user input has no match or is not valid
+    inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
 
     inputHandler.begin(); // required.  returns true on success.
 }

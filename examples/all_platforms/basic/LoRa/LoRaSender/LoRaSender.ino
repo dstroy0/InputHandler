@@ -30,8 +30,7 @@ void setup()
 
 void loop()
 {
-    while (Serial.available()
-        && payload_index < 32) // get user input, and place it in the payload buffer
+    while (Serial.available() && payload_index < 32) // get user input, and place it in the payload buffer
     {
         char rc = Serial.read(); // Serial (Stream) read() can only read one byte (char) at a time
         payload[payload_index] = rc; // put the received char into the payload buffer

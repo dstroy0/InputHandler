@@ -17,7 +17,7 @@
 using namespace ih;
 AsyncWebServer server(80);
 
-const char* ssid = "REPLACE_WITH_YOUR_SSID";         // Your WiFi SSID
+const char* ssid = "REPLACE_WITH_YOUR_SSID"; // Your WiFi SSID
 const char* password = "REPLACE_WITH_YOUR_PASSWORD"; // Your WiFi Password
 
 /*
@@ -55,16 +55,11 @@ void help(Input* inputProcess) { inputProcess->listCommands(); }
 */
 void test_input_types(Input* inputProcess)
 {
-    inputProcess->outputToStream(
-        Serial); // class output, doesn't have to output to the input stream
-    char* str_ptr =
-        inputProcess
-            ->nextArgument(); //  init str_ptr and point it at the next argument input by the user
-    char* strtoul_ptr = 0;    //  this is for strtoul
+    inputProcess->outputToStream(Serial); // class output, doesn't have to output to the input stream
+    char* str_ptr = inputProcess->nextArgument(); //  init str_ptr and point it at the next argument input by the user
+    char* strtoul_ptr = 0; //  this is for strtoul
     uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10); // get the result in base10
-    uint8_t eight_bit = (strtoul_result <= UINT8_MAX)
-        ? (uint8_t)strtoul_result
-        : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
+    uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
 
     str_ptr = inputProcess->nextArgument();
     strtoul_ptr = 0;
@@ -93,8 +88,8 @@ void test_input_types(Input* inputProcess)
     snprintf_P(unknown_string, 64, PSTR("%s"), str_ptr);
 
     char float_buffer[32] = {'\0'}; //  dtostrf buffer
-    char out[256] = {'\0'};         //  function output buffer
-    uint16_t string_pos = 0;        // function output buffer index
+    char out[256] = {'\0'}; //  function output buffer
+    uint16_t string_pos = 0; // function output buffer index
 
     /*
          format out[] with all of the arguments received
@@ -109,30 +104,27 @@ void test_input_types(Input* inputProcess)
              " char %c\n"
              " c-string %s\n"
              " unknown-type %s\n"),
-        eight_bit, sixteen_bit, thirtytwo_bit, sixteen_bit_int,
-        dtostrf(thirtytwo_bit_float, 2, 3, float_buffer), _char, c_string, unknown_string);
+        eight_bit, sixteen_bit, thirtytwo_bit, sixteen_bit_int, dtostrf(thirtytwo_bit_float, 2, 3, float_buffer), _char, c_string, unknown_string);
 
-    memcpy(output_buffer, out,
-        ((sizeof(out) < sizeof(output_buffer)) ? sizeof(out) : sizeof(output_buffer - 1)));
+    memcpy(output_buffer, out, ((sizeof(out) < sizeof(output_buffer)) ? sizeof(out) : sizeof(output_buffer - 1)));
 }
 
 /**
    @brief Parameters struct for help_
 
 */
-const PROGMEM Parameters help_param[1] = {
-    help, // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr
-          // is also NULL nothing will launch (error)
+const PROGMEM Parameters help_param[1] = {help, // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr
+                                                // is also NULL nothing will launch (error)
     no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "help",       // command string
-    4,            // command string characters
-    root,         // parent id
-    root,         // this command id
-    root,         // command depth
-    0,            // subcommands
+    "help", // command string
+    4, // command string characters
+    root, // parent id
+    root, // this command id
+    root, // command depth
+    0, // subcommands
     UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
+    0, // minimum expected number of arguments
+    0, // maximum expected number of arguments
     /*
       UITYPE arguments
     */
@@ -147,27 +139,27 @@ Command help_(help_param); //  help_ has a command string, and function specifie
 */
 const PROGMEM Parameters type_test_param[1] = {test_input_types, // function ptr
     no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "test",       // command string
-    4,            // string length
-    root,         // parent id
-    root,         // this command id
-    root,         // command depth
-    0,            // subcommands
+    "test", // command string
+    4, // string length
+    root, // parent id
+    root, // this command id
+    root, // command depth
+    0, // subcommands
     UI_ARG_HANDLING::type_arr, // argument handling
-    8,                         // minimum expected number of arguments
-    8,                         // maximum expected number of arguments
+    8, // minimum expected number of arguments
+    8, // maximum expected number of arguments
     /*
       UITYPE arguments
     */
     {
-        UITYPE::UINT8_T,    // 8-bit  uint
-        UITYPE::UINT16_T,   // 16-bit uint
-        UITYPE::UINT32_T,   // 32-bit uint
-        UITYPE::INT16_T,    // 16-bit int
-        UITYPE::FLOAT,      // 32-bit float
-        UITYPE::CHAR,       // char
+        UITYPE::UINT8_T, // 8-bit  uint
+        UITYPE::UINT16_T, // 16-bit uint
+        UITYPE::UINT32_T, // 32-bit uint
+        UITYPE::INT16_T, // 16-bit int
+        UITYPE::FLOAT, // 32-bit float
+        UITYPE::CHAR, // char
         UITYPE::START_STOP, // regex-like start stop char sequences
-        UITYPE::NOTYPE      // special type, no type validation performed
+        UITYPE::NOTYPE // special type, no type validation performed
     }};
 Command test_(type_test_param);
 
@@ -192,17 +184,16 @@ void setup()
 {
     setup_wifi();
 
-    inputHandler.defaultFunction(
-        unrecognized); // set default function, called when user input has no match or is not valid
+    inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
     inputHandler.addCommand(help_); // lists commands available to the user
     inputHandler.addCommand(test_); // input type test
-    inputHandler.begin();           // required.  returns true on success.
-    inputHandler.listCommands();    // formats output_buffer with the command list
+    inputHandler.begin(); // required.  returns true on success.
+    inputHandler.listCommands(); // formats output_buffer with the command list
 
     // WebSerial is accessible at "<IP Address>/webserial" in browser
-    WebSerial.begin(&server);       // WebSerial uses an async server object
+    WebSerial.begin(&server); // WebSerial uses an async server object
     WebSerial.msgCallback(recvMsg); //  callback ISR
-    server.begin();                 //  start async server
+    server.begin(); //  start async server
 }
 
 void loop()

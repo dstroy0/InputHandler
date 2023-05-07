@@ -30,30 +30,29 @@ void hello(Input* inputProcess) { Serial.println(F("hello")); }
 */
 const PROGMEM Parameters test_param[1] = {hello, // function name
     no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "hello",      // command string
-    5,            // string length
-    root,         // parent id
-    root,         // this command id
-    root,         // command depth
-    0,            // subcommands
+    "hello", // command string
+    5, // string length
+    root, // parent id
+    root, // this command id
+    root, // command depth
+    0, // subcommands
     UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
+    0, // minimum expected number of arguments
+    0, // maximum expected number of arguments
     /* UITYPE arguments */
     {UITYPE::NO_ARGS}};
 Command test(test_param);
 
 void setup()
 {
-    delay(500);           // startup delay for reprogramming (prevents restart)
+    delay(500); // startup delay for reprogramming (prevents restart)
     Serial.begin(115200); //  set up Serial
     while (!Serial)
         ; //  wait for user
 
-    inputHandler.defaultFunction(
-        unrecognized); // set default function, called when user input has no match or is not valid
+    inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
     inputHandler.addCommand(test); // input type test
-    if (inputHandler.begin())      // required.  returns true on success.
+    if (inputHandler.begin()) // required.  returns true on success.
     {
         Serial.println(F("enter <hello> to test."));
     }
@@ -66,6 +65,5 @@ void setup()
 
 void loop()
 {
-    inputHandler.getCommandFromStream(
-        Serial); //  read commands from a stream, hardware or software serial should work
+    inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software serial should work
 }

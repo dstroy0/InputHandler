@@ -224,27 +224,26 @@
 char output_buffer[600] {}; // output buffer
 
 const PROGMEM ih::ProcessName process_name = "_test_"; ///< test process name
-const PROGMEM ih::EndOfLineChar process_eol = "\r\n";  ///< test process eol characters
+const PROGMEM ih::EndOfLineChar process_eol = "\r\n"; ///< test process eol characters
 const PROGMEM ih::ControlCharSeq process_ccseq = "##"; ///< test input control character sequence
-const PROGMEM ih::WildcardChar process_wcc = "*";      ///< test process wildcard character
+const PROGMEM ih::WildcardChar process_wcc = "*"; ///< test process wildcard character
 
 // process input-data delimiter sequences
 const PROGMEM ih::DelimiterSequences process_delimseq = {
-    1,    ///< number of delimiter sequences
-    {1},  ///< delimiter sequence lens
+    1, ///< number of delimiter sequences
+    {1}, ///< delimiter sequence lens
     {" "} ///< delimiter sequences
 };
 
 // process input-data start-stop delimiter sequences
 const PROGMEM ih::StartStopSequences process_ststpseq = {
-    1,           ///< num start stop sequence pairs
-    {1, 1},      ///< start stop sequence lens
+    1, ///< num start stop sequence pairs
+    {1, 1}, ///< start stop sequence lens
     {"\"", "\""} ///< start stop sequence pairs
 };
 
 // process-wide user-defined input characteristics
-const PROGMEM ih::InputParameters input_prm[1] = {&process_name, &process_eol, &process_ccseq,
-    &process_wcc, &process_delimseq, &process_ststpseq};
+const PROGMEM ih::InputParameters input_prm[1] = {&process_name, &process_eol, &process_ccseq, &process_wcc, &process_delimseq, &process_ststpseq};
 ih::Input inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 /*
@@ -277,15 +276,15 @@ const PROGMEM ih::Parameters help_param[1] = {
           // is also NULL nothing will launch (error)
     ih::WC_FLAG::no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is
                                // '*'
-    "help",                    // command string
-    4,                         // command string characters
-    ih::root,                  // parent id
-    ih::root,                  // this command id
-    ih::root,                  // command depth
-    0,                         // subcommands
+    "help", // command string
+    4, // command string characters
+    ih::root, // parent id
+    ih::root, // this command id
+    ih::root, // command depth
+    0, // subcommands
     ih::UI_ARG_HANDLING::no_args, // argument handling
-    0,                            // minimum expected number of arguments
-    0,                            // maximum expected number of arguments
+    0, // minimum expected number of arguments
+    0, // maximum expected number of arguments
     /* UITYPE arguments */
     {ih::UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
@@ -297,18 +296,18 @@ ih::Command help_(help_param); //  help_ CommandConstructor object
    your input
 */
 const PROGMEM ih::Parameters settings_param[1] = {
-    settings,                  // function ptr
+    settings, // function ptr
     ih::WC_FLAG::no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is
                                // '*'
-    "inputSettings",           // command string
-    13,                        // command string characters
-    ih::root,                  // parent id
-    ih::root,                  // this command id
-    ih::root,                  // command depth
-    0,                         // subcommands
+    "inputSettings", // command string
+    13, // command string characters
+    ih::root, // parent id
+    ih::root, // this command id
+    ih::root, // command depth
+    0, // subcommands
     ih::UI_ARG_HANDLING::no_args, // argument handling
-    0,                            // minimum expected number of arguments
-    0,                            // maximum expected number of arguments
+    0, // minimum expected number of arguments
+    0, // maximum expected number of arguments
     /* UITYPE arguments */
     {ih::UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
@@ -318,18 +317,18 @@ ih::Command settings_(settings_param); // settings_ CommandConstructor object
    freeRam prints available heap
 */
 const PROGMEM ih::Parameters getFreeRam_param[1] = {
-    getFreeRam,                // function ptr
+    getFreeRam, // function ptr
     ih::WC_FLAG::no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is
                                // '*'
-    "freeRam",                 // command string
-    7,                         // command string characters
-    ih::root,                  // parent id
-    ih::root,                  // this command id
-    ih::root,                  // command depth
-    0,                         // subcommands
+    "freeRam", // command string
+    7, // command string characters
+    ih::root, // parent id
+    ih::root, // this command id
+    ih::root, // command depth
+    0, // subcommands
     ih::UI_ARG_HANDLING::no_args, // argument handling
-    0,                            // minimum expected number of arguments
-    0,                            // maximum expected number of arguments
+    0, // minimum expected number of arguments
+    0, // maximum expected number of arguments
     /* UITYPE arguments */
     {ih::UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
@@ -337,15 +336,14 @@ ih::Command getFreeRam_(getFreeRam_param); // settings_ CommandConstructor objec
 
 void setup()
 {
-    delay(500);           // startup delay for reprogramming
+    delay(500); // startup delay for reprogramming
     Serial.begin(115200); //  set up Serial object (Stream object)
     while (!Serial)
         ; //  wait for user
 
     Serial.println(F("Set up InputHandler..."));
     getFreeRam(&inputHandler);
-    inputHandler.defaultFunction(
-        unrecognized); // set default function, called when user input has no match or is not valid
+    inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
     inputHandler.addCommand(help_); // lists user commands
     inputHandler.addCommand(settings_);
     inputHandler.addCommand(getFreeRam_);
@@ -361,7 +359,7 @@ void setup()
     inputHandler.listSettings();
     inputHandler.outputToStream(Serial); // class output
 
-    inputHandler.listCommands();         // formats output_buffer with the command list
+    inputHandler.listCommands(); // formats output_buffer with the command list
     inputHandler.outputToStream(Serial); // class output
 
     Serial.println(F("end setup()"));
@@ -370,7 +368,6 @@ void setup()
 
 void loop()
 {
-    inputHandler.getCommandFromStream(
-        Serial); //  read commands from a stream, hardware or software should work
+    inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
     inputHandler.outputToStream(Serial); // class output
 }

@@ -1,0 +1,10 @@
+# Format Style Options - Created with Clang Power Tools
+---
+BasedOnStyle: WebKit
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: Allman
+ColumnLimit: 240
+Cpp11BracedListStyle: true
+ExperimentalAutoDetectBinPacking: true
+IndentPPDirectives: BeforeHash
+...

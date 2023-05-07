@@ -15,24 +15,23 @@ char output_buffer[600] {}; // output buffer
   Input constructor settings
 */
 const PROGMEM ih::ProcessName process_name = "_test_"; ///< default process name
-const PROGMEM ih::EndOfLineChar process_eol = "\r\n";  ///< default process eol characters
+const PROGMEM ih::EndOfLineChar process_eol = "\r\n"; ///< default process eol characters
 const PROGMEM ih::ControlCharSeq process_ccseq = "##"; ///< default input control character sequence
-const PROGMEM ih::WildcardChar process_wcc = "*";      ///< default process wildcard character
+const PROGMEM ih::WildcardChar process_wcc = "*"; ///< default process wildcard character
 
 const PROGMEM ih::DelimiterSequences process_delimseq = {
-    2,         ///< number of delimiter sequences
-    {1, 1},    ///< delimiter sequence lens
+    2, ///< number of delimiter sequences
+    {1, 1}, ///< delimiter sequence lens
     {" ", ","} ///< delimiter sequences
 };
 
 const PROGMEM ih::StartStopSequences process_ststpseq = {
-    1,           ///< num start stop sequence pairs
-    {1, 1},      ///< start stop sequence lens
+    1, ///< num start stop sequence pairs
+    {1, 1}, ///< start stop sequence lens
     {"\"", "\""} ///< start stop sequence pairs
 };
 
-const PROGMEM ih::InputParameters input_prm[1] = {&process_name, &process_eol, &process_ccseq,
-    &process_wcc, &process_delimseq, &process_ststpseq};
+const PROGMEM ih::InputParameters input_prm[1] = {&process_name, &process_eol, &process_ccseq, &process_wcc, &process_delimseq, &process_ststpseq};
 ih::Input inputHandler(input_prm, output_buffer, buffsz(output_buffer)); // Input constructor
 
 // default function, called if nothing matches or if there is an error
@@ -45,16 +44,11 @@ void unrecognized(ih::Input* inputProcess)
 // test all available input types
 void test_input_types(ih::Input* inputProcess)
 {
-    inputProcess->outputToStream(
-        Serial); // class output, doesn't have to output to the input stream
-    char* str_ptr =
-        inputProcess
-            ->nextArgument(); //  init str_ptr and point it at the next argument input by the user
-    char* strtoul_ptr = 0;    //  this is for strtoul
+    inputProcess->outputToStream(Serial); // class output, doesn't have to output to the input stream
+    char* str_ptr = inputProcess->nextArgument(); //  init str_ptr and point it at the next argument input by the user
+    char* strtoul_ptr = 0; //  this is for strtoul
     uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10); // get the result in base10
-    uint8_t eight_bit = (strtoul_result <= UINT8_MAX)
-        ? (uint8_t)strtoul_result
-        : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
+    uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
 
     str_ptr = inputProcess->nextArgument();
     strtoul_ptr = 0;
@@ -97,9 +91,7 @@ void test_input_types(ih::Input* inputProcess)
                              " char %c\n"
                              " c-string %s\n"
                              " unknown-type %s\n"),
-        eight_bit, sixteen_bit, thirtytwo_bit, sixteen_bit_int,
-        dtostrf(thirtytwo_bit_float, whole_digits, decimal_digits, float_buffer), _char, c_string,
-        unknown_string);
+        eight_bit, sixteen_bit, thirtytwo_bit, sixteen_bit_int, dtostrf(thirtytwo_bit_float, whole_digits, decimal_digits, float_buffer), _char, c_string, unknown_string);
 
     inputProcess->outputToStream(Serial);
 }
@@ -110,27 +102,27 @@ void test_input_types(ih::Input* inputProcess)
 const PROGMEM ih::Parameters type_test_param[1] = {test_input_types, // function ptr
     ih::WC_FLAG::no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is
                                // '*'
-    "test",                    // command string
-    4,                         // string length
-    ih::CMD_ID::root,          // parent id
-    ih::CMD_ID::root,          // this command id
-    ih::CMD_ID::root,          // command depth
-    0,                         // subcommands
+    "test", // command string
+    4, // string length
+    ih::CMD_ID::root, // parent id
+    ih::CMD_ID::root, // this command id
+    ih::CMD_ID::root, // command depth
+    0, // subcommands
     ih::UI_ARG_HANDLING::type_arr, // argument handling
-    8,                             // minimum expected number of arguments
-    8,                             // maximum expected number of arguments
+    8, // minimum expected number of arguments
+    8, // maximum expected number of arguments
     /*
       UITYPE arguments
     */
     {
-        ih::UITYPE::UINT8_T,    // 8-bit  uint
-        ih::UITYPE::UINT16_T,   // 16-bit uint
-        ih::UITYPE::UINT32_T,   // 32-bit uint
-        ih::UITYPE::INT16_T,    // 16-bit int
-        ih::UITYPE::FLOAT,      // 32-bit float
-        ih::UITYPE::CHAR,       // char
+        ih::UITYPE::UINT8_T, // 8-bit  uint
+        ih::UITYPE::UINT16_T, // 16-bit uint
+        ih::UITYPE::UINT32_T, // 32-bit uint
+        ih::UITYPE::INT16_T, // 16-bit int
+        ih::UITYPE::FLOAT, // 32-bit float
+        ih::UITYPE::CHAR, // char
         ih::UITYPE::START_STOP, // regex-like start stop char sequences
-        ih::UITYPE::NOTYPE      // special type, no type validation performed
+        ih::UITYPE::NOTYPE // special type, no type validation performed
     }};
 ih::Command test_(type_test_param);
 

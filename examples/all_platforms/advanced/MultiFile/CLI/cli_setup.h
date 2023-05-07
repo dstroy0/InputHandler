@@ -23,35 +23,33 @@
 char output_buffer[650] = {'\0'}; //  output buffer
 
 const PROGMEM ih::ProcessName process_name = "_test_"; ///< default process name
-const PROGMEM ih::EndOfLineChar process_eol = "\r\n";  ///< default process eol characters
+const PROGMEM ih::EndOfLineChar process_eol = "\r\n"; ///< default process eol characters
 const PROGMEM ih::ControlCharSeq process_ccseq = "##"; ///< default input control character sequence
 const PROGMEM ih::WildcardChar process_wcc = "*";
 
 const PROGMEM ih::DelimiterSequences pdelimseq = {
-    2,         ///< number of delimiter sequences
-    {1, 1},    ///< delimiter sequence lens
+    2, ///< number of delimiter sequences
+    {1, 1}, ///< delimiter sequence lens
     {" ", ","} ///< delimiter sequences
 };
 
 const PROGMEM ih::StartStopSequences process_ststpseq = {
-    1,           ///< num start stop sequence pairs
-    {1, 1},      ///< start stop sequence lens
+    1, ///< num start stop sequence pairs
+    {1, 1}, ///< start stop sequence lens
     {"\"", "\""} ///< start stop sequence pairs
 };
 
-const PROGMEM ih::InputParameters input_prm[1] = {
-    &process_name, &process_eol, &process_ccseq, &process_wcc, &pdelimseq, &process_ststpseq};
+const PROGMEM ih::InputParameters input_prm[1] = {&process_name, &process_eol, &process_ccseq, &process_wcc, &pdelimseq, &process_ststpseq};
 ih::Input inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
 void InputHandler_setup()
 {
     Serial.println(F("Set up InputHandler..."));
-    inputHandler.defaultFunction(
-        unrecognized); // set default function, called when user input has no match or is not valid
-    inputHandler.addCommand(help_);      // lists commands available to the user
-    inputHandler.addCommand(test_);      // input type test
-    inputHandler.begin();                // required.  returns true on success.
-    inputHandler.listCommands();         // formats output_buffer with the command list
+    inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
+    inputHandler.addCommand(help_); // lists commands available to the user
+    inputHandler.addCommand(test_); // input type test
+    inputHandler.begin(); // required.  returns true on success.
+    inputHandler.listCommands(); // formats output_buffer with the command list
     inputHandler.outputToStream(Serial); // class output
 }
 

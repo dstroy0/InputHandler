@@ -53,16 +53,16 @@ void remote_device(Input* inputProcess) { Serial.println(F("Reached 'remote_devi
 const PROGMEM CommandParameters receiver_param[1] = {
     remote_device, // this is allowed to be NULL, if this is NULL and the terminating subcommand
                    // function ptr is also NULL nothing will launch (error)
-    no_wildcards,  // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "remote",      // command string
-    6,             // command string characters
-    root,          // parent id
-    root,          // this command id
-    root,          // command depth
-    0,             // subcommands
+    no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+    "remote", // command string
+    6, // command string characters
+    root, // parent id
+    root, // this command id
+    root, // command depth
+    0, // subcommands
     UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
+    0, // minimum expected number of arguments
+    0, // maximum expected number of arguments
     /* UITYPE arguments */
     {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
@@ -198,8 +198,8 @@ void setup(void)
     }
 
     inputHandler.defaultFunction(unrecognized); // default callback function
-    inputHandler.addCommand(remote_);           // remote device, perform runtime calcs
-    inputHandler.begin();                       // allocate memory for inputHandler
+    inputHandler.addCommand(remote_); // remote device, perform runtime calcs
+    inputHandler.begin(); // allocate memory for inputHandler
 }
 
 /**************************************************************************/

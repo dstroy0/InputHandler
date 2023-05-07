@@ -32,16 +32,11 @@ void help(ih::Input* inputProcess) { inputProcess->listCommands(); }
 */
 void test_input_types(ih::Input* inputProcess)
 {
-    inputProcess->outputToStream(
-        Serial); // class output, doesn't have to output to the input stream
-    char* str_ptr =
-        inputProcess
-            ->nextArgument(); //  init str_ptr and point it at the next argument input by the user
-    char* strtoul_ptr = 0;    //  this is for strtoul
+    inputProcess->outputToStream(Serial); // class output, doesn't have to output to the input stream
+    char* str_ptr = inputProcess->nextArgument(); //  init str_ptr and point it at the next argument input by the user
+    char* strtoul_ptr = 0; //  this is for strtoul
     uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10); // get the result in base10
-    uint8_t eight_bit = (strtoul_result <= UINT8_MAX)
-        ? (uint8_t)strtoul_result
-        : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
+    uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
 
     str_ptr = inputProcess->nextArgument();
     strtoul_ptr = 0;
@@ -70,8 +65,8 @@ void test_input_types(ih::Input* inputProcess)
     snprintf_P(unknown_string, 64, PSTR("%s"), str_ptr);
 
     char float_buffer[32] = {'\0'}; //  dtostrf buffer
-    char out[512] = {'\0'};         //  function output buffer
-    uint16_t string_pos = 0;        // function output buffer index
+    char out[512] = {'\0'}; //  function output buffer
+    uint16_t string_pos = 0; // function output buffer index
 
     /*
          format out[] with all of the arguments received
@@ -86,8 +81,7 @@ void test_input_types(ih::Input* inputProcess)
              " char %c\n"
              " c-string %s\n"
              " unknown-type %s\n"),
-        eight_bit, sixteen_bit, thirtytwo_bit, sixteen_bit_int,
-        dtostrf(thirtytwo_bit_float, 2, 3, float_buffer), _char, c_string, unknown_string);
+        eight_bit, sixteen_bit, thirtytwo_bit, sixteen_bit_int, dtostrf(thirtytwo_bit_float, 2, 3, float_buffer), _char, c_string, unknown_string);
 
     Serial.println(out);
 }

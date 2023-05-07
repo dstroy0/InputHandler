@@ -64,36 +64,34 @@ extern const ih::Parameters sentence_param[], sentence_error_param[]; // zero de
 
 char output_buffer[512] {}; //  Input output buffer
 
-const PROGMEM ih::ProcessName process_name = "";       ///< default process name
-const PROGMEM ih::EndOfLineChar process_eol = "\r\n";  ///< default process eol characters
+const PROGMEM ih::ProcessName process_name = ""; ///< default process name
+const PROGMEM ih::EndOfLineChar process_eol = "\r\n"; ///< default process eol characters
 const PROGMEM ih::ControlCharSeq process_ccseq = "##"; ///< default input control character sequence
 const PROGMEM ih::WildcardChar process_wcc = "*";
 
 const PROGMEM ih::DelimiterSequences process_delimseq = {
-    1,    ///< number of delimiter sequences
-    {1},  ///< delimiter sequence lens
+    1, ///< number of delimiter sequences
+    {1}, ///< delimiter sequence lens
     {" "} ///< delimiter sequences
 };
 
 const PROGMEM ih::DelimiterSequences psensordelimseq = {
-    1,    ///< number of delimiter sequences
-    {1},  ///< delimiter sequence lens
+    1, ///< number of delimiter sequences
+    {1}, ///< delimiter sequence lens
     {","} ///< delimiter sequences
 };
 
 const PROGMEM ih::StartStopSequences process_ststpseq = {
-    1,           ///< num start stop sequence pairs
-    {1, 1},      ///< start stop sequence lens
+    1, ///< num start stop sequence pairs
+    {1, 1}, ///< start stop sequence lens
     {"\"", "\""} ///< start stop sequence pairs
 };
 
-const PROGMEM ih::InputParameters input_prm[1] = {&process_name, &process_eol, &process_ccseq,
-    &process_wcc, &process_delimseq, &process_ststpseq};
+const PROGMEM ih::InputParameters input_prm[1] = {&process_name, &process_eol, &process_ccseq, &process_wcc, &process_delimseq, &process_ststpseq};
 
 ih::Input inputHandler(input_prm, output_buffer, buffsz(output_buffer));
 
-const PROGMEM ih::InputParameters sensor_prm[1] = {
-    &process_name, &process_eol, &process_ccseq, &process_wcc, &psensordelimseq, &process_ststpseq};
+const PROGMEM ih::InputParameters sensor_prm[1] = {&process_name, &process_eol, &process_ccseq, &process_wcc, &psensordelimseq, &process_ststpseq};
 ih::Input sensorParser(sensor_prm, output_buffer, buffsz(output_buffer));
 
 NMEAparse NMEA;
@@ -124,12 +122,11 @@ void setup()
         ; //  wait for user
 
     Serial.println(F("Set up InputHandler..."));
-    inputHandler.defaultFunction(
-        unrecognized); // set default function, called when user input has no match or is not valid
+    inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
 
-    sensorParser.addCommand(NMEA_sentence);       // regular sentence
+    sensorParser.addCommand(NMEA_sentence); // regular sentence
     sensorParser.addCommand(NMEA_sentence_error); // one or more field errors
-    inputHandler.begin();                         // required.  returns true on success.
+    inputHandler.begin(); // required.  returns true on success.
     sensorParser.begin();
     Serial.println(F("end InputHandler setup"));
     inputHandler.outputToStream(Serial); // class output
@@ -147,8 +144,7 @@ void setup()
 
 void loop()
 {
-    inputHandler.getCommandFromStream(
-        Serial); //  read commands from a stream, hardware or software should work
+    inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
     inputHandler.outputToStream(Serial); // class output
     sensorParser.outputToStream(Serial);
     // NMEA.parseSentence(Serial2); // getSentence accepts a Stream obect or (uint8_t buffer, size_t

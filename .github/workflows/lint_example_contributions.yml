@@ -4,30 +4,30 @@ on:
     branches:
       - main
     paths: |
-      - '**/src/**'
-      - '**/.github/workflows/lint_src_contributions.yml'
+      - '**/examples/**'      
   workflow_dispatch:
     branches:
       - main
     paths: |
-      - '**/src/**'
+      - '**/examples/**'
 
 jobs:
-  src-linter:
+  examples-linter:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Lint src
+      - name: Lint examples
         uses: shenxianpeng/cpp-linter-action@v2
         id: linter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: file
+          extensions: "h,ino"
           tidy-checks: "-*"
-          ignore: docs | examples | tools | supported_boards
+          ignore: docs | src | tools | supported_boards
           lines-changed-only: false
           files-changed-only: false
           extra-args: -w -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing

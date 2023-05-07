@@ -11,11 +11,10 @@
     #define __NMEAparser_H__
 
     #include "NMEAsentenceparam.h" // NMEA commands setup
-    #include <InputHandler.h>      // include for Input object
+    #include <InputHandler.h> // include for Input object
 using namespace ih;
     #define NMEA_SENTENCE_STREAM_INPUT_BUFFER_SIZE 85 // Stream object input wrapper buffer len
-    #define NMEA_SENTENCE_MAX_EMPTY_FIELDS                                                         \
-        32 // parseSentence input buffer size == input_len + (this * strlen(empty_field_ph))
+    #define NMEA_SENTENCE_MAX_EMPTY_FIELDS 32 // parseSentence input buffer size == input_len + (this * strlen(empty_field_ph))
 
 // external objects
 extern Input sensorParser; // Input object declared in NMEAparser.ino
@@ -24,8 +23,7 @@ extern const Parameters sentence_param[],
 // end external objects
 
 const byte num_zdc = 2; // number of zero delim commands
-const Parameters* zdc[num_zdc] = {
-    sentence_param, sentence_error_param}; // zero delim command Parameters structure pointers
+const Parameters* zdc[num_zdc] = {sentence_param, sentence_error_param}; // zero delim command Parameters structure pointers
 
 const char* empty_field_ph = "blank"; // empty sentence field placeholder (temporary)
 
@@ -88,8 +86,7 @@ private:
             {
                 buffer_idx++;
             }
-            else if ((char)buffer[buffer_idx] == ','
-                && ((char)buffer[buffer_idx + 1U] == ',' || (char)buffer[buffer_idx + 1U] == '*'))
+            else if ((char)buffer[buffer_idx] == ',' && ((char)buffer[buffer_idx + 1U] == ',' || (char)buffer[buffer_idx + 1U] == '*'))
             {
                 corrected_input[corrected_input_idx] = (char)buffer[buffer_idx];
                 corrected_input_idx++;
@@ -103,8 +100,7 @@ private:
                     corrected_input_idx++;
                 }
             }
-            else if (((char)buffer[buffer_idx] == '$' || (char)buffer[buffer_idx] == '!')
-                && (buffer_idx < 5U))
+            else if (((char)buffer[buffer_idx] == '$' || (char)buffer[buffer_idx] == '!') && (buffer_idx < 5U))
             {
                 corrected_input[corrected_input_idx] = (char)buffer[buffer_idx];
                 corrected_input_idx++;
@@ -117,8 +113,7 @@ private:
                 buffer_idx++;
             }
         }
-        sensorParser.readCommandFromBuffer(
-            (uint8_t*)corrected_input, strlen(corrected_input), num_zdc, zdc);
+        sensorParser.readCommandFromBuffer((uint8_t*)corrected_input, strlen(corrected_input), num_zdc, zdc);
         free(corrected_input);
     }
 };

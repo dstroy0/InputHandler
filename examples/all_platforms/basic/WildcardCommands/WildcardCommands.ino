@@ -45,16 +45,11 @@ void help(Input* inputProcess) { inputProcess->listCommands(); }
 */
 void test_input_types(Input* inputProcess)
 {
-    inputProcess->outputToStream(
-        Serial); // class output, doesn't have to output to the input stream
-    char* str_ptr =
-        inputProcess
-            ->nextArgument(); //  init str_ptr and point it at the next argument input by the user
-    char* strtoul_ptr = 0;    //  this is for strtoul
+    inputProcess->outputToStream(Serial); // class output, doesn't have to output to the input stream
+    char* str_ptr = inputProcess->nextArgument(); //  init str_ptr and point it at the next argument input by the user
+    char* strtoul_ptr = 0; //  this is for strtoul
     uint32_t strtoul_result = strtoul(str_ptr, &strtoul_ptr, 10); // get the result in base10
-    uint8_t eight_bit = (strtoul_result <= UINT8_MAX)
-        ? (uint8_t)strtoul_result
-        : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
+    uint8_t eight_bit = (strtoul_result <= UINT8_MAX) ? (uint8_t)strtoul_result : 0U; // if the result is less than UINT8_MAX then set eight_bit, else eight_bit = 0
 
     str_ptr = inputProcess->nextArgument();
     strtoul_ptr = 0;
@@ -83,8 +78,8 @@ void test_input_types(Input* inputProcess)
     snprintf_P(unknown_string, 64, PSTR("%s"), str_ptr);
 
     char float_buffer[32] = {'\0'}; //  dtostrf buffer
-    char out[512] = {'\0'};         //  function output buffer
-    uint16_t string_pos = 0;        // function output buffer index
+    char out[512] = {'\0'}; //  function output buffer
+    uint16_t string_pos = 0; // function output buffer index
 
     /*
          format out[] with all of the arguments received
@@ -99,8 +94,7 @@ void test_input_types(Input* inputProcess)
              " char %c\n"
              " c-string %s\n"
              " unknown-type %s\n"),
-        eight_bit, sixteen_bit, thirtytwo_bit, sixteen_bit_int,
-        dtostrf(thirtytwo_bit_float, 2, 3, float_buffer), _char, c_string, unknown_string);
+        eight_bit, sixteen_bit, thirtytwo_bit, sixteen_bit_int, dtostrf(thirtytwo_bit_float, 2, 3, float_buffer), _char, c_string, unknown_string);
 
     Serial.println(out);
 }
@@ -109,19 +103,18 @@ void test_input_types(Input* inputProcess)
    @brief Parameters struct for help_
 
 */
-const PROGMEM Parameters help_param[1] = {
-    help, // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr
-          // is also NULL nothing will launch (error)
+const PROGMEM Parameters help_param[1] = {help, // this is allowed to be NULL, if this is NULL and the terminating subcommand function ptr
+                                                // is also NULL nothing will launch (error)
     has_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "****",        // command string
-    4,             // command string characters
-    root,          // parent id
-    root,          // this command id
-    root,          // command depth
-    0,             // subcommands
+    "****", // command string
+    4, // command string characters
+    root, // parent id
+    root, // this command id
+    root, // command depth
+    0, // subcommands
     UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
+    0, // minimum expected number of arguments
+    0, // maximum expected number of arguments
     /*
       UITYPE arguments
     */
@@ -135,24 +128,23 @@ Command help_(help_param); //  help_ has a command string, and function specifie
 
 */
 const PROGMEM Parameters settings_param[1] = {settings, // function ptr
-    no_wildcards,    // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+    no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
     "inputSettings", // command string
-    13,              // command string characters
-    root,            // parent id
-    root,            // this command id
-    root,            // command depth
-    0,               // subcommands
+    13, // command string characters
+    root, // parent id
+    root, // this command id
+    root, // command depth
+    0, // subcommands
     UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
+    0, // minimum expected number of arguments
+    0, // maximum expected number of arguments
     /*
       UITYPE arguments
     */
     {
         UITYPE::NO_ARGS // use NO_ARGS if the function expects no arguments
     }};
-Command settings_(
-    settings_param); // settings_ has a command string, and function specified
+Command settings_(settings_param); // settings_ has a command string, and function specified
 
 /**
    @brief Parameters struct for test_
@@ -160,40 +152,39 @@ Command settings_(
 */
 const PROGMEM Parameters type_test_param[1] = {test_input_types, // function ptr
     has_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "***t",        // command string
-    4,             // string length
-    root,          // parent id
-    root,          // this command id
-    root,          // command depth
-    0,             // subcommands
+    "***t", // command string
+    4, // string length
+    root, // parent id
+    root, // this command id
+    root, // command depth
+    0, // subcommands
     UI_ARG_HANDLING::type_arr, // argument handling
-    8,                         // minimum expected number of arguments
-    8,                         // maximum expected number of arguments
+    8, // minimum expected number of arguments
+    8, // maximum expected number of arguments
     /*
       UITYPE arguments
     */
     {
-        UITYPE::UINT8_T,    // 8-bit  uint
-        UITYPE::UINT16_T,   // 16-bit uint
-        UITYPE::UINT32_T,   // 32-bit uint
-        UITYPE::INT16_T,    // 16-bit int
-        UITYPE::FLOAT,      // 32-bit float
-        UITYPE::CHAR,       // char
+        UITYPE::UINT8_T, // 8-bit  uint
+        UITYPE::UINT16_T, // 16-bit uint
+        UITYPE::UINT32_T, // 32-bit uint
+        UITYPE::INT16_T, // 16-bit int
+        UITYPE::FLOAT, // 32-bit float
+        UITYPE::CHAR, // char
         UITYPE::START_STOP, // regex-like start stop char sequences
-        UITYPE::NOTYPE      // special type, no type validation performed
+        UITYPE::NOTYPE // special type, no type validation performed
     }};
 Command test_(type_test_param);
 
 void setup()
 {
-    delay(500);           // startup delay for reprogramming
+    delay(500); // startup delay for reprogramming
     Serial.begin(115200); //  set up Serial object (Stream object)
     while (!Serial)
         ; //  wait for user
 
     Serial.println(F("Set up InputHandler..."));
-    inputHandler.defaultFunction(
-        unrecognized); // set default function, called when user input has no match or is not valid
+    inputHandler.defaultFunction(unrecognized); // set default function, called when user input has no match or is not valid
     // help is an all wildcard command
     // if the input command is the same strlen as the command string in "help"
     // it will try to launch the function if there are NO OTHER matches
@@ -211,18 +202,17 @@ void setup()
     // is "***t" which means its memcmp range will be one char wide starting at the
     // 4th position
     inputHandler.addCommand(test_); // input type test
-    inputHandler.begin();           // required.  returns true on success.
+    inputHandler.begin(); // required.  returns true on success.
 
     inputHandler.listSettings();
     inputHandler.outputToStream(Serial); // class output
 
-    inputHandler.listCommands();         // formats output_buffer with the command list
+    inputHandler.listCommands(); // formats output_buffer with the command list
     inputHandler.outputToStream(Serial); // class output
 }
 
 void loop()
 {
-    inputHandler.getCommandFromStream(
-        Serial); //  read commands from a stream, hardware or software should work
+    inputHandler.getCommandFromStream(Serial); //  read commands from a stream, hardware or software should work
     inputHandler.outputToStream(Serial); // class output
 }

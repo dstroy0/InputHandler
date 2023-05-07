@@ -57,16 +57,16 @@ void remote_device(Input* inputProcess) { Serial.println(F("Reached 'remote_devi
 const PROGMEM Parameters receiver_param[1] = {
     remote_device, // this is allowed to be NULL, if this is NULL and the terminating subcommand
                    // function ptr is also NULL nothing will launch (error)
-    no_wildcards,  // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
-    "remote",      // command string
-    6,             // command string characters
-    root,          // parent id
-    root,          // this command id
-    root,          // command depth
-    0,             // subcommands
+    no_wildcards, // no_wildcards or has_wildcards, default WildCard Character (wcc) is '*'
+    "remote", // command string
+    6, // command string characters
+    root, // parent id
+    root, // this command id
+    root, // command depth
+    0, // subcommands
     UI_ARG_HANDLING::no_args, // argument handling
-    0,                        // minimum expected number of arguments
-    0,                        // maximum expected number of arguments
+    0, // minimum expected number of arguments
+    0, // maximum expected number of arguments
     /* UITYPE arguments */
     {UITYPE::NO_ARGS} // use NO_ARGS if the function expects no arguments
 };
@@ -129,10 +129,10 @@ void setup()
     }
     else
     {
-        radio.startListening();                     // put radio in RX mode
+        radio.startListening(); // put radio in RX mode
         inputHandler.defaultFunction(unrecognized); // default callback function
-        inputHandler.addCommand(remote_);           // remote device, perform runtime calcs
-        inputHandler.begin();                       // allocate memory for inputHandler
+        inputHandler.addCommand(remote_); // remote device, perform runtime calcs
+        inputHandler.begin(); // allocate memory for inputHandler
     }
 
     // For debugging info
@@ -149,20 +149,18 @@ void loop()
     {
         // This device is a TX node
 
-        while (Serial.available()
-            && payload_index < 32) // get user input, and place it in the payload buffer
+        while (Serial.available() && payload_index < 32) // get user input, and place it in the payload buffer
         {
-            char rc =
-                Serial.read(); // Serial (Stream) read() can only read one byte (char) at a time
+            char rc = Serial.read(); // Serial (Stream) read() can only read one byte (char) at a time
             payload[payload_index] = rc; // put the received char into the payload buffer
             payload_index++; // increment payload_index, this means the same as payload_index =
                              // payload_index + 1;
         }
         if (payload_index > 0)
         {
-            unsigned long start_timer = micros();               // start the timer
+            unsigned long start_timer = micros(); // start the timer
             bool report = radio.write(&payload, payload_index); // transmit & save the report
-            unsigned long end_timer = micros();                 // end the timer
+            unsigned long end_timer = micros(); // end the timer
             payload_index = 0;
             if (report)
             {
@@ -186,7 +184,7 @@ void loop()
         if (radio.available(&pipe))
         { // is there a payload? get the pipe number that recieved it
             uint8_t bytes = radio.getPayloadSize(); // get the size of the payload
-            radio.read(&payload, bytes);            // fetch payload from FIFO
+            radio.read(&payload, bytes); // fetch payload from FIFO
             Serial.print(F("Received "));
             Serial.print(bytes); // print the size of the payload
             Serial.print(F(" bytes on pipe "));
