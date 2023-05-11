@@ -779,48 +779,6 @@
         <span class="n">container</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tab_2</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tab_2</span><span class="p">)</span></div>
 
-    <span class="c1">## formats a docstring and returns a list populated with lines of text</span>
-<div class="viewcode-block" id="CodeGeneration.generate_docstring_list_for_filename"><a class="viewcode-back" href="../modules/code_generation.html#code_generation.CodeGeneration.generate_docstring_list_for_filename">[docs]</a>    <span class="k">def</span> <span class="nf">generate_docstring_list_for_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">brief</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;makes the docstring for generated files</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            filename (str): the filename</span>
-<span class="sd">            brief (str): purpose of file</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            list: list of docstring lines to prepend to filename</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">docstring_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">year</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">())[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
-        <span class="n">ll</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">lib_license_cpp</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">docs_year</span><span class="o">=</span><span class="n">year</span><span class="p">)</span>
-        <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
-        <span class="n">docstring</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">docfs</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">docs_version</span><span class="o">=</span><span class="n">cliFileStrings</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
-            <span class="n">lib_version</span><span class="o">=</span><span class="n">cliFileStrings</span><span class="o">.</span><span class="n">lib_version</span><span class="p">,</span>
-            <span class="n">lib_license</span><span class="o">=</span><span class="n">ll</span><span class="p">,</span>
-            <span class="n">docs_filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-            <span class="n">docs_brief</span><span class="o">=</span><span class="n">brief</span><span class="p">,</span>
-            <span class="n">docs_year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
-            <span class="n">docs_date</span><span class="o">=</span><span class="n">date</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">docstring_list</span> <span class="o">=</span> <span class="n">docstring</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">docstring_list</span></div>
-
-    <span class="c1">## turns a list of text lines into a complete file string where each line ends with newline</span>
-<div class="viewcode-block" id="CodeGeneration.list_to_code_string"><a class="viewcode-back" href="../modules/code_generation.html#code_generation.CodeGeneration.list_to_code_string">[docs]</a>    <span class="k">def</span> <span class="nf">list_to_code_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;concatenates strings in a list to each other with a newline at the end</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            list (list): list of filelines</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            str: continuous string generated from list arg</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">code_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
-            <span class="n">code_string</span> <span class="o">=</span> <span class="n">code_string</span> <span class="o">+</span> <span class="n">line</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="k">return</span> <span class="n">code_string</span></div>
-
     <span class="c1"># TODO detect file structure as defined in dataModels</span>
 <div class="viewcode-block" id="CodeGeneration.detect_output_type"><a class="viewcode-back" href="../modules/code_generation.html#code_generation.CodeGeneration.detect_output_type">[docs]</a>    <span class="k">def</span> <span class="nf">detect_output_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
         <span class="n">pio_structure</span> <span class="o">=</span> <span class="n">dataModels</span><span class="o">.</span><span class="n">pio_structure</span>

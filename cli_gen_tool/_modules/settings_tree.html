@@ -259,6 +259,7 @@
 <span class="kn">from</span> <span class="nn">modules.display_models</span> <span class="kn">import</span> <span class="n">displayModels</span>
 <span class="kn">from</span> <span class="nn">modules.mainwindow_methods</span> <span class="kn">import</span> <span class="n">TableButtonBox</span>
 
+
 <span class="c1"># TODO update underlying data</span>
 <div class="viewcode-block" id="DelimiterTableWidget"><a class="viewcode-back" href="../modules/settings_tree.html#settings_tree.DelimiterTableWidget">[docs]</a><span class="k">class</span> <span class="nc">DelimiterTableWidget</span><span class="p">(</span><span class="n">QTableWidget</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -398,7 +399,6 @@
                 <span class="n">setting_container</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandLinkIcon</span><span class="p">)</span>
 
                 <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">SettingsTreeMethods</span><span class="o">.</span><span class="n">_tree</span><span class="p">[</span><span class="n">parent</span><span class="p">]:</span>
-
                     <span class="n">dict_pos</span> <span class="o">=</span> <span class="n">dict_key</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index_of_child</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="n">child</span>
 
                     <span class="n">var_initial_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span><span class="p">[</span><span class="n">dict_key</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">child</span><span class="p">]</span>

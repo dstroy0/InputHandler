@@ -287,19 +287,6 @@ object (object): base object specialization</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="code_generation.CodeGeneration.generate_docstring_list_for_filename">
-<span class="sig-name descname"><span class="pre">generate_docstring_list_for_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brief</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.generate_docstring_list_for_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.generate_docstring_list_for_filename" title="Permalink to this definition">#</a></dt>
-<dd><p>makes the docstring for generated files</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>filename (str): the filename
-brief (str): purpose of file</p>
-</dd>
-<dt>Returns:</dt><dd><p>list: list of docstring lines to prepend to filename</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="code_generation.CodeGeneration.generatedialog_clicked_arduino_file_output_structure">
 <span class="sig-name descname"><span class="pre">generatedialog_clicked_arduino_file_output_structure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.generatedialog_clicked_arduino_file_output_structure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.generatedialog_clicked_arduino_file_output_structure" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
@@ -318,18 +305,6 @@ brief (str): purpose of file</p>
 <dt class="sig sig-object py" id="code_generation.CodeGeneration.initial_code_preview">
 <span class="sig-name descname"><span class="pre">initial_code_preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.initial_code_preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.initial_code_preview" title="Permalink to this definition">#</a></dt>
 <dd><p>code preview wrapper</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="code_generation.CodeGeneration.list_to_code_string">
-<span class="sig-name descname"><span class="pre">list_to_code_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/code_generation.html#CodeGeneration.list_to_code_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#code_generation.CodeGeneration.list_to_code_string" title="Permalink to this definition">#</a></dt>
-<dd><p>concatenates strings in a list to each other with a newline at the end</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>list (list): list of filelines</p>
-</dd>
-<dt>Returns:</dt><dd><p>str: continuous string generated from list arg</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -742,12 +717,10 @@ place_cursor (bool): place the text cursor on <cite>item_string</cite> if True a
 <li><a class="reference internal" href="#code_generation.CodeGeneration.detect_output_type"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.detect_output_type()</span></code></a></li>
 <li><a class="reference internal" href="#code_generation.CodeGeneration.display_initial_code_preview"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.display_initial_code_preview()</span></code></a></li>
 <li><a class="reference internal" href="#code_generation.CodeGeneration.generate_cli"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.generate_cli()</span></code></a></li>
-<li><a class="reference internal" href="#code_generation.CodeGeneration.generate_docstring_list_for_filename"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.generate_docstring_list_for_filename()</span></code></a></li>
 <li><a class="reference internal" href="#code_generation.CodeGeneration.generatedialog_clicked_arduino_file_output_structure"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.generatedialog_clicked_arduino_file_output_structure()</span></code></a></li>
 <li><a class="reference internal" href="#code_generation.CodeGeneration.generatedialog_clicked_platformio_file_output_structure"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.generatedialog_clicked_platformio_file_output_structure()</span></code></a></li>
 <li><a class="reference internal" href="#code_generation.CodeGeneration.generatedialog_set_output_dir"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.generatedialog_set_output_dir()</span></code></a></li>
 <li><a class="reference internal" href="#code_generation.CodeGeneration.initial_code_preview"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.initial_code_preview()</span></code></a></li>
-<li><a class="reference internal" href="#code_generation.CodeGeneration.list_to_code_string"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.list_to_code_string()</span></code></a></li>
 <li><a class="reference internal" href="#code_generation.CodeGeneration.make_collapse_button"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.make_collapse_button()</span></code></a></li>
 <li><a class="reference internal" href="#code_generation.CodeGeneration.parse_config"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.parse_config()</span></code></a></li>
 <li><a class="reference internal" href="#code_generation.CodeGeneration.set_code_string"><code class="docutils literal notranslate"><span class="pre">CodeGeneration.set_code_string()</span></code></a></li>

@@ -238,9 +238,6 @@
 <span class="c1"># imports</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">pathlib</span>
-<span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">qdarktheme</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">QEvent</span><span class="p">,</span>
@@ -283,6 +280,9 @@
 <span class="kn">from</span> <span class="nn">modules.mainwindow_methods</span> <span class="kn">import</span> <span class="n">MainWindowMethods</span>  <span class="c1"># mainwindow interaction</span>
 <span class="kn">from</span> <span class="nn">modules.code_generation</span> <span class="kn">import</span> <span class="n">CodeGeneration</span>  <span class="c1"># code preview and generation</span>
 <span class="kn">from</span> <span class="nn">modules.script_cli</span> <span class="kn">import</span> <span class="n">ScriptCLI</span>  <span class="c1"># cli_gen_tool CLI</span>
+<span class="kn">from</span> <span class="nn">modules.cli.cli_helper_methods</span> <span class="kn">import</span> <span class="n">CLIHelperMethods</span>  <span class="c1"># file generation helpers</span>
+<span class="kn">from</span> <span class="nn">modules.no_dialog_file_manipulation</span> <span class="kn">import</span> <span class="n">NoDialogFileManipulation</span>
+<span class="kn">from</span> <span class="nn">modules.user_dialogs</span> <span class="kn">import</span> <span class="n">UserDialogs</span>
 
 <span class="c1">## tool version</span>
 <span class="n">version</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># save serialization</span>
@@ -303,6 +303,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">app</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_app_screen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">get_app_screen</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">create_qdialog</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_cli_gen_tool_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">write_cli_gen_tool_json</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">write_json</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">read_json</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">create_file_error_qdialog</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_project_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">get_project_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">open_file</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">root_log_handler</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setup_file_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">setup_file_handler</span>
@@ -355,7 +361,9 @@
 
 
 <span class="c1">## set up pathing, logging, splash screen</span>
-<div class="viewcode-block" id="Initialize"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Initialize">[docs]</a><span class="k">class</span> <span class="nc">Initialize</span><span class="p">(</span><span class="n">HelperMethods</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Initialize"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Initialize">[docs]</a><span class="k">class</span> <span class="nc">Initialize</span><span class="p">(</span>
+    <span class="n">HelperMethods</span><span class="p">,</span> <span class="n">NoDialogFileManipulation</span><span class="p">,</span> <span class="n">UserDialogs</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">ScriptCLI</span><span class="p">,</span> <span class="nb">object</span>
+<span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Initialize</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
@@ -368,7 +376,7 @@
             <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="p">):</span>
                 <span class="nb">print</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;failed to make necessary directory:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;failed to make necessary directory:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="si">}</span><span class="se">\n</span><span class="s2">exiting.&quot;</span>
                 <span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">interfaces_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span><span class="p">,</span> <span class="s2">&quot;interfaces&quot;</span><span class="p">)</span>
@@ -391,8 +399,14 @@
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="n">Logger</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">)</span>
-        
-        <span class="n">args</span> <span class="o">=</span> <span class="n">ScriptCLI</span><span class="o">.</span><span class="n">script_cli</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">ScriptCLI</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">script_cli</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">headless</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">headless</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating CLI with supplied arguments&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="c1"># GUI container</span>
         <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
@@ -404,11 +418,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">RootWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="n">HelperMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating CLI with supplied arguments&quot;</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
+        <span class="n">NoDialogFileManipulation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">UserDialogs</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_app_screen</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CLI gen tool pathing&quot;</span><span class="p">)</span>
@@ -490,6 +501,7 @@
     <span class="n">PreferencesMethods</span><span class="p">,</span>
     <span class="n">MainWindowMethods</span><span class="p">,</span>
     <span class="n">CodeGeneration</span><span class="p">,</span>
+    <span class="n">CLIHelperMethods</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="c1">## The constructor.</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -509,13 +521,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">create_qdialog</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inputhandler_save_path</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">inputhandler_save_path</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_cli_gen_tool_json</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">write_cli_gen_tool_json</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_json</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">write_json</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_json</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">read_json</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_file_error_qdialog</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">create_file_error_qdialog</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_project_dir</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">get_project_dir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_file</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">open_file</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_instance</span><span class="o">.</span><span class="n">get_child_logger</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">app</span>  <span class="c1"># QApplication</span>
 
         <span class="c1"># MainWindow logger</span>
         <span class="n">MainWindow</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-
+        <span class="n">CLIHelperMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="c1"># pathing</span>
         <span class="c1"># /InputHandler/src/config/config.h</span>
         <span class="n">default_lib_config_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">+</span> <span class="s2">&quot;/src/config/&quot;</span><span class="p">)</span>
@@ -562,27 +581,25 @@
         <span class="c1"># InputHandler builtin user interactable commands</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ih_builtins</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;listSettings&quot;</span><span class="p">,</span> <span class="s2">&quot;listCommands&quot;</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_up_main_window</span><span class="p">(</span><span class="n">Ui_MainWindow</span><span class="p">())</span>
-            <span class="n">MainWindowMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_up_main_window</span><span class="p">(</span><span class="n">Ui_MainWindow</span><span class="p">())</span>
+        <span class="n">MainWindowMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">set_up_session</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
-            <span class="c1"># Splashscreen timer</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">QTimer</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">setSingleShot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">(</span>
-                <span class="n">splashscreen_duration</span>
-            <span class="p">)</span>  <span class="c1"># Show app splash for `splashscreen_duration`</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">show_splash</span><span class="p">()</span>
+        <span class="c1"># Splashscreen timer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">QTimer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">setSingleShot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">(</span>
+            <span class="n">splashscreen_duration</span>
+        <span class="p">)</span>  <span class="c1"># Show app splash for `splashscreen_duration`</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_splash</span><span class="p">()</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_up_log_history_dialog</span><span class="p">(</span><span class="n">Ui_logHistoryDialog</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_up_log_history_dialog</span><span class="p">(</span><span class="n">Ui_logHistoryDialog</span><span class="p">())</span>
 
-            <span class="c1"># preferences dialog</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span> <span class="o">=</span> <span class="n">QDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span> <span class="o">=</span> <span class="n">Ui_Preferences</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="p">)</span>
+        <span class="c1"># preferences dialog</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span> <span class="o">=</span> <span class="n">QDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span> <span class="o">=</span> <span class="n">Ui_Preferences</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="p">)</span>
 
         <span class="c1"># init and config classes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Importing external classes.&quot;</span><span class="p">)</span>
@@ -593,13 +610,12 @@
         <span class="n">PreferencesMethods</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">CodeGeneration</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_up_ui_icons</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cli_generation_dialog_setup</span><span class="p">(</span><span class="n">Ui_generateDialog</span><span class="p">())</span>
-            <span class="c1"># MainWindow actions</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_menu_bar_actions_setup</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_button_actions_setup</span><span class="p">()</span>
-            <span class="c1"># end MainWindow actions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_up_ui_icons</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cli_generation_dialog_setup</span><span class="p">(</span><span class="n">Ui_generateDialog</span><span class="p">())</span>
+        <span class="c1"># MainWindow actions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_menu_bar_actions_setup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_button_actions_setup</span><span class="p">()</span>
+        <span class="c1"># end MainWindow actions</span>
 
         <span class="c1"># settings and command trees</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parse_config</span><span class="p">()</span>
@@ -608,26 +624,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_settings_tree</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">get_settings_tree</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preferences_dialog_setup</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_up_command_parameters_dialog</span><span class="p">(</span><span class="n">Ui_commandParametersDialog</span><span class="p">())</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">display_initial_code_preview</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preferences_dialog_setup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_up_command_parameters_dialog</span><span class="p">(</span><span class="n">Ui_commandParametersDialog</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_initial_code_preview</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
-            <span class="c1"># viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">logHistoryPlainTextEdit</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">viewport</span><span class="p">()</span><span class="o">.</span><span class="n">installEventFilter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># bring MainWindow in focus</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windowFlags</span><span class="p">()</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">WindowStaysOnTopHint</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windowFlags</span><span class="p">()</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowStaysOnTopHint</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CLI generation tool ready.&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loading</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
-            <span class="c1"># self.generate_cli(self.cli_project_path)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;finished, exiting&quot;</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
         <span class="c1"># end MainWindow.__init__()</span>
 
 <div class="viewcode-block" id="MainWindow.closeEvent"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.MainWindow.closeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QEvent</span><span class="p">):</span>

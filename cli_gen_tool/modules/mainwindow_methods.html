@@ -281,17 +281,6 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="mainwindow_methods.MainWindowMethods.create_file_error_qdialog">
-<span class="sig-name descname"><span class="pre">create_file_error_qdialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_methods.html#MainWindowMethods.create_file_error_qdialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_methods.MainWindowMethods.create_file_error_qdialog" title="Permalink to this definition">#</a></dt>
-<dd><p>creates an error dialog</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>error_type (str): error description
-qfile (QFile): file information</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="mainwindow_methods.MainWindowMethods.do_before_app_close">
 <span class="sig-name descname"><span class="pre">do_before_app_close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restarting</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_methods.html#MainWindowMethods.do_before_app_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_methods.MainWindowMethods.do_before_app_close" title="Permalink to this definition">#</a></dt>
 <dd><p>do these things before app close</p>
@@ -322,16 +311,6 @@ restarting (bool, optional): the app is restarting if True. Defaults to False.</
 <dt class="sig sig-object py" id="mainwindow_methods.MainWindowMethods.get_initial_config_path">
 <span class="sig-name descname"><span class="pre">get_initial_config_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_methods.html#MainWindowMethods.get_initial_config_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_methods.MainWindowMethods.get_initial_config_path" title="Permalink to this definition">#</a></dt>
 <dd><p>get initial path to config</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mainwindow_methods.MainWindowMethods.get_project_dir">
-<span class="sig-name descname"><span class="pre">get_project_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/mainwindow_methods.html#MainWindowMethods.get_project_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_methods.MainWindowMethods.get_project_dir" title="Permalink to this definition">#</a></dt>
-<dd><p>get valid os path to project</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>str: valid os path or None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -405,37 +384,11 @@ restarting (bool, optional): the app is restarting if True. Defaults to False.</
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="mainwindow_methods.MainWindowMethods.open_file">
-<span class="sig-name descname"><span class="pre">open_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checked</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/mainwindow_methods.html#MainWindowMethods.open_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_methods.MainWindowMethods.open_file" title="Permalink to this definition">#</a></dt>
-<dd><p>opens a cli options file and does simple validity check</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>checked (bool, optional): action checked bool. Defaults to False.
-path (str, optional): absolute file path. Defaults to “”.</p>
-</dd>
-<dt>Returns:</dt><dd><p>int: size if greater than zero, error code if zero or less.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="mainwindow_methods.MainWindowMethods.queue_collapse_button_text">
 <span class="sig-name descname"><span class="pre">queue_collapse_button_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_methods.html#MainWindowMethods.queue_collapse_button_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_methods.MainWindowMethods.queue_collapse_button_text" title="Permalink to this definition">#</a></dt>
 <dd><p>queue collapse button text change</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>button_dict (dict): button interacted with</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mainwindow_methods.MainWindowMethods.read_json">
-<span class="sig-name descname"><span class="pre">read_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_error_dialog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_methods.html#MainWindowMethods.read_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_methods.MainWindowMethods.read_json" title="Permalink to this definition">#</a></dt>
-<dd><p>reads json from disk</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>qfile (QFile): file information
-create_error_dialog (bool, optional): create dialog on error if True. Defaults to False.</p>
-</dd>
-<dt>Returns:</dt><dd><p>int: -2 if file doesnt exist, -3 on access error, -4 on zero filesize or invalid json or exception,</p>
 </dd>
 </dl>
 </dd></dl>
@@ -537,30 +490,6 @@ create_error_dialog (bool, optional): create dialog on error if True. Defaults t
 <dl class="simple">
 <dt>Args:</dt><dd><p>button_text (str): text of button
 button_dict (dict): button information</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mainwindow_methods.MainWindowMethods.write_cli_gen_tool_json">
-<span class="sig-name descname"><span class="pre">write_cli_gen_tool_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_methods.html#MainWindowMethods.write_cli_gen_tool_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_methods.MainWindowMethods.write_cli_gen_tool_json" title="Permalink to this definition">#</a></dt>
-<dd><p>writes session json</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>int: filesize</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mainwindow_methods.MainWindowMethods.write_json">
-<span class="sig-name descname"><span class="pre">write_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_to_serialize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_error_dialog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mainwindow_methods.html#MainWindowMethods.write_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mainwindow_methods.MainWindowMethods.write_json" title="Permalink to this definition">#</a></dt>
-<dd><p>writes a json to disk</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>dict_to_serialize (dict): make this dict serializable
-qfile (QFile): the file to write
-create_error_dialog (bool, optional): create dialog on error if True. Defaults to False.</p>
-</dd>
-<dt>Returns:</dt><dd><p>int: -1 on error or filesize</p>
 </dd>
 </dl>
 </dd></dl>
@@ -677,12 +606,10 @@ create_error_dialog (bool, optional): create dialog on error if True. Defaults t
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.clicked_new_cmd_button"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.clicked_new_cmd_button()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.command_tree_button_toggles"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.command_tree_button_toggles()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.command_tree_collapse_button"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.command_tree_collapse_button()</span></code></a></li>
-<li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.create_file_error_qdialog"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.create_file_error_qdialog()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.do_before_app_close"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.do_before_app_close()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.generate_cli_files"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.generate_cli_files()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.get_config_file"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.get_config_file()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.get_initial_config_path"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.get_initial_config_path()</span></code></a></li>
-<li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.get_project_dir"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.get_project_dir()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.get_recent_files_menu"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.get_recent_files_menu()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.get_tree_state"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.get_tree_state()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.gui_about"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.gui_about()</span></code></a></li>
@@ -692,9 +619,7 @@ create_error_dialog (bool, optional): create dialog on error if True. Defaults t
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.load_cli_gen_tool_json"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.load_cli_gen_tool_json()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.mainwindow_button_actions_setup"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.mainwindow_button_actions_setup()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.mainwindow_menu_bar_actions_setup"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.mainwindow_menu_bar_actions_setup()</span></code></a></li>
-<li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.open_file"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.open_file()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.queue_collapse_button_text"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.queue_collapse_button_text()</span></code></a></li>
-<li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.read_json"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.read_json()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.save_file"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.save_file()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.save_file_as"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.save_file_as()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.set_main_window_title"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.set_main_window_title()</span></code></a></li>
@@ -707,8 +632,6 @@ create_error_dialog (bool, optional): create dialog on error if True. Defaults t
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.settings_tree_collapse_button"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.settings_tree_collapse_button()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.show_splash"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.show_splash()</span></code></a></li>
 <li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.tree_expander"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.tree_expander()</span></code></a></li>
-<li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.write_cli_gen_tool_json"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.write_cli_gen_tool_json()</span></code></a></li>
-<li><a class="reference internal" href="#mainwindow_methods.MainWindowMethods.write_json"><code class="docutils literal notranslate"><span class="pre">MainWindowMethods.write_json()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mainwindow_methods.TableButtonBox"><code class="docutils literal notranslate"><span class="pre">TableButtonBox</span></code></a><ul>
