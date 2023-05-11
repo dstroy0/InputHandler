@@ -37,7 +37,7 @@ class HelperMethods(object):
     ## the constructor
     def __init__(self):
         """the constructor"""
-        super(HelperMethods, self).__init__(__name__)
+        super(HelperMethods, self).__init__()
         HelperMethods.helper_logger = self.get_child_logger(__name__)
 
     ## spawn a dialog box

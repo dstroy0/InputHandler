@@ -19,6 +19,7 @@ import json
 # pyside imports
 from PySide6.QtCore import QRegularExpression
 
+
 # parse inputhandler config
 class ParseInputHandlerConfig(object):
     """InputHandler config.h parser

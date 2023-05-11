@@ -121,6 +121,7 @@ class cliReadme(object):
             loop_instructions=_loop_inst,
             loop_code=wrapped_loop_code,
         )
+
         self.code_preview_dict["files"]["README.md"][
             "file_lines_list"
         ] = docstring.split("\n")

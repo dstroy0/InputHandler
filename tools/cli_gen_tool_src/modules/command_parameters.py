@@ -33,6 +33,7 @@ from modules.data_models import dataModels
 from modules.display_models import displayModels
 from modules.mainwindow_methods import TableButtonBox
 
+
 # command parameters methods
 class CommandParametersMethods(object):
     """All things related to CommandParametersDialog operation

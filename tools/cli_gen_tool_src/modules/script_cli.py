@@ -14,14 +14,14 @@ import argparse, pathlib, json, sys, os
 
 
 class ScriptCLI(object):
-    def __init__(self) -> None:
-        pass
+    def __init__(self):
+        super(ScriptCLI, self).__init__()
 
     def script_cli(self):
         # cli_gen_tool script command line interface
         self.parser = argparse.ArgumentParser(
             prog=os.path.basename(__file__),
-            description="generate a CLI in target directory",
+            description="generate a CLI in target directory using a CLI settings json",
         )
         self.parser.add_argument(
             "-g",
@@ -53,10 +53,10 @@ class ScriptCLI(object):
         args = self.parser.parse_args(sys.argv[1:])
 
         # script cli only (no gui) when true
-        self.headless = False
+        args.headless = False
         # validate argparser input further
         if bool(args.generate):
-            self.headless = True
+            args.headless = True
             self.root_log_handler.info("output path: " + str(args.generate[0]))
             self.root_log_handler.info("cli options path: " + str(args.generate[1]))
             if not os.path.exists(str(args.generate[0])):

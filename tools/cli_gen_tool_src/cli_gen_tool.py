@@ -15,9 +15,6 @@ from __future__ import absolute_import
 # imports
 import os
 import sys
-import json
-import pathlib
-import argparse
 import qdarktheme
 from PySide6.QtCore import (
     QEvent,
@@ -60,6 +57,9 @@ from modules.preferences import PreferencesMethods  # preferences interaction
 from modules.mainwindow_methods import MainWindowMethods  # mainwindow interaction
 from modules.code_generation import CodeGeneration  # code preview and generation
 from modules.script_cli import ScriptCLI  # cli_gen_tool CLI
+from modules.cli.cli_helper_methods import CLIHelperMethods  # file generation helpers
+from modules.no_dialog_file_manipulation import NoDialogFileManipulation
+from modules.user_dialogs import UserDialogs
 
 ## tool version
 version = 1.0  # save serialization
@@ -80,6 +80,12 @@ class RootWidget(QWidget, object):
         self.app = self._parent.app
         self.get_app_screen = self._parent.get_app_screen
         self.create_qdialog = self._parent.create_qdialog
+        self.write_cli_gen_tool_json = self._parent.write_cli_gen_tool_json
+        self.write_json = self._parent.write_json
+        self.read_json = self._parent.read_json
+        self.create_file_error_qdialog = self._parent.create_file_error_qdialog
+        self.get_project_dir = self._parent.get_project_dir
+        self.open_file = self._parent.open_file
 
         self.root_log_handler = self._parent.root_log_handler
         self.setup_file_handler = self._parent.setup_file_handler
@@ -132,7 +138,9 @@ class RootWidget(QWidget, object):
 
 
 ## set up pathing, logging, splash screen
-class Initialize(HelperMethods, Logger, object):
+class Initialize(
+    HelperMethods, NoDialogFileManipulation, UserDialogs, Logger, ScriptCLI, object
+):
     def __init__(self) -> None:
         super(Initialize, self).__init__()
 
@@ -145,7 +153,7 @@ class Initialize(HelperMethods, Logger, object):
             os.mkdir(self.inputhandler_save_path)
             if not os.path.exists(self.inputhandler_save_path):
                 print(
-                    f"failed to make necessary directory:\n{self.inputhandler_save_path}"
+                    f"failed to make necessary directory:\n{self.inputhandler_save_path}\nexiting."
                 )
                 sys.exit(1)
         interfaces_path = os.path.join(self.inputhandler_save_path, "interfaces")
@@ -168,8 +176,14 @@ class Initialize(HelperMethods, Logger, object):
                 sys.exit(1)
 
         Logger.__init__(self, __name__)
-        
-        args = ScriptCLI.script_cli(self)
+
+        ScriptCLI.__init__(self)
+        args = self.script_cli()
+
+        self.headless = args.headless
+        if self.headless:
+            self.root_log_handler.info("Generating CLI with supplied arguments")
+            sys.exit(0)
 
         # GUI container
         app = QApplication(sys.argv)
@@ -181,11 +195,8 @@ class Initialize(HelperMethods, Logger, object):
         self.root = RootWidget(self)
 
         HelperMethods.__init__(self)
-
-        if self.headless:
-            self.root_log_handler.info("Generating CLI with supplied arguments")
-            sys.exit(0)
-
+        NoDialogFileManipulation.__init__(self)
+        UserDialogs.__init__(self)
         self.get_app_screen()
 
         self.root_log_handler.info("CLI gen tool pathing")
@@ -267,6 +278,7 @@ class MainWindow(
     PreferencesMethods,
     MainWindowMethods,
     CodeGeneration,
+    CLIHelperMethods,
 ):
     ## The constructor.
     def __init__(
@@ -286,13 +298,20 @@ class MainWindow(
         self.create_qdialog = parent.create_qdialog
         self.inputhandler_save_path = parent.inputhandler_save_path
 
+        self.write_cli_gen_tool_json = parent.write_cli_gen_tool_json
+        self.write_json = parent.write_json
+        self.read_json = parent.read_json
+        self.create_file_error_qdialog = parent.create_file_error_qdialog
+        self.get_project_dir = parent.get_project_dir
+        self.open_file = parent.open_file
+
         self.get_child_logger = self.parent_instance.get_child_logger
 
         self.app = parent.app  # QApplication
 
         # MainWindow logger
         MainWindow.logger = self.get_child_logger(__name__)
-
+        CLIHelperMethods.__init__(self)
         # pathing
         # /InputHandler/src/config/config.h
         default_lib_config_path = QDir(self.lib_root_path + "/src/config/")
@@ -339,27 +358,25 @@ class MainWindow(
         # InputHandler builtin user interactable commands
         self.ih_builtins = ["listSettings", "listCommands"]
 
-        if not self.headless:
-            self.set_up_main_window(Ui_MainWindow())
-            MainWindowMethods.__init__(self)
+        self.set_up_main_window(Ui_MainWindow())
+        MainWindowMethods.__init__(self)
 
         self.set_up_session()
 
-        if not self.headless:
-            # Splashscreen timer
-            self.timer = QTimer()
-            self.timer.setSingleShot(True)
-            self.timer.start(
-                splashscreen_duration
-            )  # Show app splash for `splashscreen_duration`
-            self.show_splash()
+        # Splashscreen timer
+        self.timer = QTimer()
+        self.timer.setSingleShot(True)
+        self.timer.start(
+            splashscreen_duration
+        )  # Show app splash for `splashscreen_duration`
+        self.show_splash()
 
-            self.set_up_log_history_dialog(Ui_logHistoryDialog())
+        self.set_up_log_history_dialog(Ui_logHistoryDialog())
 
-            # preferences dialog
-            self.preferences = QDialog(self)
-            self.preferences.dlg = Ui_Preferences()
-            self.preferences.dlg.setupUi(self.preferences)
+        # preferences dialog
+        self.preferences = QDialog(self)
+        self.preferences.dlg = Ui_Preferences()
+        self.preferences.dlg.setupUi(self.preferences)
 
         # init and config classes
         self.logger.debug("Importing external classes.")
@@ -370,13 +387,12 @@ class MainWindow(
         PreferencesMethods.__init__(self)
         CodeGeneration.__init__(self)
 
-        if not self.headless:
-            self.set_up_ui_icons()
-            self.cli_generation_dialog_setup(Ui_generateDialog())
-            # MainWindow actions
-            self.mainwindow_menu_bar_actions_setup()
-            self.mainwindow_button_actions_setup()
-            # end MainWindow actions
+        self.set_up_ui_icons()
+        self.cli_generation_dialog_setup(Ui_generateDialog())
+        # MainWindow actions
+        self.mainwindow_menu_bar_actions_setup()
+        self.mainwindow_button_actions_setup()
+        # end MainWindow actions
 
         # settings and command trees
         self.parse_config()
@@ -385,26 +401,20 @@ class MainWindow(
         self.settings_tree = self.build_settings_tree()
         self.command_tree.get_settings_tree()
 
-        if not self.headless:
-            self.preferences_dialog_setup()
-            self.set_up_command_parameters_dialog(Ui_commandParametersDialog())
-            self.display_initial_code_preview()
+        self.preferences_dialog_setup()
+        self.set_up_command_parameters_dialog(Ui_commandParametersDialog())
+        self.display_initial_code_preview()
 
-        if not self.headless:
-            # viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways
-            self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
-            self.settings_tree.viewport().installEventFilter(self)
-            self.command_tree.viewport().installEventFilter(self)
+        # viewports are QAbstractScrollArea, we filter events in them to react to user interaction in specific ways
+        self.log.dlg.logHistoryPlainTextEdit.viewport().installEventFilter(self)
+        self.settings_tree.viewport().installEventFilter(self)
+        self.command_tree.viewport().installEventFilter(self)
 
         # bring MainWindow in focus
         self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
         self.setWindowFlags(self.windowFlags() & ~Qt.WindowStaysOnTopHint)
         self.logger.info("CLI generation tool ready.")
         self.loading = False
-        if self.headless:
-            # self.generate_cli(self.cli_project_path)
-            self.logger.info("finished, exiting")
-            sys.exit()
         # end MainWindow.__init__()
 
     def closeEvent(self, event: QEvent):

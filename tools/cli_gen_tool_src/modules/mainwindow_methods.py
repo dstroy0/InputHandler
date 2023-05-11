@@ -17,7 +17,6 @@ import sys
 import copy
 import os
 import json
-import glob
 from json import dumps as json_dumps
 
 from PySide6.QtCore import (
@@ -156,55 +155,7 @@ class MainWindowMethods(object):
         self.prev_command_tree_state = 0
         self.prev_settings_tree_state = 0
 
-    def get_project_dir(self) -> str:
-        """get valid os path to project
-
-        Returns:
-            str: valid os path or None
-        """
-        open_on_dir = ""
-        output_dir = self.session["opt"]["cli_output_dir"]
-        if output_dir == None:
-            output_dir = self._parent.lib_root_path
-        if os.path.exists(output_dir):
-            open_on_dir = output_dir
-        else:
-            open_on_dir = QDir.homePath()
-        dir_dlg = QFileDialog(self)
-        _dlg_result = dir_dlg.getExistingDirectory(
-            self,
-            "Select output directory",
-            open_on_dir,
-            options=QFileDialog.DontUseNativeDialog
-            | QFileDialog.ShowDirsOnly
-            | QFileDialog.DontResolveSymlinks,
-        )
-        if _dlg_result == QFileDialog.Rejected:
-            b = QDialogButtonBox.StandardButton
-            buttons = [b.Ok, b.Close]
-            button_text = ["Select output directory", "Cancel"]
-            result = self.create_qdialog(
-                self._parent,
-                "You must select an output directory to generate files.",
-                Qt.AlignCenter,
-                Qt.NoTextInteraction,
-                "Error, no output directory selected!",
-                buttons,
-                button_text,
-                QStyle.StandardPixmap.SP_MessageBoxCritical,
-                self._parent.qscreen,
-            )
-            if result == 3:
-                return None
-
-        _dir = QDir(_dlg_result)
-        _result = _dir.toNativeSeparators(_dir.absolutePath())
-        if os.path.exists(_result):
-            MainWindowMethods.logger.info("valid directory selected:\n" + str(_result))
-            return _result
-        else:
-            MainWindowMethods.logger.info("invalid directory selected")
-            return None
+    
 
     def get_initial_config_path(self):
         """get initial path to config"""
@@ -480,7 +431,7 @@ class MainWindowMethods(object):
                 )
             )
         if self.session["opt"]["save_file_path"] != "" and last_interface.exists():
-            result = self.read_json(last_interface, True)
+            result = self.read_json(last_interface)
             self.cliOpt = result[1]
             self.cliOpt["commands"]["primary id key"] = "0"
         elif (
@@ -613,161 +564,9 @@ class MainWindowMethods(object):
             else:
                 os.execl(sys.executable, sys.executable, *sys.argv)
 
-    def create_file_error_qdialog(self, error_type: str, qfile: QFile):
-        """creates an error dialog
 
-        Args:
-            error_type (str): error description
-            qfile (QFile): file information
-        """
-        MainWindowMethods.logger.warning(
-            error_type + " " + qfile.fileName() + " error."
-        )
-        self.create_qdialog(
-            error_type,
-            Qt.AlignCenter,
-            0,
-            error_type + " " + qfile.fileName() + " error.",
-            None,
-            None,
-            self.ui.messageBoxCriticalIcon,
-        )
 
-    def write_json(
-        self, dict_to_serialize: dict, qfile: QFile, create_error_dialog: bool = False
-    ):
-        """writes a json to disk
-
-        Args:
-            dict_to_serialize (dict): make this dict serializable
-            qfile (QFile): the file to write
-            create_error_dialog (bool, optional): create dialog on error if True. Defaults to False.
-
-        Returns:
-            int: -1 on error or filesize
-        """
-        if not qfile.open(QIODevice.WriteOnly | QIODevice.Text):
-            MainWindowMethods.logger.info("Save " + qfile.fileName() + " error.")
-            if create_error_dialog:
-                self.create_file_error_qdialog("Save file", qfile)
-            return -1  # file error
-
-        # replace non serializable with null
-        def default(o):
-            try:
-                iterable = iter(o)
-            except TypeError:
-                pass
-            else:
-                return list(iterable)
-
-        # remove unserializable items to save disk space
-        def dict_iterator(input):
-            output = copy.deepcopy(input)
-
-            def recurse(input, output):
-                for key, value in input.items():
-                    if input[key] == None:
-                        if key.isnumeric():
-                            output.pop(key)
-                        else:
-                            output[key] = ""
-                    if isinstance(value, dict):
-                        recurse(input[key], output[key])
-
-            recurse(input, output)
-            return output
-
-        if dict_to_serialize["type"] == "cli options":
-            # filter json
-            dict_to_serialize["config"]["file lines"] = ""
-            input_json = json.dumps(
-                dict_to_serialize,
-                sort_keys=False,
-                default=default,
-            )
-            f_o = json.loads(input_json)
-            filtered_output = copy.deepcopy(dict_iterator(f_o))
-
-            output_json = json.dumps(filtered_output, indent=2, sort_keys=False)
-        else:
-            output_json = json.dumps(dict_to_serialize, indent=2, sort_keys=False)
-
-        # file object
-        out = QByteArray(output_json)
-
-        size = qfile.write(out)
-        if size != -1:
-            MainWindowMethods.logger.info(
-                "wrote " + str(size) + " bytes to " + str(qfile.fileName())
-            )
-            if dict_to_serialize["type"] != "session":
-                if (
-                    self.session["opt"]["save_file_path"]
-                    not in self.session["opt"]["recent_files"]["paths"]
-                ):
-                    self.session["opt"]["recent_files"]["paths"].append(
-                        self.session["opt"]["save_file_path"]
-                    )
-                if len(self.session["opt"]["recent_files"]["paths"]) > int(
-                    self.session["opt"]["recent_files"]["num_paths_to_keep"]
-                ):
-                    self.session["opt"]["recent_files"]["paths"].pop(0)
-                if self.write_cli_gen_tool_json() > 0:
-                    MainWindowMethods.logger.info("session json saved")
-                regexp = QRegularExpression("[^\/]*$")
-                match = regexp.match(str(self.session["opt"]["save_file_path"]))
-                if match.hasMatch():
-                    self.setWindowTitle(
-                        "InputHandler CLI generation tool - " + str(match.captured(0))
-                    )
-        else:
-            MainWindowMethods.logger.info("Write " + qfile.fileName() + " error.")
-            if create_error_dialog:
-                self.create_file_error_qdialog("Write file", qfile)
-        qfile.close()
-        return size
-
-    def read_json(self, qfile: QFile, create_error_dialog: bool = False):
-        """reads json from disk
-
-        Args:
-            qfile (QFile): file information
-            create_error_dialog (bool, optional): create dialog on error if True. Defaults to False.
-
-        Returns:
-            int: -2 if file doesnt exist, -3 on access error, -4 on zero filesize or invalid json or exception,
-        """
-        db = {}
-        if not qfile.exists():
-            MainWindowMethods.logger.info("qfile.exists() == false")
-            if create_error_dialog:
-                self.create_file_error_qdialog("This file does not exist: ", qfile)
-            return [-2, {}]  # file doesn't exist
-        if not qfile.open(QIODevice.ReadOnly | QIODevice.Text):
-            qfile.close()
-            MainWindowMethods.logger.warning("File access error.")
-            if create_error_dialog:
-                self.create_file_error_qdialog("Access", qfile)
-            return [-3, {}]  # access error
-        data_in = QTextStream(qfile).readAll()
-        qfile.close()
-        try:
-            db = json.loads(data_in)
-            if "type" in db:
-                MainWindowMethods.logger.info("loaded json: " + db["type"])
-                return [len(data_in), db]
-            elif len(db) == 0:
-                return [-4, {}]
-            else:
-                MainWindowMethods.logger.info("invalid json type")
-                MainWindowMethods.logger.debug(
-                    "json.loads():\n" + str(json.dumps(db, indent=2))
-                )
-                return [-4, {}]
-        except Exception as e:
-            MainWindowMethods.logger.warning(str(e))
-            return [-4, {}]
+    
 
     def save_file(self):
         """save working file
@@ -829,7 +628,7 @@ class MainWindowMethods(object):
             int: filesize
         """
         file = QFile(path)
-        read_json_result = self.read_json(file, False)
+        read_json_result = self.read_json(path)
         error = read_json_result[0]
         _json = read_json_result[1]
         if error == -2:  # file not exists
@@ -849,15 +648,7 @@ class MainWindowMethods(object):
             return _json
         return _json
 
-    def write_cli_gen_tool_json(self):
-        """writes session json
-
-        Returns:
-            int: filesize
-        """
-        file = QFile(self.cli_gen_tool_json_path)
-        err = self.write_json(self.session, file, False)
-        return err
+    
 
     # MainWindow actions
     def get_recent_files_menu(self) -> QMenu:
@@ -880,95 +671,7 @@ class MainWindowMethods(object):
                 menu.addAction(action)
         return menu
 
-    def open_file(self, checked: bool = False, path: str = "") -> int:
-        """opens a cli options file and does simple validity check
-
-        Args:
-            checked (bool, optional): action checked bool. Defaults to False.
-            path (str, optional): absolute file path. Defaults to "".
-
-        Returns:
-            int: size if greater than zero, error code if zero or less.
-        """
-        if not os.path.exists(path):
-            MainWindowMethods.logger.info("open CLI settings file dialog")
-            # inherit from parent QMainWindow (block main window interaction while dialog box is open)
-            dlg = QFileDialog(self)
-            dlg.setFileMode(QFileDialog.ExistingFile)
-            dlg.setNameFilter("Settings json (*.json)")
-            dlg.setViewMode(QFileDialog.Detail)
-            fileName = dlg.getOpenFileName(options=QFileDialog.DontUseNativeDialog)
-            if dlg.Accepted:
-                path = fileName[0]
-            else:
-                MainWindowMethods.logger.info("dialog cancelled")
-                return 0  # dialog cancelled
-
-        if path == "" or not os.path.exists(path):
-            MainWindowMethods.logger.info("CLI settings file path error")
-            return -1  # path error
-
-        file = QFile(path)
-        read_json_result = self.read_json(file, True)
-
-        if read_json_result[0] >= 0 and read_json_result[1]["type"] == "cli options":
-            if self._parent.prompt_to_save == True:
-                regexp = QRegularExpression("[^\/]*$")
-                match = regexp.match(path)
-                if match.hasMatch():
-                    filename = str(match.captured(0))
-                b = QDialogButtonBox.StandardButton
-                buttons = [b.Ok, b.Close]
-                button_text = ["Save", "Cancel"]
-                result = self.create_qdialog(
-                    self._parent,
-                    "Do you want to save your current work?",
-                    Qt.AlignCenter,
-                    Qt.NoTextInteraction,
-                    f"Save before opening {filename}",
-                    buttons,
-                    button_text,
-                    QStyle.StandardPixmap.SP_MessageBoxCritical,
-                    self._parent.qscreen,
-                )
-                if result == QDialog.Accepted:
-                    self.save_file()
-            self.cliOpt = read_json_result[1]
-        else:
-            MainWindowMethods.logger.info("Incorrect json type")
-            self.create_file_error_qdialog("Incorrect json type", file)
-            return -2  # incorrect json type
-
-        # empty the trees
-        MainWindowMethods.logger.debug("clearing trees")
-        self.settings_tree.clear()
-        self.command_tree.clear()
-
-        # rebuild the trees from the new cli options file
-        MainWindowMethods.logger.debug("rebuilding trees")
-        self.cliOpt["commands"]["primary id key"] = "0"
-        self.session["opt"]["save_file_path"] = path
-        self._parent.loading = True
-        self.rebuild_command_tree()
-        self.rebuild_settings_tree()
-        self._parent.loading = False
-        self.display_initial_code_preview()
-        self.prompt_to_save = False
-        self.windowtitle_set = False
-        self.set_main_window_title()
-
-        # move `path` to index 0
-        MainWindowMethods.logger.debug(
-            f"move this path to front of recent files list:\n{path}"
-        )
-        paths = self.session["opt"]["recent_files"]["paths"]
-        if path in paths and paths.index(path) != 0:
-            paths.insert(0, paths.pop(paths.index(path)))
-
-        # remake menu
-        MainWindowMethods.logger.debug("remake recent files menu")
-        self.ui.actionOpen_Recent.setMenu(self.get_recent_files_menu())
-        return read_json_result  # return size of file read
+    
 
     def gui_settings(self):
         """opens preferences dialog"""

@@ -50,6 +50,7 @@ class cliConfig(object):
                 self.code_preview_dict["files"]["config.h"]["file_lines_list"][
                     int(sub_dict["lineno"])
                 ] = line
+
         code_string = self.list_to_code_string(
             self.code_preview_dict["files"]["config.h"]["file_lines_list"]
         )

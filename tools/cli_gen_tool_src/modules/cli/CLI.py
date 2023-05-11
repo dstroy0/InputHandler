@@ -200,7 +200,7 @@ class cliH(object):
             ]["stream"]["exit"].format(
                 stream=stream_string,
                 outputstring=setup_function_exit_string,
-                objectname = object_name,
+                objectname=object_name,
                 ls=_ls,
                 lc=_lc,
             )

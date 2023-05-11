@@ -116,9 +116,11 @@ class cliFunctions(object):
 
         f_h_fs = functions_h_fs.format(functionprototypes=statements)
         code_string = code_string + f_h_fs
+
         self.code_preview_dict["files"]["functions.h"][
             "file_lines_list"
         ] = code_string.split("\n")
+
         self.code_preview_dict["files"]["functions.h"]["file_string"] = code_string
         self.set_code_string("functions.h", code_string, item_string, place_cursor)
 

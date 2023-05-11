@@ -381,7 +381,6 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
     def add_command_to_tree(
         self, parent_item: QTreeWidgetItem, builtin: str = None
     ) -> QTreeWidgetItem:
-
         item = self.build_command(parent_item, builtin)
         self.active_item = item
 

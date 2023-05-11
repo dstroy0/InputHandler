@@ -36,6 +36,7 @@ from modules.data_models import dataModels
 from modules.display_models import displayModels
 from modules.mainwindow_methods import TableButtonBox
 
+
 # TODO update underlying data
 class DelimiterTableWidget(QTableWidget):
     def __init_subclass__(cls) -> None:
@@ -175,7 +176,6 @@ class SettingsTreeWidget(QTreeWidget):
                 setting_container.setIcon(0, self._parent.ui.commandLinkIcon)
 
                 for child in SettingsTreeMethods._tree[parent]:
-
                     dict_pos = dict_key + "," + str(index_of_child) + "," + child
 
                     var_initial_val = self.cliopt[dict_key]["var"][child]

@@ -556,48 +556,6 @@ class CodeGeneration(
         container.setLayout(container.layout)
         self.tab_2.viewport().installEventFilter(self.tab_2)
 
-    ## formats a docstring and returns a list populated with lines of text
-    def generate_docstring_list_for_filename(self, filename: str, brief: str) -> list:
-        """makes the docstring for generated files
-
-        Args:
-            filename (str): the filename
-            brief (str): purpose of file
-
-        Returns:
-            list: list of docstring lines to prepend to filename
-        """
-        docstring_list = []
-        year = str(datetime.date.today())[0:4]
-        ll = cliFileStrings.lib_license_cpp.format(docs_year=year)
-        date = datetime.date.today()
-        docstring = cliFileStrings.docfs.format(
-            docs_version=cliFileStrings.version,
-            lib_version=cliFileStrings.lib_version,
-            lib_license=ll,
-            docs_filename=filename,
-            docs_brief=brief,
-            docs_year=year,
-            docs_date=date,
-        )
-        docstring_list = docstring.split("\n")
-        return docstring_list
-
-    ## turns a list of text lines into a complete file string where each line ends with newline
-    def list_to_code_string(self, list: list) -> str:
-        """concatenates strings in a list to each other with a newline at the end
-
-        Args:
-            list (list): list of filelines
-
-        Returns:
-            str: continuous string generated from list arg
-        """
-        code_string = ""
-        for line in list:
-            code_string = code_string + line + "\n"
-        return code_string
-
     # TODO detect file structure as defined in dataModels
     def detect_output_type(self, project_path):
         pio_structure = dataModels.pio_structure

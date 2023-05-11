@@ -12,6 +12,7 @@
 
 from __future__ import absolute_import
 
+
 # TODO move license string to its own variable
 ## file construction strings
 class cliFileStrings(object):
