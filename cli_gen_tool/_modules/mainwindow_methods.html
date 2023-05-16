@@ -378,8 +378,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">prev_command_tree_state</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prev_settings_tree_state</span> <span class="o">=</span> <span class="mi">0</span>
 
-    
-
 <div class="viewcode-block" id="MainWindowMethods.get_initial_config_path"><a class="viewcode-back" href="../modules/mainwindow_methods.html#mainwindow_methods.MainWindowMethods.get_initial_config_path">[docs]</a>    <span class="k">def</span> <span class="nf">get_initial_config_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;get initial path to config&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">old_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span>
@@ -634,68 +632,6 @@
             <span class="p">)</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="MainWindowMethods.set_up_session"><a class="viewcode-back" href="../modules/mainwindow_methods.html#mainwindow_methods.MainWindowMethods.set_up_session">[docs]</a>    <span class="k">def</span> <span class="nf">set_up_session</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;sets up user session json&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Attempt session json load.&quot;</span><span class="p">)</span>
-        <span class="c1"># load cli_gen_tool (session) json if exists, else use default options</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_cli_gen_tool_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cli_gen_tool_json_path</span><span class="p">)</span>
-        <span class="c1"># pretty session json</span>
-        <span class="c1"># session json contains only json serializable items, safe to print</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s2">&quot;cli_gen_tool.json =</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">json_dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-        <span class="p">)</span>
-        <span class="n">last_interface</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_file_path&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">last_interface_path</span> <span class="o">=</span> <span class="n">QDir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_file_path&quot;</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Attempt load last interface&quot;</span><span class="p">)</span>
-            <span class="n">last_interface</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span>
-                <span class="n">last_interface_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span>
-                    <span class="n">last_interface_path</span><span class="o">.</span><span class="n">absolutePath</span><span class="p">()</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_file_path&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">last_interface</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">last_interface</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
-        <span class="k">elif</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_file_path&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">last_interface</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
-        <span class="p">):</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">StandardButton</span>
-            <span class="n">buttons</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">Ok</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">Cancel</span><span class="p">]</span>
-            <span class="n">button_text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Select last file&quot;</span><span class="p">,</span> <span class="s2">&quot;Continue without locating&quot;</span><span class="p">]</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span><span class="p">(</span>
-                <span class="s2">&quot;Cannot locate last working file: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">last_interface</span><span class="o">.</span><span class="n">fileName</span><span class="p">()),</span>
-                <span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">,</span>
-                <span class="n">Qt</span><span class="o">.</span><span class="n">NoTextInteraction</span><span class="p">,</span>
-                <span class="s2">&quot;Error, cannot find interface file!&quot;</span><span class="p">,</span>
-                <span class="n">buttons</span><span class="p">,</span>
-                <span class="n">button_text</span><span class="p">,</span>
-                <span class="n">QStyle</span><span class="o">.</span><span class="n">StandardPixmap</span><span class="o">.</span><span class="n">SP_MessageBoxCritical</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">QDialog</span><span class="o">.</span><span class="n">Accepted</span><span class="p">:</span>
-                <span class="n">dlg</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="p">,</span>
-                    <span class="s2">&quot;Locate: &quot;</span> <span class="o">+</span> <span class="n">last_interface</span><span class="o">.</span><span class="n">fileName</span><span class="p">(),</span>
-                    <span class="n">last_interface_path</span><span class="o">.</span><span class="n">toNativeSeparators</span><span class="p">(</span>
-                        <span class="n">last_interface_path</span><span class="o">.</span><span class="n">absoluteFilePath</span><span class="p">(</span><span class="n">last_interface</span><span class="o">.</span><span class="n">fileName</span><span class="p">())</span>
-                    <span class="p">),</span>
-                    <span class="s2">&quot;*.json&quot;</span><span class="p">,</span>
-                    <span class="n">options</span><span class="o">=</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">rejected</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                        <span class="s2">&quot;User couldn&#39;t locate last working file, continuing.&quot;</span>
-                    <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                    <span class="s2">&quot;Couldn&#39;t locate last working file: &quot;</span>
-                    <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_file_path&quot;</span><span class="p">])</span>
-                <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_file_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_main_window_title</span><span class="p">(</span><span class="s2">&quot;InputHandler CLI generation tool &quot;</span><span class="p">)</span></div>
-
 <div class="viewcode-block" id="MainWindowMethods.set_up_ui_icons"><a class="viewcode-back" href="../modules/mainwindow_methods.html#mainwindow_methods.MainWindowMethods.set_up_ui_icons">[docs]</a>    <span class="k">def</span> <span class="nf">set_up_ui_icons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;set up ui icons&quot;&quot;&quot;</span>
         <span class="c1"># icons</span>
@@ -787,10 +723,6 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">execl</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="o">*</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span></div>
 
-
-
-    
-
 <div class="viewcode-block" id="MainWindowMethods.save_file"><a class="viewcode-back" href="../modules/mainwindow_methods.html#mainwindow_methods.MainWindowMethods.save_file">[docs]</a>    <span class="k">def</span> <span class="nf">save_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;save working file</span>
 
@@ -798,8 +730,8 @@
 <span class="sd">            int: filesize on success, -1 on fail, 0 on fail</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">MainWindowMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;save CLI settings file&quot;</span><span class="p">)</span>
-        <span class="n">MainWindowMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;set tool version var in cliOpt&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;tool version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
+        <span class="n">MainWindowMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;set tool version var in cli_options&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="s2">&quot;tool version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_file_path&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
             <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_file_path&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span>
@@ -809,7 +741,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">return</span> <span class="n">ret</span>
         <span class="n">file</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_file_path&quot;</span><span class="p">])</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ret</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">prompt_to_save</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">windowtitle_set</span> <span class="o">=</span> <span class="kc">False</span>
@@ -838,38 +770,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;save_file_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fqname</span>
         <span class="n">MainWindowMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;save CLI settings file as: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fqname</span><span class="p">))</span>
         <span class="n">file</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span><span class="n">fqname</span><span class="p">)</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ret</span></div>
-
-<div class="viewcode-block" id="MainWindowMethods.load_cli_gen_tool_json"><a class="viewcode-back" href="../modules/mainwindow_methods.html#mainwindow_methods.MainWindowMethods.load_cli_gen_tool_json">[docs]</a>    <span class="k">def</span> <span class="nf">load_cli_gen_tool_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;load session json</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            path (str): path to json</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            int: filesize</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">file</span> <span class="o">=</span> <span class="n">QFile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="n">read_json_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="n">error</span> <span class="o">=</span> <span class="n">read_json_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">_json</span> <span class="o">=</span> <span class="n">read_json_result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">error</span> <span class="o">==</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span>  <span class="c1"># file not exists</span>
-            <span class="n">MainWindowMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;cli_gen_tool.json doesn&#39;t exist, using default options&quot;</span>
-            <span class="p">)</span>
-            <span class="n">_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaultGuiOpt</span>
-            <span class="n">_json</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;inputhandler_config_file_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_lib_config_path</span>
-            <span class="k">return</span> <span class="n">_json</span>
-        <span class="k">if</span> <span class="n">error</span> <span class="o">==</span> <span class="o">-</span><span class="mi">3</span><span class="p">:</span>
-            <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="n">MainWindowMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="s2">&quot;open cli_gen_tool.json error; using default options&quot;</span>
-            <span class="p">)</span>
-            <span class="n">_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaultGuiOpt</span>
-            <span class="n">_json</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;inputhandler_config_file_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_lib_config_path</span>
-            <span class="k">return</span> <span class="n">_json</span>
-        <span class="k">return</span> <span class="n">_json</span></div>
 
     
 
@@ -894,13 +796,11 @@
                 <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">menu</span></div>
 
-    
-
 <div class="viewcode-block" id="MainWindowMethods.gui_settings"><a class="viewcode-back" href="../modules/mainwindow_methods.html#mainwindow_methods.MainWindowMethods.gui_settings">[docs]</a>    <span class="k">def</span> <span class="nf">gui_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;opens preferences dialog&quot;&quot;&quot;</span>
         <span class="n">MainWindowMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;opened preferences dialog&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">exec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actionOpen_Recent</span><span class="p">)</span></div>
-    
+
     <span class="c1"># generate CLI files</span>
 <div class="viewcode-block" id="MainWindowMethods.generate_cli_files"><a class="viewcode-back" href="../modules/mainwindow_methods.html#mainwindow_methods.MainWindowMethods.generate_cli_files">[docs]</a>    <span class="k">def</span> <span class="nf">generate_cli_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;generates cli files in self.session[&quot;opt&quot;][&quot;cli_output_dir&quot;]&quot;&quot;&quot;</span>
@@ -1277,11 +1177,11 @@
                     <span class="n">clear_item</span> <span class="o">=</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
                     <span class="n">clear_item</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">update_code</span><span class="p">(</span><span class="s2">&quot;CLI.h&quot;</span><span class="p">,</span> <span class="n">object_list</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;process parameters&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">object_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;process parameters&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">object_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">table_widget</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;process parameters&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span><span class="n">object_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                        <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)}</span>
-                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;process parameters&quot;</span><span class="p">][</span><span class="s2">&quot;var&quot;</span><span class="p">][</span>
+                        <span class="n">object_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">i</span><span class="p">:</span> <span class="n">table_widget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)})</span>
                 <span class="k">return</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">settings_tree</span><span class="o">.</span><span class="n">currentItem</span><span class="p">()</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
 
@@ -1326,7 +1226,7 @@
 <div class="viewcode-block" id="MainWindowMethods.clicked_edit_tab_two"><a class="viewcode-back" href="../modules/mainwindow_methods.html#mainwindow_methods.MainWindowMethods.clicked_edit_tab_two">[docs]</a>    <span class="k">def</span> <span class="nf">clicked_edit_tab_two</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;MainWindow tab 2 edit button interaction&quot;&quot;&quot;</span>
         <span class="n">MainWindowMethods</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;edit command&quot;</span><span class="p">)</span>
-        <span class="n">parameters_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span>
+        <span class="n">parameters_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">active_item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">edit_existing_command</span><span class="p">(</span><span class="n">parameters_key</span><span class="p">)</span></div>
@@ -1360,10 +1260,10 @@
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">commandParameters</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Child Command Parameters&quot;</span><span class="p">)</span>
             <span class="n">cmd_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">active_item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="n">prm_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">cmd_idx</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
-            <span class="n">rt_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">cmd_idx</span><span class="p">][</span><span class="s2">&quot;root index key&quot;</span><span class="p">]</span>
-            <span class="n">rt_prm_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">rt_idx</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
-            <span class="n">parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">prm_key</span><span class="p">]</span>
+            <span class="n">prm_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">cmd_idx</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
+            <span class="n">rt_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">cmd_idx</span><span class="p">][</span><span class="s2">&quot;root index key&quot;</span><span class="p">]</span>
+            <span class="n">rt_prm_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;index&quot;</span><span class="p">][</span><span class="n">rt_idx</span><span class="p">][</span><span class="s2">&quot;parameters key&quot;</span><span class="p">]</span>
+            <span class="n">parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">prm_key</span><span class="p">]</span>
             <span class="n">item_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span><span class="n">rt_prm_idx</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchExactly</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">item</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">item_list</span><span class="p">):</span>

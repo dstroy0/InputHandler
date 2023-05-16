@@ -225,7 +225,7 @@
 <span id="logging-setup"></span><h1>logging_setup<a class="headerlink" href="#module-logging_setup" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="logging_setup.Logger">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">logging_setup.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">logging_setup.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><a class="reference internal" href="../_modules/logging_setup.html#Logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>logging api</p>
 <dl class="simple">
@@ -253,6 +253,16 @@
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="logging_setup.Logger.get_root_logger">
+<span class="sig-name descname"><span class="pre">get_root_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.get_root_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.get_root_logger" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="logging_setup.Logger.get_stream_logger">
+<span class="sig-name descname"><span class="pre">get_stream_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_log_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.get_stream_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.get_stream_logger" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="logging_setup.Logger.level_lookup">
@@ -377,6 +387,8 @@
 <li><a class="reference internal" href="#logging_setup.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a><ul>
 <li><a class="reference internal" href="#logging_setup.Logger.get_child_logger"><code class="docutils literal notranslate"><span class="pre">Logger.get_child_logger()</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.get_file_handler"><code class="docutils literal notranslate"><span class="pre">Logger.get_file_handler()</span></code></a></li>
+<li><a class="reference internal" href="#logging_setup.Logger.get_root_logger"><code class="docutils literal notranslate"><span class="pre">Logger.get_root_logger()</span></code></a></li>
+<li><a class="reference internal" href="#logging_setup.Logger.get_stream_logger"><code class="docutils literal notranslate"><span class="pre">Logger.get_stream_logger()</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.level_lookup"><code class="docutils literal notranslate"><span class="pre">Logger.level_lookup</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.log_setup_complete"><code class="docutils literal notranslate"><span class="pre">Logger.log_setup_complete</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.session_log_level"><code class="docutils literal notranslate"><span class="pre">Logger.session_log_level</span></code></a></li>

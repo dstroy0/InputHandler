@@ -286,7 +286,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">CommandParametersMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_qdialog</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cliopt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span>
         <span class="c1"># inherit from parameters.py</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandarguments_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_commandarguments_string</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parse_commandarguments_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_commandarguments_string</span>
@@ -424,7 +424,7 @@
         <span class="n">settings_to_validate</span><span class="p">[</span><span class="s2">&quot;functionName&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
             <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_parameters_user_input_objects</span><span class="p">[</span><span class="s2">&quot;commandString&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
             <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
-            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">])</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">])</span>
         <span class="p">)</span>
         <span class="n">settings_to_validate</span><span class="p">[</span>
             <span class="s2">&quot;commandString&quot;</span>
@@ -620,7 +620,7 @@
 
 <div class="viewcode-block" id="CommandParametersMethods.edit_existing_command"><a class="viewcode-back" href="../modules/command_parameters.html#command_parameters.CommandParametersMethods.edit_existing_command">[docs]</a>    <span class="k">def</span> <span class="nf">edit_existing_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters_key</span><span class="p">):</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">command_parameters_input_field_settings_dict</span><span class="p">)</span>
-        <span class="n">command_parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">parameters_key</span><span class="p">]</span>
+        <span class="n">command_parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">parameters_key</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
             <span class="n">fields</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">command_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">commandparameters_set_fields</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
@@ -648,10 +648,10 @@
         <span class="c1"># edit commands</span>
         <span class="k">if</span> <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">editing_existing_command</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">editing_existing_command</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># reset state</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span>
                 <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">existing_command_parameters_key</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                 <span class="p">{</span>
                     <span class="n">CommandParametersMethods</span><span class="o">.</span><span class="n">existing_command_parameters_key</span><span class="p">:</span> <span class="n">validated_result</span>
                 <span class="p">}</span>
@@ -668,14 +668,16 @@
             <span class="k">return</span>
 
         <span class="c1"># new commands</span>
-        <span class="n">cmd_idx</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">])</span>
+        <span class="n">cmd_idx</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;primary id key&quot;</span><span class="p">])</span>
         <span class="c1"># root command</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">active_item</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">()</span>
             <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">active_item</span> <span class="o">==</span> <span class="kc">None</span>
         <span class="p">):</span>
             <span class="c1"># make dict from defined keys</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">cmd_idx</span><span class="p">:</span> <span class="n">validated_result</span><span class="p">})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">cmd_idx</span><span class="p">:</span> <span class="n">validated_result</span><span class="p">}</span>
+            <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">add_command_to_tree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">invisibleRootItem</span><span class="p">())</span>
         <span class="c1"># non root command</span>
         <span class="k">else</span><span class="p">:</span>
@@ -690,7 +692,9 @@
             <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="o">.</span><span class="n">findItems</span><span class="p">(</span>
                 <span class="n">parent_string</span><span class="p">,</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchWrap</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MatchRecursive</span><span class="p">,</span> <span class="mi">0</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cliOpt</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">cmd_idx</span><span class="p">:</span> <span class="n">validated_result</span><span class="p">})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">[</span><span class="s2">&quot;commands&quot;</span><span class="p">][</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">cmd_idx</span><span class="p">:</span> <span class="n">validated_result</span><span class="p">}</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="n">items</span><span class="p">:</span>
                 <span class="n">parent</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">cmd_idx_key</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
