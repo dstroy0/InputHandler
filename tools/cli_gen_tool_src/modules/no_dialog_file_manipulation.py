@@ -5,6 +5,8 @@ import json
 class NoDialogFileManipulation(object):
     def __init__(self) -> None:
         super(NoDialogFileManipulation, self).__init__()
+    
+    def setup_logging(self):
         NoDialogFileManipulation.logger = self.get_child_logger(__name__)
 
     def write_cli_gen_tool_json(self):
@@ -100,3 +102,30 @@ class NoDialogFileManipulation(object):
         except Exception as e:
             NoDialogFileManipulation.logger.warning(str(e))
             return [-4, {}]
+    def load_cli_gen_tool_json(self, path):
+        """load session json
+
+        Args:
+            path (str): path to json
+
+        Returns:
+            int: filesize
+        """        
+        read_json_result = self.read_json(path)
+        error = read_json_result[0]
+        _json = read_json_result[1]
+        if error == -2:  # file not exists
+            NoDialogFileManipulation.logger.info(
+                "cli_gen_tool.json doesn't exist, using default options"
+            )
+            _json = self.defaultGuiOpt
+            _json["opt"]["inputhandler_config_file_path"] = self.default_lib_config_path
+            return _json
+        if error == -3:            
+            NoDialogFileManipulation.logger.warning(
+                "open cli_gen_tool.json error; using default options"
+            )
+            _json = self.defaultGuiOpt
+            _json["opt"]["inputhandler_config_file_path"] = self.default_lib_config_path
+            return _json
+        return _json

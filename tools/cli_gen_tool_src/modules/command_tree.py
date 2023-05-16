@@ -689,7 +689,7 @@ class CommandTreeMethods(object):
         container = self.ui.command_tree_container
         container.layout = QHBoxLayout(container)
         self.command_tree = CommandTreeWidget(
-            self, self.cliOpt, CommandTreeMethods.logger
+            self, self.cli_options, CommandTreeMethods.logger
         )
         container.layout.addWidget(self.command_tree)
         container.setLayout(container.layout)
@@ -699,7 +699,7 @@ class CommandTreeMethods(object):
         container = self.ui.command_tree_container
         container.layout.removeWidget(self.command_tree)
         self.command_tree = CommandTreeWidget(
-            self, self.cliOpt, CommandTreeMethods.logger
+            self, self.cli_options, CommandTreeMethods.logger
         )
         container.layout.addWidget(self.command_tree)
 

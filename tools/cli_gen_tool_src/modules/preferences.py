@@ -31,7 +31,7 @@ class PreferencesMethods(object):
         PreferencesMethods.logger = self.get_child_logger(__name__)
         self._parent = self
         self.create_qdialog = self._parent.create_qdialog
-        self.cliopt = self._parent.cliOpt
+        self.cliopt = self._parent.cli_options
         self.session = self._parent.session
         self.dlg = self.preferences.dlg
 
@@ -131,14 +131,18 @@ class PreferencesMethods(object):
             if str(cmb.currentText()) != "Disabled":
                 self.settings_tree.setCurrentItem(item)
                 cmb.setCurrentIndex(cmb.findText("Disabled"))
-                self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = False
+                self.cli_options["builtin methods"]["var"][
+                    self.builtin_methods[x]
+                ] = False
         elif (
             self.builtin_methods[x] not in self.active_builtins and state == Qt.Checked
         ):
             if str(cmb.currentText()) != "Enabled":
                 self.settings_tree.setCurrentItem(item)
                 cmb.setCurrentIndex(cmb.findText("Enabled"))
-                self.cliOpt["builtin methods"]["var"][self.builtin_methods[x]] = True
+                self.cli_options["builtin methods"]["var"][
+                    self.builtin_methods[x]
+                ] = True
 
     def set_line_edit_text(self, le: QLineEdit):
         """sets line edit text
@@ -267,7 +271,7 @@ class PreferencesMethods(object):
                 _obj_list[i].setCheckState(Qt.Unchecked)
                 i += 1
 
-        if int(self.cliOpt["process output"]["var"]["buffer size"]) < int(
+        if int(self.cli_options["process output"]["var"]["buffer size"]) < int(
             self.session["opt"]["output"]["buffer size"]
         ):
             PreferencesMethods.logger.info(
@@ -275,16 +279,18 @@ class PreferencesMethods(object):
                 + str(self.session["opt"]["output"]["buffer size"])
                 + " bytes."
             )
-            self.cliOpt["process output"]["var"]["buffer size"] = str(
+            self.cli_options["process output"]["var"]["buffer size"] = str(
                 self.session["opt"]["output"]["buffer size"]
             )
             items = self.settings_tree.findItems(
                 "buffer size", Qt.MatchExactly | Qt.MatchWrap | Qt.MatchRecursive, 1
             )
             item = items[0]
-            item.setData(3, 0, str(self.cliOpt["process output"]["var"]["buffer size"]))
+            item.setData(
+                3, 0, str(self.cli_options["process output"]["var"]["buffer size"])
+            )
         if (
-            self.cliOpt["process output"]["var"]["output stream"]
+            self.cli_options["process output"]["var"]["output stream"]
             != self.session["opt"]["output"]["stream"]
         ):
             PreferencesMethods.logger.info(
@@ -292,7 +298,7 @@ class PreferencesMethods(object):
                 + str(self.session["opt"]["output"]["stream"])
                 + "."
             )
-            self.cliOpt["process output"]["var"]["output stream"] = str(
+            self.cli_options["process output"]["var"]["output stream"] = str(
                 self.session["opt"]["output"]["stream"]
             )
             items = self.settings_tree.findItems(
@@ -300,7 +306,7 @@ class PreferencesMethods(object):
             )
             item = items[0]
             item.setData(
-                3, 0, str(self.cliOpt["process output"]["var"]["output stream"])
+                3, 0, str(self.cli_options["process output"]["var"]["output stream"])
             )
         PreferencesMethods.logger.info("User preferences set.")
 

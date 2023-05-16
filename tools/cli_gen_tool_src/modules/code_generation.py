@@ -348,7 +348,7 @@ class CodeGeneration(
         self.session = self._parent.session
         self.minimum_file_len = self.minimum_file_len
         self.input_config_file_lines = self.input_config_file_lines
-        self.cliOpt = self.cliOpt
+        self.cli_options = self.cli_options
         self.qcursor = self.qcursor
         self.tab_1 = ""
         self.tab_2 = ""
@@ -534,7 +534,7 @@ class CodeGeneration(
             self,
             container,
             self.code_preview_dict,
-            self.cliOpt,
+            self.cli_options,
         )
         self.tab_1._cursor = self.qcursor
         container.layout.addWidget(self.tab_1)
@@ -549,7 +549,7 @@ class CodeGeneration(
             self,
             container,
             self.code_preview_dict,
-            self.cliOpt,
+            self.cli_options,
         )
         self.tab_1._cursor = self.qcursor
         container.layout.addWidget(self.tab_2)
@@ -760,7 +760,7 @@ class CodePreviewWidget(
         self.parameters_h = parent.parameters_h
         self.functions_h = parent.functions_h
 
-        self.cliOpt = parent.cliOpt
+        self.cli_options = parent.cli_options
         self.input_config_file_lines = parent.input_config_file_lines
         self.minimum_file_len = parent.minimum_file_len
 
@@ -871,11 +871,45 @@ class CodePreviewWidget(
 
     def initial_code_preview(self):
         """make initial code preview available to user"""
-        self.readme_md(None, False)
-        self.config_h(None, False)
-        self.cli_h(None, False)
-        self.parameters_h(None, False)
-        self.functions_h(None, False)
+        code_string = self.readme_md()
+        self.code_preview_dict["files"]["README.md"]["file_string"] = code_string
+        self.set_code_string("README.md", code_string, None, False)
+        self.code_preview_dict["files"]["README.md"]["file_lines_list"] = []
+        self.code_preview_dict["files"]["README.md"][
+            "file_lines_list"
+        ] = code_string.split("\n")
+
+        code_string = self.config_h()
+        self.code_preview_dict["files"]["config.h"]["file_string"] = code_string
+        self.set_code_string("config.h", code_string, None, False)
+        self.code_preview_dict["files"]["config.h"]["file_lines_list"] = []
+        self.code_preview_dict["files"]["config.h"][
+            "file_lines_list"
+        ] = code_string.split("\n")
+
+        code_string = self.cli_h()
+        self.code_preview_dict["files"]["CLI.h"]["file_string"] = code_string
+        self.set_code_string("CLI.h", code_string, None, False)
+        self.code_preview_dict["files"]["CLI.h"]["file_lines_list"] = []
+        self.code_preview_dict["files"]["CLI.h"]["file_lines_list"] = code_string.split(
+            "\n"
+        )
+
+        code_string = self.parameters_h()
+        self.code_preview_dict["files"]["parameters.h"]["file_string"] = code_string
+        self.set_code_string("parameters.h", code_string, None, False)
+        self.code_preview_dict["files"]["parameters.h"]["file_lines_list"] = []
+        self.code_preview_dict["files"]["parameters.h"][
+            "file_lines_list"
+        ] = code_string.split("\n")
+
+        code_string = self.functions_h()
+        self.code_preview_dict["files"]["functions.h"]["file_string"] = code_string
+        self.set_code_string("functions.h", code_string, None, False)
+        self.code_preview_dict["files"]["functions.h"]["file_lines_list"] = []
+        self.code_preview_dict["files"]["functions.h"][
+            "file_lines_list"
+        ] = code_string.split("\n")
 
     def item_changed(self, item, column):
         """tree item iteraction sentinel
@@ -918,7 +952,7 @@ class CodePreviewWidget(
                 "widget"
             ]
 
-    def update_code(self, file: str, item_string: str, place_cursor: bool) -> None:
+    def update_code(self, filename: str, item_string: str, place_cursor: bool) -> None:
         """updates code in text_widget.objectName(`file`);
            highlights `item_string` if exists;
            places the cursor on `item_string` if `place_cursor` True.
@@ -928,18 +962,52 @@ class CodePreviewWidget(
             item_string (str): item within `file` that changed, if any.
             place_cursor (bool): place the text cursor on `item_string` if True and `item_string` exists.
         """
-        self.logger.debug("update {filename}".format(filename=file))
+        self.logger.debug("update {filename}".format(filename=filename))
+
         # update widgets
-        if file == "README.md":
-            self.readme_md(item_string, place_cursor)
-        if file == "config.h":
-            self.config_h(item_string, place_cursor)
-        if file == "CLI.h":
-            self.cli_h(item_string, place_cursor)
-        if file == "parameters.h":
-            self.parameters_h(item_string, place_cursor)
-        if file == "functions.h":
-            self.functions_h(item_string, place_cursor)
+        if filename == "README.md":
+            code_string = self.readme_md()
+            self.code_preview_dict["files"]["README.md"]["file_string"] = code_string
+            self.set_code_string("README.md", code_string, item_string, place_cursor)
+            self.code_preview_dict["files"]["README.md"]["file_lines_list"] = []
+            self.code_preview_dict["files"]["README.md"][
+                "file_lines_list"
+            ] = code_string.split("\n")
+
+        elif filename == "config.h":
+            code_string = self.config_h()
+            self.code_preview_dict["files"]["config.h"]["file_string"] = code_string
+            self.set_code_string("config.h", code_string, item_string, place_cursor)
+            self.code_preview_dict["files"]["config.h"]["file_lines_list"] = []
+            self.code_preview_dict["files"]["config.h"][
+                "file_lines_list"
+            ] = code_string.split("\n")
+
+        elif filename == "CLI.h":
+            code_string = self.cli_h()
+            self.code_preview_dict["files"]["CLI.h"]["file_string"] = code_string
+            self.set_code_string("CLI.h", code_string, item_string, place_cursor)
+            self.code_preview_dict["files"]["CLI.h"]["file_lines_list"] = []
+            self.code_preview_dict["files"]["CLI.h"][
+                "file_lines_list"
+            ] = code_string.split("\n")
+        elif filename == "parameters.h":
+            code_string = self.parameters_h()
+            self.code_preview_dict["files"]["parameters.h"]["file_string"] = code_string
+            self.set_code_string("parameters.h", code_string, item_string, place_cursor)
+            self.code_preview_dict["files"]["parameters.h"]["file_lines_list"] = []
+            self.code_preview_dict["files"]["parameters.h"][
+                "file_lines_list"
+            ] = code_string.split("\n")
+
+        elif filename == "functions.h":
+            code_string = self.functions_h()
+            self.code_preview_dict["files"]["functions.h"]["file_string"] = code_string
+            self.set_code_string("functions.h", code_string, item_string, place_cursor)
+            self.code_preview_dict["files"]["functions.h"]["file_lines_list"] = []
+            self.code_preview_dict["files"]["functions.h"][
+                "file_lines_list"
+            ] = code_string.split("\n")
 
     def build_tree(self) -> None:
         """builds codepreviewwidgets"""

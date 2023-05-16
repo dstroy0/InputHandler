@@ -538,7 +538,9 @@ class SettingsTreeWidget(QTreeWidget):
                 + str(val_type)
             )
         SettingsTreeMethods.logger.debug(
-            str("self.cliOpt['config']['var']['{}']:".format(object_data["pos"][2]))
+            str(
+                "self.cli_options['config']['var']['{}']:".format(object_data["pos"][2])
+            )
             + "\n"
             + str(
                 json.dumps(info, indent=2, sort_keys=False, default=lambda o: "object")
@@ -671,7 +673,7 @@ class SettingsTreeMethods(object):
         container = self.ui.settings_tree_container
         container.layout = QHBoxLayout(container)
         self.settings_tree = SettingsTreeWidget(
-            self, self.cliOpt, self.session, SettingsTreeMethods.logger
+            self, self.cli_options, self.session, SettingsTreeMethods.logger
         )
         container.layout.addWidget(self.settings_tree)
         container.setLayout(container.layout)
@@ -681,7 +683,7 @@ class SettingsTreeMethods(object):
         container = self.ui.settings_tree_container
         container.layout.removeWidget(self.settings_tree)
         self.settings_tree = SettingsTreeWidget(
-            self, self.cliOpt, self.session, SettingsTreeMethods.logger
+            self, self.cli_options, self.session, SettingsTreeMethods.logger
         )
         container.layout.addWidget(self.settings_tree)
 

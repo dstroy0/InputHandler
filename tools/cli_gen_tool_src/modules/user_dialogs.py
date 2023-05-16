@@ -1,12 +1,133 @@
-import os
-from PySide6.QtWidgets import QDialog, QFileDialog, QDialogButtonBox, QStyle
+import os, sys, json
+from PySide6.QtWidgets import (
+    QDialog,
+    QFileDialog,
+    QDialogButtonBox,
+    QStyle,
+    QWidget,
+    QVBoxLayout,
+    QLabel,
+    QSizePolicy,
+)
 from PySide6.QtCore import Qt, QFile, QDir, QRegularExpression
+from PySide6.QtGui import QIcon
 
 
 class UserDialogs(object):
     def __init__(self) -> None:
-        super(UserDialogs, self).__init__(__name__)
+        super(UserDialogs, self).__init__()
+
+    def setup_logging(self):
         UserDialogs.logger = self.get_child_logger(__name__)
+
+    ## spawn a dialog box
+    def create_qdialog(
+        self,
+        message,
+        message_text_alignment,
+        message_text_interaction_flags,
+        window_title=None,
+        buttons=None,
+        button_text=None,
+        icon: QStyle.StandardPixmap = None,
+        screen=None,
+    ):
+        """creates a QDialog
+
+        Args:
+            message (str): message content
+            message_text_alignment (Qt): message alignment flags
+            message_text_interaction_flags (Qt): text interaction flags
+            window_title (str, optional): window title. Defaults to None.
+            buttons (list, optional): list of QDialogButtonBox button types. Defaults to None.
+            button_text (list, optional): lsit of button texts. Defaults to None.
+            icon (QIcon, optional): window icon. Defaults to None.
+            screen (QScreen, optional): screen to display QDialog on. Defaults to None.
+
+        Returns:
+            exitcode: QDialog exit code
+        """
+        _buttons = []
+
+        if not isinstance(self, QWidget):
+            self = self.root
+
+        dlg = QDialog(self)
+
+        def button_box_clicked(button):
+            _match = 0
+            for i in range(len(_buttons)):
+                if button == _buttons[i]:
+                    _match = i
+                    break
+            b = QDialogButtonBox.StandardButton
+            if buttons[_match] == b.Ok:
+                dlg.accept()
+            if buttons[_match] == b.Cancel:
+                dlg.reject()
+            if buttons[_match] == b.Save:
+                dlg.done(2)
+            if buttons[_match] == b.Close:
+                dlg.done(3)
+            if buttons[_match] == b.Open:
+                dlg.done(4)
+
+        # create popup
+        dlg.layout = QVBoxLayout()
+        dlg.label = QLabel()
+        dlg.label.setMinimumSize(0, 15)
+        dlg.label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        dlg.label.setTextFormat(Qt.AutoText)
+        dlg.label.setText(message)
+        dlg.label.setAlignment(message_text_alignment)
+
+        if type(message_text_interaction_flags) == Qt.TextInteractionFlag:
+            dlg.label.setTextInteractionFlags(message_text_interaction_flags)
+        elif type(message_text_interaction_flags) == Qt.TextInteractionFlags:
+            dlg.label.setTextInteractionFlags(message_text_interaction_flags)
+        dlg.label.setOpenExternalLinks(True)
+        dlg.layout.addWidget(dlg.label)
+
+        if buttons != None:
+            dlg.button_box = QDialogButtonBox(dlg)
+            idx = 0
+            for item in buttons:
+                _button = dlg.button_box.addButton(item)
+                if button_text[idx] != "":
+                    _button.setText(button_text[idx])
+                _buttons.append(_button)
+                idx += 1
+            dlg.button_box.clicked.connect(button_box_clicked)
+            dlg.button_box.setCenterButtons(True)
+            dlg.layout.addWidget(dlg.button_box)
+        dlg.setLayout(dlg.layout)
+        if icon != None:
+            dlg.setWindowIcon(QIcon(QWidget().style().standardIcon(icon)))
+        if window_title != None:
+            dlg.setWindowTitle(window_title)
+        dlg.setWindowFlags(dlg.windowFlags() | Qt.WindowStaysOnTopHint)
+
+        dlg.activateWindow()  # brings focus to the popup
+
+        # center dialog on screen
+        if screen == None:
+            _qscreen = self.app.primaryScreen()
+        else:
+            _qscreen = screen
+
+        _fg = dlg.frameGeometry()
+        center_point = _qscreen.availableGeometry().center()
+        center_point.setX(center_point.x() - (_fg.x() / 2))
+        center_point.setY(center_point.y() - (_fg.y() / 2))
+        _fg.moveCenter(center_point)
+        info = ""
+        if bool(self.objectName()):
+            info = self.objectName()
+        else:
+            info = str(self)
+        self.logger.info(info + " creating QDialog on: " + _qscreen.name())
+        ret = dlg.exec()  # return the dialog exit code
+        return ret
 
     # TODO fix icon
     def create_file_error_qdialog(self, error_type: str, qfile: QFile):
@@ -130,7 +251,7 @@ class UserDialogs(object):
                 )
                 if result == QDialog.Accepted:
                     self.save_file()
-            self.cliOpt = read_json_result[1]
+            self.cli_options = read_json_result[1]
         else:
             UserDialogs.logger.info("Incorrect json type")
             self.create_file_error_qdialog("Incorrect json type", file)
@@ -143,7 +264,7 @@ class UserDialogs(object):
 
         # rebuild the trees from the new cli options file
         UserDialogs.logger.debug("rebuilding trees")
-        self.cliOpt["commands"]["primary id key"] = "0"
+        self.cli_options["commands"]["primary id key"] = "0"
         self.session["opt"]["save_file_path"] = path
         self._parent.loading = True
         self.rebuild_command_tree()
@@ -166,3 +287,101 @@ class UserDialogs(object):
         UserDialogs.logger.debug("remake recent files menu")
         self.ui.actionOpen_Recent.setMenu(self.get_recent_files_menu())
         return read_json_result  # return size of file read
+
+    def get_inputhandler_dir_from_user(self):
+        dir_dlg = QFileDialog(self)
+        _dlg_result = dir_dlg.getExistingDirectory(
+            self,
+            "Select InputHandler's directory",
+            "",
+            options=QFileDialog.DontUseNativeDialog
+            | QFileDialog.ShowDirsOnly
+            | QFileDialog.DontResolveSymlinks,
+        )
+        if _dlg_result == QFileDialog.rejected:
+            b = QDialogButtonBox.StandardButton
+            buttons = [b.Ok, b.Close]
+            button_text = ["Select InputHandler's directory", "Close this tool"]
+            result = self.root.create_qdialog(
+                "You must select InputHandler's root directory to use this tool.",
+                Qt.AlignCenter,
+                Qt.NoTextInteraction,
+                "Error, InputHandler's directory not located!",
+                buttons,
+                button_text,
+                QStyle.StandardPixmap.SP_MessageBoxCritical,
+                self.qscreen,
+            )
+            if result == QDialog.Accepted:
+                self.get_inputhandler_dir_from_user()
+            if result == 3:
+                sys.exit("Need InputHandler's directory for tool dependencies.")
+
+        _lib_root_path = QDir(_dlg_result)
+        _file_dir_list = _lib_root_path.toNativeSeparators(
+            _lib_root_path.absolutePath()
+        ).split(_lib_root_path.separator())
+        if "InputHandler" not in _file_dir_list:
+            self.get_inputhandler_dir_from_user()
+
+    def set_up_session(self):
+        """sets up user session json"""
+        self.logger.debug("Attempt session json load.")
+        # load cli_gen_tool (session) json if exists, else use default options
+        self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
+        # pretty session json
+        # session json contains only json serializable items, safe to print
+        self.logger.debug(
+            "cli_gen_tool.json =\n" + str(json.dumps(self.session, indent=2))
+        )
+        last_interface = QFile()
+        if self.session["opt"]["save_file_path"] is not None:
+            last_interface_path = QDir(self.session["opt"]["save_file_path"])
+            self.logger.debug("Attempt load last interface")
+            last_interface = QFile(
+                last_interface_path.toNativeSeparators(
+                    last_interface_path.absolutePath()
+                )
+            )
+        if self.session["opt"]["save_file_path"] != "" and last_interface.exists():
+            result = self.read_json(last_interface)
+            self.cli_options = result[1]
+            self.cli_options["commands"]["primary id key"] = "0"
+        elif (
+            self.session["opt"]["save_file_path"] != "" and not last_interface.exists()
+        ):
+            b = QDialogButtonBox.StandardButton
+            buttons = [b.Ok, b.Cancel]
+            button_text = ["Select last file", "Continue without locating"]
+            result = self.create_qdialog(
+                "Cannot locate last working file: " + str(last_interface.fileName()),
+                Qt.AlignCenter,
+                Qt.NoTextInteraction,
+                "Error, cannot find interface file!",
+                buttons,
+                button_text,
+                QStyle.StandardPixmap.SP_MessageBoxCritical,
+            )
+            if result == QDialog.Accepted:
+                dlg = QFileDialog(self)
+                result = dlg.getOpenFileName(
+                    self,
+                    "Locate: " + last_interface.fileName(),
+                    last_interface_path.toNativeSeparators(
+                        last_interface_path.absoluteFilePath(last_interface.fileName())
+                    ),
+                    "*.json",
+                    options=QFileDialog.DontUseNativeDialog,
+                )
+                if result == QFileDialog.rejected:
+                    self.logger.info(
+                        "User couldn't locate last working file, continuing."
+                    )
+            else:
+                self.logger.info(
+                    "Couldn't locate last working file: "
+                    + str(self.session["opt"]["save_file_path"])
+                )
+                self.session["opt"]["save_file_path"] = ""
+
+                self.set_main_window_title("InputHandler CLI generation tool ")

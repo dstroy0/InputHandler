@@ -63,7 +63,7 @@ class CommandParametersMethods(object):
         super(CommandParametersMethods, self).__init__()
         CommandParametersMethods.logger = self.get_child_logger(__name__)
         self.create_qdialog = self.create_qdialog
-        self.cliopt = self.cliOpt
+        self.cliopt = self.cli_options
         # inherit from parameters.py
         self.generate_commandarguments_string = self.generate_commandarguments_string
         self.parse_commandarguments_string = self.parse_commandarguments_string
@@ -201,7 +201,7 @@ class CommandParametersMethods(object):
         settings_to_validate["functionName"] = str(
             str(self.command_parameters_user_input_objects["commandString"].text())
             + "_"
-            + str(self.cliOpt["commands"]["primary id key"])
+            + str(self.cli_options["commands"]["primary id key"])
         )
         settings_to_validate[
             "commandString"
@@ -397,7 +397,7 @@ class CommandParametersMethods(object):
 
     def edit_existing_command(self, parameters_key):
         fields = copy.deepcopy(dataModels.command_parameters_input_field_settings_dict)
-        command_parameters = self.cliOpt["commands"]["parameters"][parameters_key]
+        command_parameters = self.cli_options["commands"]["parameters"][parameters_key]
         for key in fields:
             fields[key]["value"] = command_parameters[key]
         self.commandparameters_set_fields(fields)
@@ -425,10 +425,10 @@ class CommandParametersMethods(object):
         # edit commands
         if CommandParametersMethods.editing_existing_command == True:
             CommandParametersMethods.editing_existing_command = False  # reset state
-            self.cliOpt["commands"]["parameters"].pop(
+            self.cli_options["commands"]["parameters"].pop(
                 CommandParametersMethods.existing_command_parameters_key
             )
-            self.cliOpt["commands"]["parameters"].update(
+            self.cli_options["commands"]["parameters"].update(
                 {
                     CommandParametersMethods.existing_command_parameters_key: validated_result
                 }
@@ -445,14 +445,16 @@ class CommandParametersMethods(object):
             return
 
         # new commands
-        cmd_idx = str(self.cliOpt["commands"]["primary id key"])
+        cmd_idx = str(self.cli_options["commands"]["primary id key"])
         # root command
         if (
             self.command_tree.active_item == self.command_tree.invisibleRootItem()
             or self.command_tree.active_item == None
         ):
             # make dict from defined keys
-            self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
+            self.cli_options["commands"]["parameters"].update(
+                {cmd_idx: validated_result}
+            )
             self.command_tree.add_command_to_tree(self.command_tree.invisibleRootItem())
         # non root command
         else:
@@ -467,7 +469,9 @@ class CommandParametersMethods(object):
             items = self.command_tree.findItems(
                 parent_string, Qt.MatchWrap | Qt.MatchRecursive, 0
             )
-            self.cliOpt["commands"]["parameters"].update({cmd_idx: validated_result})
+            self.cli_options["commands"]["parameters"].update(
+                {cmd_idx: validated_result}
+            )
             if items:
                 parent = items[0]
                 cmd_idx_key = parent.data(1, 0)

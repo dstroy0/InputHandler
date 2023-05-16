@@ -155,8 +155,6 @@ class MainWindowMethods(object):
         self.prev_command_tree_state = 0
         self.prev_settings_tree_state = 0
 
-    
-
     def get_initial_config_path(self):
         """get initial path to config"""
         self.old_path = QDir(
@@ -411,68 +409,6 @@ class MainWindowMethods(object):
             )
         )
 
-    def set_up_session(self):
-        """sets up user session json"""
-        self.logger.debug("Attempt session json load.")
-        # load cli_gen_tool (session) json if exists, else use default options
-        self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
-        # pretty session json
-        # session json contains only json serializable items, safe to print
-        self.logger.debug(
-            "cli_gen_tool.json =\n" + str(json_dumps(self.session, indent=2))
-        )
-        last_interface = QFile()
-        if self.session["opt"]["save_file_path"] is not None:
-            last_interface_path = QDir(self.session["opt"]["save_file_path"])
-            self.logger.debug("Attempt load last interface")
-            last_interface = QFile(
-                last_interface_path.toNativeSeparators(
-                    last_interface_path.absolutePath()
-                )
-            )
-        if self.session["opt"]["save_file_path"] != "" and last_interface.exists():
-            result = self.read_json(last_interface)
-            self.cliOpt = result[1]
-            self.cliOpt["commands"]["primary id key"] = "0"
-        elif (
-            self.session["opt"]["save_file_path"] != "" and not last_interface.exists()
-        ):
-            b = QDialogButtonBox.StandardButton
-            buttons = [b.Ok, b.Cancel]
-            button_text = ["Select last file", "Continue without locating"]
-            result = self.create_qdialog(
-                "Cannot locate last working file: " + str(last_interface.fileName()),
-                Qt.AlignCenter,
-                Qt.NoTextInteraction,
-                "Error, cannot find interface file!",
-                buttons,
-                button_text,
-                QStyle.StandardPixmap.SP_MessageBoxCritical,
-            )
-            if result == QDialog.Accepted:
-                dlg = QFileDialog(self)
-                result = dlg.getOpenFileName(
-                    self,
-                    "Locate: " + last_interface.fileName(),
-                    last_interface_path.toNativeSeparators(
-                        last_interface_path.absoluteFilePath(last_interface.fileName())
-                    ),
-                    "*.json",
-                    options=QFileDialog.DontUseNativeDialog,
-                )
-                if result == QFileDialog.rejected:
-                    self.logger.info(
-                        "User couldn't locate last working file, continuing."
-                    )
-            else:
-                self.logger.info(
-                    "Couldn't locate last working file: "
-                    + str(self.session["opt"]["save_file_path"])
-                )
-                self.session["opt"]["save_file_path"] = ""
-
-                self.set_main_window_title("InputHandler CLI generation tool ")
-
     def set_up_ui_icons(self):
         """set up ui icons"""
         # icons
@@ -564,10 +500,6 @@ class MainWindowMethods(object):
             else:
                 os.execl(sys.executable, sys.executable, *sys.argv)
 
-
-
-    
-
     def save_file(self):
         """save working file
 
@@ -575,8 +507,8 @@ class MainWindowMethods(object):
             int: filesize on success, -1 on fail, 0 on fail
         """
         MainWindowMethods.logger.info("save CLI settings file")
-        MainWindowMethods.logger.debug("set tool version var in cliOpt")
-        self.cliOpt["var"]["tool version"] = self.version
+        MainWindowMethods.logger.debug("set tool version var in cli_options")
+        self.cli_options["var"]["tool version"] = self.version
         if (
             self.session["opt"]["save_file_path"] == ""
             or self.session["opt"]["save_file_path"] == None
@@ -586,7 +518,7 @@ class MainWindowMethods(object):
                 self.prompt_to_save = False
             return ret
         file = QFile(self.session["opt"]["save_file_path"])
-        ret = self.write_json(self.cliOpt, file, True)
+        ret = self.write_json(self.cli_options, file, True)
         if ret >= 0:
             self.prompt_to_save = False
         self.windowtitle_set = False
@@ -615,38 +547,8 @@ class MainWindowMethods(object):
         self.session["opt"]["save_file_path"] = fqname
         MainWindowMethods.logger.info("save CLI settings file as: " + str(fqname))
         file = QFile(fqname)
-        ret = self.write_json(self.cliOpt, file, True)
+        ret = self.write_json(self.cli_options, file, True)
         return ret
-
-    def load_cli_gen_tool_json(self, path):
-        """load session json
-
-        Args:
-            path (str): path to json
-
-        Returns:
-            int: filesize
-        """
-        file = QFile(path)
-        read_json_result = self.read_json(path)
-        error = read_json_result[0]
-        _json = read_json_result[1]
-        if error == -2:  # file not exists
-            MainWindowMethods.logger.info(
-                "cli_gen_tool.json doesn't exist, using default options"
-            )
-            _json = self.defaultGuiOpt
-            _json["opt"]["inputhandler_config_file_path"] = self.default_lib_config_path
-            return _json
-        if error == -3:
-            file.close()
-            MainWindowMethods.logger.warning(
-                "open cli_gen_tool.json error; using default options"
-            )
-            _json = self.defaultGuiOpt
-            _json["opt"]["inputhandler_config_file_path"] = self.default_lib_config_path
-            return _json
-        return _json
 
     
 
@@ -671,13 +573,11 @@ class MainWindowMethods(object):
                 menu.addAction(action)
         return menu
 
-    
-
     def gui_settings(self):
         """opens preferences dialog"""
         MainWindowMethods.logger.info("opened preferences dialog")
         self.preferences.exec(self.actionOpen_Recent)
-    
+
     # generate CLI files
     def generate_cli_files(self):
         """generates cli files in self.session["opt"]["cli_output_dir"]"""
@@ -1054,11 +954,11 @@ class MainWindowMethods(object):
                     clear_item = table_widget.item(row, 0)
                     clear_item.setText("")
                     self.update_code("CLI.h", object_list[2], True)
-                self.cliOpt["process parameters"]["var"][object_list[2]] = {}
+                self.cli_options["process parameters"]["var"][object_list[2]] = {}
                 for i in range(table_widget.rowCount() - 1):
-                    self.cliOpt["process parameters"]["var"][object_list[2]].update(
-                        {i: table_widget.item(i, 0).text().strip("'")}
-                    )
+                    self.cli_options["process parameters"]["var"][
+                        object_list[2]
+                    ].update({i: table_widget.item(i, 0).text().strip("'")})
                 return
             self.settings_tree.currentItem().setData(3, 0, "")
 
@@ -1103,7 +1003,7 @@ class MainWindowMethods(object):
     def clicked_edit_tab_two(self):
         """MainWindow tab 2 edit button interaction"""
         MainWindowMethods.logger.info("edit command")
-        parameters_key = self.cliOpt["commands"]["index"][
+        parameters_key = self.cli_options["commands"]["index"][
             self._parent.command_tree.active_item.data(1, 0)
         ]["parameters key"]
         self.edit_existing_command(parameters_key)
@@ -1137,10 +1037,10 @@ class MainWindowMethods(object):
             )
             self.ui.commandParameters.setWindowTitle("Child Command Parameters")
             cmd_idx = self.command_tree.active_item.data(1, 0)
-            prm_key = self.cliOpt["commands"]["index"][cmd_idx]["parameters key"]
-            rt_idx = self.cliOpt["commands"]["index"][cmd_idx]["root index key"]
-            rt_prm_idx = self.cliOpt["commands"]["index"][rt_idx]["parameters key"]
-            parameters = self.cliOpt["commands"]["parameters"][prm_key]
+            prm_key = self.cli_options["commands"]["index"][cmd_idx]["parameters key"]
+            rt_idx = self.cli_options["commands"]["index"][cmd_idx]["root index key"]
+            rt_prm_idx = self.cli_options["commands"]["index"][rt_idx]["parameters key"]
+            parameters = self.cli_options["commands"]["parameters"][prm_key]
             item_list = self.command_tree.findItems(rt_prm_idx, Qt.MatchExactly, 1)
             item = None
             if bool(item_list):

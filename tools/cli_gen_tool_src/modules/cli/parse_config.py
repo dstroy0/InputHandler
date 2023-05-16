@@ -100,7 +100,7 @@ class ParseInputHandlerConfig(object):
                         entry[text]["index"] = str(entry_key)
                         line_pos += match.capturedLength()
 
-                        self.cliOpt["config"]["var"][key].update(entry)
+                        self.cli_options["config"]["var"][key].update(entry)
                         self.default_settings_tree_values.update(entry)
                         tmp = int(index[key])
                         tmp += 1
@@ -109,7 +109,7 @@ class ParseInputHandlerConfig(object):
                         break
             line_num += 1
         ParseInputHandlerConfig.logger.debug(
-            str(json.dumps(self.cliOpt["config"], indent=2))
+            str(json.dumps(self.cli_options["config"], indent=2))
         )
 
 

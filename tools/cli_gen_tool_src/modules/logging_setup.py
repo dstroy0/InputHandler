@@ -15,7 +15,6 @@ from __future__ import absolute_import
 import os
 import logging
 from logging.handlers import RotatingFileHandler
-from PySide6.QtCore import QDir
 
 
 ## this class displays the session log history
@@ -78,33 +77,35 @@ class Logger(object):
     _log_formatter = logging.Formatter(_log_format)
 
     ## the constructor
-    def __init__(self, name) -> None:
-        """the constructor
-
-        Args:
-            name (__name__): initiator
-        """
+    def __init__(self) -> None:
         super(Logger, self).__init__()
-        if not Logger.log_setup_complete:
-            self.root_log_handler = logging.getLogger(name)
-            self.root_log_handler.setLevel(Logger.session_log_level)
-            self.stream_log_handler = logging.StreamHandler()
-            self.stream_log_handler.setLevel(Logger.session_log_level)
-            self.stream_log_handler.setFormatter(Logger._log_formatter)
-            self.root_log_handler.addHandler(self.stream_log_handler)
-            Logger.log_setup_complete = True
+    
+    def get_root_logger(self, name):
+        root_log_handler = logging.getLogger(name)
+        root_log_handler.setLevel(Logger.session_log_level)                            
+        root_log_handler.info("logging service initialized")
+        return root_log_handler
 
+    def get_stream_logger(self, root_log_handler):
+        stream_log_handler = logging.StreamHandler()
+        stream_log_handler.setLevel(Logger.session_log_level)
+        stream_log_handler.setFormatter(Logger._log_formatter)
+        root_log_handler.addHandler(stream_log_handler)
+        return stream_log_handler
+            
     ## This is called to set up the log file handler in MainWindow.__init__()
     def setup_file_handler(self):
         """sets up log file handler"""
         # logfile pathing
-        _path = QDir(self.inputhandler_save_path + Logger._log_path)
-        _abs_native_path = _path.toNativeSeparators(_path.absolutePath())
-        if not os.path.isdir(_abs_native_path):
-            os.mkdir(_abs_native_path)
+        path = os.path.abspath(
+            os.path.join(self.inputhandler_save_path, Logger._log_path)
+        )
+
+        if not os.path.isdir(path):
+            os.mkdir(path)
         # log filehandler
         self.file_log_handler = RotatingFileHandler(
-            _abs_native_path + _path.separator() + Logger._log_filename,
+            path + os.path.sep + Logger._log_filename,
             "a",
             10 * Logger._MB,
             backupCount=5,
@@ -112,10 +113,7 @@ class Logger(object):
         self.file_log_handler.setLevel(Logger.session_log_level)
         self.file_log_handler.setFormatter(Logger._log_formatter)
         self.root_log_handler.info(
-            "Log file path: "
-            + _abs_native_path
-            + _path.separator()
-            + Logger._log_filename
+            "Log file path: " + path + os.path.sep + Logger._log_filename
         )
 
     ## external modules are children of MainWindow's logging instance
