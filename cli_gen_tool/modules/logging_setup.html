@@ -232,36 +232,34 @@
 <dt>Args:</dt><dd><p>object (object): base object specialization</p>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="logging_setup.Logger.file_log_handler">
+<span class="sig-name descname"><span class="pre">file_log_handler</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#logging_setup.Logger.file_log_handler" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="logging_setup.Logger.get_child_logger">
 <span class="sig-name descname"><span class="pre">get_child_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.get_child_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.get_child_logger" title="Permalink to this definition">#</a></dt>
-<dd><p>gets child logger for __name__</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>name (__name__): child name</p>
-</dd>
-<dt>Returns:</dt><dd><p>logging.Handler: child of self.root_log_handler</p>
-</dd>
-</dl>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="logging_setup.Logger.get_file_handler">
 <span class="sig-name descname"><span class="pre">get_file_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.get_file_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.get_file_handler" title="Permalink to this definition">#</a></dt>
-<dd><p>gets the log file handler</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>logging.Handler: self.file_log_handler</p>
-</dd>
-</dl>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="logging_setup.Logger.get_root_logger">
-<span class="sig-name descname"><span class="pre">get_root_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.get_root_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.get_root_logger" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_root_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.get_root_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.get_root_logger" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="logging_setup.Logger.get_stream_logger">
-<span class="sig-name descname"><span class="pre">get_stream_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_log_handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.get_stream_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.get_stream_logger" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_stream_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.get_stream_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.get_stream_logger" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="logging_setup.Logger.kb">
+<span class="sig-name descname"><span class="pre">kb</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1024</span></em><a class="headerlink" href="#logging_setup.Logger.kb" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -270,8 +268,33 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="logging_setup.Logger.log_setup_complete">
-<span class="sig-name descname"><span class="pre">log_setup_complete</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#logging_setup.Logger.log_setup_complete" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="logging_setup.Logger.log_filename">
+<span class="sig-name descname"><span class="pre">log_filename</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cli_gen_tool.log'</span></em><a class="headerlink" href="#logging_setup.Logger.log_filename" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="logging_setup.Logger.log_format">
+<span class="sig-name descname"><span class="pre">log_format</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%(asctime)s</span> <span class="pre">-</span> <span class="pre">[%(levelname)s]</span> <span class="pre">-</span> <span class="pre">(%(filename)s).%(funcName)s(line:%(lineno)d)</span> <span class="pre">-</span> <span class="pre">%(message)s'</span></em><a class="headerlink" href="#logging_setup.Logger.log_format" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="logging_setup.Logger.log_formatter">
+<span class="sig-name descname"><span class="pre">log_formatter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;logging.Formatter</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#logging_setup.Logger.log_formatter" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="logging_setup.Logger.mb">
+<span class="sig-name descname"><span class="pre">mb</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">179769313486231590772930519078902473361797697894230657273430081157732675805500963132708477322407536021120113879871393357658789768814416622492847430639474124377767893424865485276302219601246094119453082952085005768838150682342462881473913110540827237163350510684586298239947245938479716304835356329624224137216</span></em><a class="headerlink" href="#logging_setup.Logger.mb" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="logging_setup.Logger.root_log_handler">
+<span class="sig-name descname"><span class="pre">root_log_handler</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#logging_setup.Logger.root_log_handler" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="logging_setup.Logger.session_log_handler">
+<span class="sig-name descname"><span class="pre">session_log_handler</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#logging_setup.Logger.session_log_handler" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -298,8 +321,18 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="logging_setup.Logger.setup_file_handler">
 <span class="sig-name descname"><span class="pre">setup_file_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.setup_file_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.setup_file_handler" title="Permalink to this definition">#</a></dt>
-<dd><p>sets up log file handler</p>
+<dd><p>sets up log file handler, requires Pathing.set_pathing()</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="logging_setup.Logger.setup_logging">
+<span class="sig-name descname"><span class="pre">setup_logging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/logging_setup.html#Logger.setup_logging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#logging_setup.Logger.setup_logging" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="logging_setup.Logger.stream_log_handler">
+<span class="sig-name descname"><span class="pre">stream_log_handler</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#logging_setup.Logger.stream_log_handler" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -385,16 +418,25 @@
             <ul>
 <li><a class="reference internal" href="#">logging_setup</a><ul>
 <li><a class="reference internal" href="#logging_setup.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a><ul>
+<li><a class="reference internal" href="#logging_setup.Logger.file_log_handler"><code class="docutils literal notranslate"><span class="pre">Logger.file_log_handler</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.get_child_logger"><code class="docutils literal notranslate"><span class="pre">Logger.get_child_logger()</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.get_file_handler"><code class="docutils literal notranslate"><span class="pre">Logger.get_file_handler()</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.get_root_logger"><code class="docutils literal notranslate"><span class="pre">Logger.get_root_logger()</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.get_stream_logger"><code class="docutils literal notranslate"><span class="pre">Logger.get_stream_logger()</span></code></a></li>
+<li><a class="reference internal" href="#logging_setup.Logger.kb"><code class="docutils literal notranslate"><span class="pre">Logger.kb</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.level_lookup"><code class="docutils literal notranslate"><span class="pre">Logger.level_lookup</span></code></a></li>
-<li><a class="reference internal" href="#logging_setup.Logger.log_setup_complete"><code class="docutils literal notranslate"><span class="pre">Logger.log_setup_complete</span></code></a></li>
+<li><a class="reference internal" href="#logging_setup.Logger.log_filename"><code class="docutils literal notranslate"><span class="pre">Logger.log_filename</span></code></a></li>
+<li><a class="reference internal" href="#logging_setup.Logger.log_format"><code class="docutils literal notranslate"><span class="pre">Logger.log_format</span></code></a></li>
+<li><a class="reference internal" href="#logging_setup.Logger.log_formatter"><code class="docutils literal notranslate"><span class="pre">Logger.log_formatter</span></code></a></li>
+<li><a class="reference internal" href="#logging_setup.Logger.mb"><code class="docutils literal notranslate"><span class="pre">Logger.mb</span></code></a></li>
+<li><a class="reference internal" href="#logging_setup.Logger.root_log_handler"><code class="docutils literal notranslate"><span class="pre">Logger.root_log_handler</span></code></a></li>
+<li><a class="reference internal" href="#logging_setup.Logger.session_log_handler"><code class="docutils literal notranslate"><span class="pre">Logger.session_log_handler</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.session_log_level"><code class="docutils literal notranslate"><span class="pre">Logger.session_log_level</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.set_log_levels"><code class="docutils literal notranslate"><span class="pre">Logger.set_log_levels()</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.set_up_window_history_logger"><code class="docutils literal notranslate"><span class="pre">Logger.set_up_window_history_logger()</span></code></a></li>
 <li><a class="reference internal" href="#logging_setup.Logger.setup_file_handler"><code class="docutils literal notranslate"><span class="pre">Logger.setup_file_handler()</span></code></a></li>
+<li><a class="reference internal" href="#logging_setup.Logger.setup_logging"><code class="docutils literal notranslate"><span class="pre">Logger.setup_logging()</span></code></a></li>
+<li><a class="reference internal" href="#logging_setup.Logger.stream_log_handler"><code class="docutils literal notranslate"><span class="pre">Logger.stream_log_handler</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#logging_setup.QPlainTextEditLogger"><code class="docutils literal notranslate"><span class="pre">QPlainTextEditLogger</span></code></a><ul>

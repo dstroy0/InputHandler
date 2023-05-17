@@ -258,17 +258,16 @@
 
 <span class="c1">## set up pathing, logging, splash screen</span>
 <div class="viewcode-block" id="GUI"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.GUI">[docs]</a><span class="k">class</span> <span class="nc">GUI</span><span class="p">(</span><span class="n">Pathing</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">UserDialogs</span><span class="p">,</span> <span class="n">NoDialogFileManipulation</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">GUI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">UserDialogs</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">NoDialogFileManipulation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">splashscreen_duration</span> <span class="o">=</span> <span class="n">splashscreen_duration</span>
         <span class="c1"># setup logger</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">root_log_handler</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">set_lib_root_path</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_pathing</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">parent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setup_file_handler</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_file_handler</span><span class="p">())</span>
 
@@ -280,13 +279,13 @@
         <span class="c1"># GUI styling</span>
         <span class="n">app</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">qdarktheme</span><span class="o">.</span><span class="n">load_stylesheet</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">RootWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow_screen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">primaryScreen</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading CLI generation tool.&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">import_methods</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>  <span class="c1"># pass init object to MainWindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mainwindow</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># pass init object to MainWindow</span>
         <span class="c1"># exit on user command</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">())</span>
 
@@ -331,15 +330,14 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Init</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">Pathing</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_root_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stream_log_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_stream_logger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="p">)</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_logging</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_root_logger</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream_log_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_stream_logger</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">script_cli</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
-            <span class="n">Headless</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;gui&quot;</span><span class="p">)</span>
-            <span class="n">GUI</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+            <span class="n">Headless</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>            
+            <span class="n">GUI</span><span class="p">()</span></div>
 
 
 <span class="c1"># end Initialize()</span>
