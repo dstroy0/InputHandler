@@ -24,6 +24,7 @@ from modules.user_dialogs import UserDialogs
 from modules.main_window import MainWindow
 from modules.root_widget import RootWidget
 from modules.pathing import Pathing
+from modules.logging_setup import Logger
 
 ## tool version
 version = 1.0  # save serialization
@@ -33,7 +34,7 @@ splashscreen_duration = 750
 
 
 ## set up pathing, logging, splash screen
-class GUI(Pathing, UserDialogs, NoDialogFileManipulation, object):
+class GUI(Pathing, Logger, UserDialogs, NoDialogFileManipulation, object):
     def __init__(self, parent) -> None:
         super(GUI, self).__init__()
         UserDialogs.__init__(self)
