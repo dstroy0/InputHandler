@@ -384,7 +384,7 @@ class UserDialogs(object):
                 )
                 self.session["opt"]["save_file_path"] = ""
 
-                self.set_main_window_title("InputHandler CLI generation tool ")    
+                self.set_main_window_title("InputHandler CLI generation tool ")
 
     def get_config_file(self, config_path: str = None):
         """gets new valid config file

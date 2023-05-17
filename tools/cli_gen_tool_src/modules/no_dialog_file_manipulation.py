@@ -1,3 +1,16 @@
+##
+# @file no_dialog_file_manipulation.py
+# @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+# @brief no dialog file manipulation
+# @version 1.0
+# @date 2023-05-17
+# @copyright Copyright (c) 2023
+# Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# version 3 as published by the Free Software Foundation.
+
+
 from __future__ import absolute_import
 import os
 import glob
@@ -8,7 +21,7 @@ from modules.data_models import dataModels
 
 class NoDialogFileManipulation(object):
     def __init__(self) -> None:
-        super().__init__()    
+        super().__init__()
         NoDialogFileManipulation.logger = self.get_child_logger(__name__)
 
     def write_cli_gen_tool_json(self):
@@ -114,7 +127,9 @@ class NoDialogFileManipulation(object):
         Returns:
             int: filesize
         """
-        read_json_result = self.read_json(os.path.abspath(os.path.join(path, "cli_gen_tool.json")))
+        read_json_result = self.read_json(
+            os.path.abspath(os.path.join(path, "cli_gen_tool.json"))
+        )
         error = read_json_result[0]
         _json = read_json_result[1]
         if error == -2:  # file not exists

@@ -22,7 +22,7 @@ from modules.script_cli import ScriptCLI  # cli_gen_tool CLI
 from modules.no_dialog_file_manipulation import NoDialogFileManipulation
 from modules.user_dialogs import UserDialogs
 from modules.main_window import MainWindow
-from modules.root_widget import RootWidget
+from modules.widgets import RootWidget
 from modules.pathing import Pathing
 from modules.logging_setup import Logger
 
@@ -113,7 +113,7 @@ class Init(Pathing, Logger, ScriptCLI, object):
         self.args = self.script_cli()
         if self.args.headless:
             Headless()
-        else:            
+        else:
             GUI()
 
 

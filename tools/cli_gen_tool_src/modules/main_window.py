@@ -61,7 +61,7 @@ from modules.command_parameters import (
 )  # command parameters interaction
 from modules.settings_tree import SettingsTreeMethods  # settings tree interaction
 from modules.preferences import PreferencesMethods  # preferences interaction
-from modules.code_generation import CodeGeneration  # code preview and generation
+from modules.gui_code_generation import GUICodeGeneration  # code preview and generation
 from modules.cli.cli_helper_methods import CLIHelperMethods  # file generation helpers
 from modules.pathing import Pathing
 from modules.logging_setup import Logger
@@ -81,7 +81,7 @@ class MainWindow(
     CommandParametersMethods,
     CommandTreeMethods,
     PreferencesMethods,
-    CodeGeneration,
+    GUICodeGeneration,
     CLIHelperMethods,
 ):
     ## The constructor.
@@ -176,7 +176,7 @@ class MainWindow(
         CommandParametersMethods.__init__(self)
         CommandTreeMethods.__init__(self)
         PreferencesMethods.__init__(self)
-        CodeGeneration.__init__(self)
+        GUICodeGeneration.__init__(self)
 
         self.set_up_ui_icons()
         self.cli_generation_dialog_setup(Ui_generateDialog())

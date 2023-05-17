@@ -31,7 +31,7 @@ from PySide6.QtWidgets import (
 # data models
 from modules.data_models import dataModels
 from modules.display_models import displayModels
-from modules.table_button_box import TableButtonBox
+from modules.widgets import TableButtonBox
 
 
 # command parameters methods

@@ -22,14 +22,12 @@ class Pathing(object):
     logs_path = None
     default_config_path = None
     cli_gen_tool_json_path = None
-    
+
     def __init__(self) -> None:
         super(Pathing, self).__init__()
 
     def set_pathing(self):
-        inputhandler_h_path = os.path.join(
-            self.lib_root_path, "src", "InputHandler.h"
-        )
+        inputhandler_h_path = os.path.join(self.lib_root_path, "src", "InputHandler.h")
         with open(inputhandler_h_path, "r") as file:
             firstline = file.readline()
         file.close()
@@ -79,14 +77,18 @@ class Pathing(object):
             if not os.path.exists(logs_path):
                 print(f"failed to make necessary directory:\n{logs_path}")
                 sys.exit(1)
-                        
+
         # /InputHandler/src/config/config.h
-        default_config_path = os.path.abspath(os.path.join(self.lib_root_path, "/src/config/config.h"))        
+        default_config_path = os.path.abspath(
+            os.path.join(self.lib_root_path, "/src/config/config.h")
+        )
         # /InputHandler/session/cli_gen_tool.json
-        cli_gen_tool_json_path = os.path.abspath(os.path.join(inputhandler_save_path, "/session/cli_gen_tool.json"))
-        
+        cli_gen_tool_json_path = os.path.abspath(
+            os.path.join(inputhandler_save_path, "/session/cli_gen_tool.json")
+        )
+
         Pathing.default_config_path = default_config_path
-        Pathing.cli_gen_tool_json_path =cli_gen_tool_json_path
+        Pathing.cli_gen_tool_json_path = cli_gen_tool_json_path
         Pathing.inputhandler_h_path = inputhandler_h_path
         Pathing.user_home_dir = user_home_dir
         Pathing.inputhandler_save_path = inputhandler_save_path

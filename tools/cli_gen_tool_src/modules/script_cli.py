@@ -31,7 +31,7 @@ class ScriptCLI(object):
             required=False,
             help="-g <InputHandler dir> <dest dir> <path to cli options json> generates a CLI",
             metavar="",
-        )        
+        )
         self.parser.add_argument(
             "-c",
             "--config",
@@ -98,7 +98,7 @@ class ScriptCLI(object):
                     + ">\nis not a cli options json, please enter the full path to a valid cli options json"
                 )
                 sys.exit(0)
-            self.cli_options = filedata        
+            self.cli_options = filedata
 
         if bool(args.config):
             filedata = ""
