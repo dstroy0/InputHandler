@@ -48,7 +48,9 @@ class cliConfig(object):
                 line = "    #define " + str(item) + " " + val
                 code_list[int(sub_dict["lineno"])] = line
 
+        
         code_string = self.list_to_code_string(code_list)
+        
         return code_string
         # end update_config_h
 

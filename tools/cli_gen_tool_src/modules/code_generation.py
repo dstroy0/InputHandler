@@ -371,8 +371,7 @@ class CodeGeneration(
             self.ui.generateDialog.dlg.outputPathLineEdit.setText(
                 self.session["opt"]["cli_output_dir"]
             )
-            arduino_compatibility = self.detect_output_type(project_path)
-            print(arduino_compatibility)
+            arduino_compatibility = self.detect_output_type(project_path)            
             if arduino_compatibility:
                 self._parent.ui.generateDialog.dlg.arduinoRadioButton.setChecked(True)
             else:
@@ -460,7 +459,7 @@ class CodeGeneration(
         )
 
     def parse_config(self):
-        """config parser wrapper"""
+        """config parser wrapper"""        
         self.parse_config_header_file(
             self.session["opt"]["inputhandler_config_file_path"]
         )
@@ -712,7 +711,7 @@ class CodePreviewWidget(
             "file_lines_list"
         ] = code_string.split("\n")
 
-        code_string = self.config_h()
+        code_string = self.config_h()        
         self.code_preview_dict["files"]["config.h"]["file_string"] = code_string
         self.set_code_string("config.h", code_string, None, False)
         self.code_preview_dict["files"]["config.h"]["file_lines_list"] = []
@@ -883,11 +882,10 @@ class CodePreviewWidget(
         text_widget = self.text_widgets[filename]["widget"]
 
         if (
-            len(self.code_preview_dict["files"][filename]["file_lines_list"])
+            len(self.code_preview_dict["files"][filename]["file_string"].split("\n"))
             <= self.minimum_file_len[filename]
         ):
-            text_widget.clear()
-            self.code_preview_dict["files"][filename]["file_lines_list"] = []
+            text_widget.clear()            
             return
 
         if filename != "README.md":
