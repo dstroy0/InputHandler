@@ -594,8 +594,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">generateDialog</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">outputPathLineEdit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;cli_output_dir&quot;</span><span class="p">]</span>
             <span class="p">)</span>
-            <span class="n">arduino_compatibility</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_output_type</span><span class="p">(</span><span class="n">project_path</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">arduino_compatibility</span><span class="p">)</span>
+            <span class="n">arduino_compatibility</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_output_type</span><span class="p">(</span><span class="n">project_path</span><span class="p">)</span>            
             <span class="k">if</span> <span class="n">arduino_compatibility</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">generateDialog</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">arduinoRadioButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -683,7 +682,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="CodeGeneration.parse_config"><a class="viewcode-back" href="../modules/code_generation.html#code_generation.CodeGeneration.parse_config">[docs]</a>    <span class="k">def</span> <span class="nf">parse_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;config parser wrapper&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;config parser wrapper&quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">parse_config_header_file</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">][</span><span class="s2">&quot;inputhandler_config_file_path&quot;</span><span class="p">]</span>
         <span class="p">)</span></div>
@@ -935,7 +934,7 @@
             <span class="s2">&quot;file_lines_list&quot;</span>
         <span class="p">]</span> <span class="o">=</span> <span class="n">code_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">code_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_h</span><span class="p">()</span>
+        <span class="n">code_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_h</span><span class="p">()</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;config.h&quot;</span><span class="p">][</span><span class="s2">&quot;file_string&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">code_string</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_code_string</span><span class="p">(</span><span class="s2">&quot;config.h&quot;</span><span class="p">,</span> <span class="n">code_string</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="s2">&quot;config.h&quot;</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1106,11 +1105,10 @@
         <span class="n">text_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_widgets</span><span class="p">[</span><span class="n">filename</span><span class="p">][</span><span class="s2">&quot;widget&quot;</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="p">(</span>
-            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">filename</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">])</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">filename</span><span class="p">][</span><span class="s2">&quot;file_string&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
             <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minimum_file_len</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span>
         <span class="p">):</span>
-            <span class="n">text_widget</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span><span class="p">[</span><span class="s2">&quot;files&quot;</span><span class="p">][</span><span class="n">filename</span><span class="p">][</span><span class="s2">&quot;file_lines_list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">text_widget</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>            
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="n">filename</span> <span class="o">!=</span> <span class="s2">&quot;README.md&quot;</span><span class="p">:</span>
