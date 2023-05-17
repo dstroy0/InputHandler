@@ -72,11 +72,11 @@ from modules.no_dialog_file_manipulation import NoDialogFileManipulation
 # MainWindow is the parent of all process subwindows
 # (MainWindow is noninteractable when any of its child popups are active except log history)
 class MainWindow(
+    QMainWindow,
     Pathing,
     Logger,
     UserDialogs,
-    NoDialogFileManipulation,
-    QMainWindow,
+    NoDialogFileManipulation,    
     SettingsTreeMethods,
     CommandParametersMethods,
     CommandTreeMethods,
@@ -243,7 +243,7 @@ class MainWindow(
             self.setWindowTitle(windowtitle)
             self.windowtitle_set = True
 
-    def eventFilter(self, watched: QObject, event: QEvent) -> bool:
+    def eventFilter(self, watched: QObject, event: QEvent):
         """MainWindow event filter
 
         Args:
@@ -279,6 +279,7 @@ class MainWindow(
                 self.command_tree.clearSelection()
                 self.command_tree.setCurrentItem(self.command_tree.invisibleRootItem())
                 self.command_tree_button_toggles()
+        return super(MainWindow, self).eventFilter(watched, event)
 
     def closeEvent(self, event: QEvent):
         """do these things on app close
