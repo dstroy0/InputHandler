@@ -24,7 +24,7 @@ class cliFunctions(object):
         super(cliFunctions, self).__init__()
 
     ## update the text for functions.h
-    def functions_h(self, item_string: str, place_cursor: bool = False) -> None:
+    def functions_h(self) -> str:
         """generates the file functions.h
 
         Args:

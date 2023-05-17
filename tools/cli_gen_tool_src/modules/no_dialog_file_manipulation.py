@@ -8,9 +8,7 @@ from modules.data_models import dataModels
 
 class NoDialogFileManipulation(object):
     def __init__(self) -> None:
-        super(NoDialogFileManipulation, self).__init__()
-
-    def setup_logging(self):
+        super().__init__()    
         NoDialogFileManipulation.logger = self.get_child_logger(__name__)
 
     def write_cli_gen_tool_json(self):
@@ -116,7 +114,7 @@ class NoDialogFileManipulation(object):
         Returns:
             int: filesize
         """
-        read_json_result = self.read_json(path)
+        read_json_result = self.read_json(os.path.abspath(os.path.join(path, "cli_gen_tool.json")))
         error = read_json_result[0]
         _json = read_json_result[1]
         if error == -2:  # file not exists

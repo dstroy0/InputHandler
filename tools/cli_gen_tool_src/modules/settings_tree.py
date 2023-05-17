@@ -34,7 +34,7 @@ from PySide6.QtGui import QCursor
 # external data models
 from modules.data_models import dataModels
 from modules.display_models import displayModels
-from modules.mainwindow_methods import TableButtonBox
+from modules.table_button_box import TableButtonBox
 
 
 # TODO update underlying data

@@ -328,7 +328,7 @@ class UserDialogs(object):
         """sets up user session json"""
         self.logger.debug("Attempt session json load.")
         # load cli_gen_tool (session) json if exists, else use default options
-        self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
+        self.session = self.load_cli_gen_tool_json(self.session_path)
         # pretty session json
         # session json contains only json serializable items, safe to print
         self.logger.debug(
@@ -384,4 +384,40 @@ class UserDialogs(object):
                 )
                 self.session["opt"]["save_file_path"] = ""
 
-                self.set_main_window_title("InputHandler CLI generation tool ")
+                self.set_main_window_title("InputHandler CLI generation tool ")    
+
+    def get_config_file(self, config_path: str = None):
+        """gets new valid config file
+
+        Args:
+            config_path (str, optional): path to alternate config. Defaults to None.
+        """
+        old_path = self.old_path
+        new_path = config_path
+        if new_path == None:
+            cfg_path_dlg = QFileDialog(self)
+            fileName = cfg_path_dlg.getOpenFileName(
+                self,
+                "InputHandler config file name",
+                QDir(
+                    self.session["opt"]["inputhandler_config_file_path"]
+                ).toNativeSeparators(
+                    self.session["opt"]["inputhandler_config_file_path"]
+                ),
+                "config.h",
+                options=QFileDialog.DontUseNativeDialog,
+            )
+            if fileName[0] == "":
+                UserDialogs.logger.info("browse for config cancelled.")
+                return
+            fqname = fileName[0]
+            new_path = QDir(fqname).absolutePath()
+            new_path = QDir(new_path).toNativeSeparators(new_path)
+        if new_path == old_path:
+            UserDialogs.logger.info("Same config file selected.")
+            return
+        self.session["opt"]["inputhandler_config_file_path"] = fqname
+        self._parent.preferences.dlg.config_path_input.setText(str(fqname))
+        self._parent.preferences.dlg.config_path_input.setToolTip(str(fqname))
+        # restart to apply selected config
+        self._parent.restart(self._parent, "New config file selected.")

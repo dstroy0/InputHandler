@@ -11,12 +11,25 @@
 # version 3 as published by the Free Software Foundation.
 
 import os, sys
+
+
 class Pathing(object):
+    inputhandler_h_path = None
+    user_home_dir = None
+    inputhandler_save_path = None
+    interfaces_path = None
+    session_path = None
+    logs_path = None
+    default_config_path = None
+    cli_gen_tool_json_path = None
+    
     def __init__(self) -> None:
         super(Pathing, self).__init__()
 
     def set_pathing(self):
-        inputhandler_h_path = os.path.join(self.lib_root_path, "src", "InputHandler.h")
+        inputhandler_h_path = os.path.join(
+            self.lib_root_path, "src", "InputHandler.h"
+        )
         with open(inputhandler_h_path, "r") as file:
             firstline = file.readline()
         file.close()
@@ -37,32 +50,54 @@ class Pathing(object):
             .replace(" ", "")
         )
         # set save pathing and make save directories
-        self.user_home_dir = os.path.expanduser("~")
-        self.inputhandler_save_path = os.path.join(
-            self.user_home_dir, "Documents", "InputHandler"
+        user_home_dir = os.path.expanduser("~")
+        inputhandler_save_path = os.path.join(
+            user_home_dir, "Documents", "InputHandler"
         )
-        if not os.path.exists(self.inputhandler_save_path):
-            os.mkdir(self.inputhandler_save_path)
-            if not os.path.exists(self.inputhandler_save_path):
+        if not os.path.exists(inputhandler_save_path):
+            os.mkdir(inputhandler_save_path)
+            if not os.path.exists(inputhandler_save_path):
                 print(
-                    f"failed to make necessary directory:\n{self.inputhandler_save_path}\nexiting."
+                    f"failed to make necessary directory:\n{inputhandler_save_path}\nexiting."
                 )
                 sys.exit(1)
-        interfaces_path = os.path.join(self.inputhandler_save_path, "interfaces")
+        interfaces_path = os.path.join(inputhandler_save_path, "interfaces")
         if not os.path.exists(interfaces_path):
             os.mkdir(interfaces_path)
             if not os.path.exists(interfaces_path):
                 print(f"failed to make necessary directory:\n{interfaces_path}")
                 sys.exit(1)
-        session_path = os.path.join(self.inputhandler_save_path, "session")
+        session_path = os.path.join(inputhandler_save_path, "session")
         if not os.path.exists(session_path):
             os.mkdir(session_path)
             if not os.path.exists(session_path):
                 print(f"failed to make necessary directory:\n{session_path}")
                 sys.exit(1)
-        logs_path = os.path.join(self.inputhandler_save_path, "logs")
+        logs_path = os.path.join(inputhandler_save_path, "logs")
         if not os.path.exists(logs_path):
             os.mkdir(logs_path)
             if not os.path.exists(logs_path):
                 print(f"failed to make necessary directory:\n{logs_path}")
                 sys.exit(1)
+                        
+        # /InputHandler/src/config/config.h
+        default_config_path = os.path.abspath(os.path.join(self.lib_root_path, "/src/config/config.h"))        
+        # /InputHandler/session/cli_gen_tool.json
+        cli_gen_tool_json_path = os.path.abspath(os.path.join(inputhandler_save_path, "/session/cli_gen_tool.json"))
+        
+        Pathing.default_config_path = default_config_path
+        Pathing.cli_gen_tool_json_path =cli_gen_tool_json_path
+        Pathing.inputhandler_h_path = inputhandler_h_path
+        Pathing.user_home_dir = user_home_dir
+        Pathing.inputhandler_save_path = inputhandler_save_path
+        Pathing.interfaces_path = interfaces_path
+        Pathing.session_path = session_path
+        Pathing.logs_path = logs_path
+        self.inputhandler_h_path = inputhandler_h_path
+        self.user_home_dir = user_home_dir
+        self.inputhandler_save_path = inputhandler_save_path
+        self.interfaces_path = interfaces_path
+        self.session_path = session_path
+        self.logs_path = logs_path
+        self.default_config_path = default_config_path
+        self.cli_gen_tool_json_path = cli_gen_tool_json_path

@@ -35,17 +35,16 @@ splashscreen_duration = 750
 
 ## set up pathing, logging, splash screen
 class GUI(Pathing, Logger, UserDialogs, NoDialogFileManipulation, object):
-    def __init__(self, parent) -> None:
-        super(GUI, self).__init__()
+    def __init__(self) -> None:
+        super().__init__()
         UserDialogs.__init__(self)
         NoDialogFileManipulation.__init__(self)
         self.version = version
         self.splashscreen_duration = splashscreen_duration
         # setup logger
-        self.root_log_handler = parent.root_log_handler
+
         self.set_lib_root_path()
         self.set_pathing()
-        self._parent = parent
         self.setup_file_handler()
         self.root_log_handler.addHandler(self.get_file_handler())
 
@@ -57,13 +56,13 @@ class GUI(Pathing, Logger, UserDialogs, NoDialogFileManipulation, object):
         # GUI styling
         app.setStyleSheet(qdarktheme.load_stylesheet())
         self.app = app
-        
+
         self.root = RootWidget(self)
 
         self.mainwindow_screen = self.app.primaryScreen()
         self.root_log_handler.info("Loading CLI generation tool.")
         self.root.import_methods()
-        self.window = MainWindow(self.root)  # pass init object to MainWindow
+        self.mainwindow = MainWindow(self)  # pass init object to MainWindow
         # exit on user command
         sys.exit(self.app.exec())
 
@@ -108,15 +107,14 @@ class Init(Pathing, Logger, ScriptCLI, object):
         super(Init, self).__init__()
         Logger.__init__(self)
         Pathing.__init__(self)
-        self.root_log_handler = self.get_root_logger(__name__)
-        self.stream_log_handler = self.get_stream_logger(self.root_log_handler)
-
+        self.setup_logging(__name__)
+        self.root_log_handler = self.get_root_logger()
+        self.stream_log_handler = self.get_stream_logger()
         self.args = self.script_cli()
         if self.args.headless:
-            Headless(self)
-        else:
-            print("gui")
-            GUI(self)
+            Headless()
+        else:            
+            GUI()
 
 
 # end Initialize()
