@@ -51,6 +51,7 @@ from PySide6.QtWidgets import (
 
 from modules.data_models import dataModels
 from modules.display_models import displayModels
+from modules.logging_setup import Logger
 
 
 class TableButtonBox(QWidget):
@@ -1505,7 +1506,7 @@ class DelimiterTableWidget(QTableWidget):
             r += 1
 
 
-class SettingsTreeWidget(QTreeWidget):
+class SettingsTreeWidget(Logger, QTreeWidget):
     def __init__(self, parent, cliopt, session, logger) -> None:
         super(SettingsTreeWidget, self).__init__()
         self.command_tree = parent.command_tree
@@ -1520,7 +1521,7 @@ class SettingsTreeWidget(QTreeWidget):
         self.session = session
         self.item_clicked = None
         self._cursor = parent.qcursor
-        self.logger = logger
+        SettingsTreeWidget.logger = self.get_child_logger(__name__)
         self._tree = parent._tree
         self.setHeaderLabel("Settings Tree")
         self.setColumnCount(5)

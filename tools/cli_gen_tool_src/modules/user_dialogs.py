@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import os, sys, json
 from PySide6.QtWidgets import (
     QDialog,
@@ -11,6 +12,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, QFile, QDir, QRegularExpression
 from PySide6.QtGui import QIcon
+from modules.data_models import dataModels
 
 
 class UserDialogs(object):
@@ -328,7 +330,9 @@ class UserDialogs(object):
         """sets up user session json"""
         self.logger.debug("Attempt session json load.")
         # load cli_gen_tool (session) json if exists, else use default options
-        self.session = self.load_cli_gen_tool_json(self.session_path)
+        self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
+        if not isinstance(self.session, dict):
+            self.session = dataModels.default_session_model
         # pretty session json
         # session json contains only json serializable items, safe to print
         self.logger.debug(

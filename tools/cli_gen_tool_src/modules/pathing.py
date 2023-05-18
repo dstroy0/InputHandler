@@ -59,19 +59,21 @@ class Pathing(object):
                     f"failed to make necessary directory:\n{inputhandler_save_path}\nexiting."
                 )
                 sys.exit(1)
-        interfaces_path = os.path.join(inputhandler_save_path, "interfaces")
+        interfaces_path = os.path.abspath(
+            os.path.join(inputhandler_save_path, "interfaces")
+        )
         if not os.path.exists(interfaces_path):
             os.mkdir(interfaces_path)
             if not os.path.exists(interfaces_path):
                 print(f"failed to make necessary directory:\n{interfaces_path}")
                 sys.exit(1)
-        session_path = os.path.join(inputhandler_save_path, "session")
+        session_path = os.path.abspath(os.path.join(inputhandler_save_path, "session"))
         if not os.path.exists(session_path):
             os.mkdir(session_path)
             if not os.path.exists(session_path):
                 print(f"failed to make necessary directory:\n{session_path}")
                 sys.exit(1)
-        logs_path = os.path.join(inputhandler_save_path, "logs")
+        logs_path = os.path.abspath(os.path.join(inputhandler_save_path, "logs"))
         if not os.path.exists(logs_path):
             os.mkdir(logs_path)
             if not os.path.exists(logs_path):
@@ -80,12 +82,14 @@ class Pathing(object):
 
         # /InputHandler/src/config/config.h
         default_config_path = os.path.abspath(
-            os.path.join(self.lib_root_path, "/src/config/config.h")
+            os.path.join(self.lib_root_path, "src/config/config.h")
         )
         # /InputHandler/session/cli_gen_tool.json
         cli_gen_tool_json_path = os.path.abspath(
-            os.path.join(inputhandler_save_path, "/session/cli_gen_tool.json")
+            os.path.join(inputhandler_save_path, "session/cli_gen_tool.json")
         )
+        print(inputhandler_save_path)
+        print(cli_gen_tool_json_path)
 
         Pathing.default_config_path = default_config_path
         Pathing.cli_gen_tool_json_path = cli_gen_tool_json_path

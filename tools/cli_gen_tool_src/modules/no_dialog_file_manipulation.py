@@ -17,6 +17,7 @@ import glob
 import json
 import shutil
 from modules.data_models import dataModels
+from modules.pathing import Pathing
 
 
 class NoDialogFileManipulation(object):
@@ -42,8 +43,7 @@ class NoDialogFileManipulation(object):
         ):
             self.session["opt"]["recent_files"]["paths"].pop(0)
 
-        path = os.path.abspath(self.cli_gen_tool_json_path)
-        size = self.write_json(self.session, path)
+        size = self.write_json(self.session, Pathing.cli_gen_tool_json_path)
         if size > 0:
             NoDialogFileManipulation.logger.info("session json saved")
         return size
@@ -59,15 +59,14 @@ class NoDialogFileManipulation(object):
         Returns:
             int: -1 on error or filesize
         """
-        file = open(os.path.abspath(path), "w")
+        file = open(path, "w", encoding="utf-8")
         file_name = os.path.abspath(path).split("/")[-1]
         if not file:
             file.close()
             NoDialogFileManipulation.logger.info("Save " + file_name + " error.")
             return -1  # file error
         output_json = json.dumps(dict_to_serialize, indent=2, sort_keys=False)
-        out = bytearray(output_json)
-        size = file.write(out)
+        size = file.write(output_json)
         if size != -1:
             NoDialogFileManipulation.logger.info(
                 "wrote " + str(size) + " bytes to " + file_name
@@ -137,14 +136,14 @@ class NoDialogFileManipulation(object):
                 "cli_gen_tool.json doesn't exist, using default options"
             )
             _json = self.defaultGuiOpt
-            _json["opt"]["inputhandler_config_file_path"] = self.default_lib_config_path
+            _json["opt"]["inputhandler_config_file_path"] = self.default_config_path
             return _json
         if error == -3:
             NoDialogFileManipulation.logger.warning(
                 "open cli_gen_tool.json error; using default options"
             )
             _json = self.defaultGuiOpt
-            _json["opt"]["inputhandler_config_file_path"] = self.default_lib_config_path
+            _json["opt"]["inputhandler_config_file_path"] = self.default_config_path
             return _json
         return _json
 
