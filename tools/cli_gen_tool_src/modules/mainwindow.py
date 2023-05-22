@@ -54,19 +54,17 @@ from modules.uic.mainWindow import Ui_MainWindow  # main window with tabs
 from modules.uic.generateCLIDialog import Ui_generateDialog  # file generation dialog
 
 # external class methods
-from modules.data_models import dataModels  # app data models
-from modules.command_tree import CommandTreeMethods  # command tree interaction
-from modules.command_parameters import (
-    CommandParametersMethods,
-)  # command parameters interaction
-from modules.settings_tree import SettingsTreeMethods  # settings tree interaction
-from modules.preferences import PreferencesMethods  # preferences interaction
-from modules.gui_code_generation import GUICodeGeneration  # code preview and generation
+from modules.data_models import DataModels  # app data models
+from modules.command_tree import CommandTree  # command tree interaction
+from modules.command_parameters_dialog import CommandParametersDialog # command parameters interaction
+from modules.settings_tree import SettingsTree  # settings tree interaction
+from modules.preferences_dialog import PreferencesDialog  # preferences interaction
+from modules.code_display import CodeDisplay  # code preview and generation
 from modules.cli.cli_helper_methods import CLIHelperMethods  # file generation helpers
 from modules.pathing import Pathing
-from modules.logging_setup import Logger
+from modules.logger import Logger
 from modules.user_dialogs import UserDialogs
-from modules.no_dialog_file_manipulation import NoDialogFileManipulation
+from modules.file_manipulation import FileManipulation
 ## This is the main display window
 #
 # MainWindow is the parent of all process subwindows
@@ -76,12 +74,12 @@ class MainWindow(
     Pathing,
     Logger,
     UserDialogs,
-    NoDialogFileManipulation,    
-    SettingsTreeMethods,
-    CommandParametersMethods,
-    CommandTreeMethods,
-    PreferencesMethods,
-    GUICodeGeneration,
+    FileManipulation,    
+    SettingsTree,
+    CommandParametersDialog,
+    CommandTree,
+    PreferencesDialog,
+    CodeDisplay,
     CLIHelperMethods,
 ):
     ## The constructor.
@@ -122,13 +120,13 @@ class MainWindow(
 
         ## models
         # generated file min length
-        self.minimum_file_len = dataModels.minimum_file_len_dict
+        self.minimum_file_len = DataModels.minimum_file_len_dict
         # cli opt db
-        self.cli_options = dataModels.cliopt_model
+        self.cli_options = DataModels.cliopt_model
         # code preview db
-        self.code_preview_dict = dataModels.generated_filename_dict
+        self.code_preview_dict = DataModels.generated_filename_dict
         # default settings dict to regen cli_gen_tool.json if it becomes corrupt or doesnt exist
-        self.defaultGuiOpt = dataModels.default_session_model
+        self.defaultGuiOpt = DataModels.default_session_model
 
         # MainWindow state variables
         # ask user if they want to save their work on exit
@@ -171,12 +169,12 @@ class MainWindow(
 
         # init and config classes
         self.logger.debug("Importing external classes.")
-        SettingsTreeMethods.__init__(self)
+        SettingsTree.__init__(self)
         self.get_initial_config_path()
-        CommandParametersMethods.__init__(self)
-        CommandTreeMethods.__init__(self)
-        PreferencesMethods.__init__(self)
-        GUICodeGeneration.__init__(self)
+        CommandParametersDialog.__init__(self)
+        CommandTree.__init__(self)
+        PreferencesDialog.__init__(self)
+        CodeDisplay.__init__(self)
 
         self.set_up_ui_icons()
         self.cli_generation_dialog_setup(Ui_generateDialog())
@@ -698,7 +696,7 @@ class MainWindow(
         Returns:
             dict: tree state dict
         """
-        tree_state = copy.deepcopy(dataModels.button_tree_state_dict)
+        tree_state = copy.deepcopy(DataModels.button_tree_state_dict)
         tree_state["tree"] = tree
         tsi = tree.selectedItems()
         is_root = False

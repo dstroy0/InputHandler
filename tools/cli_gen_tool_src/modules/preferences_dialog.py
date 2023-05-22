@@ -12,13 +12,13 @@
 
 from __future__ import absolute_import
 
-from modules.logging_setup import Logger
-from modules.data_models import dataModels
+from modules.logger import Logger
+from modules.data_models import DataModels
 from PySide6.QtWidgets import QLineEdit
 from PySide6.QtCore import Qt, QEvent, Signal, QObject
 
 
-class PreferencesMethods(object):
+class PreferencesDialog(object):
     """preferences dialog methods
 
     Args:
@@ -27,8 +27,8 @@ class PreferencesMethods(object):
 
     def __init__(self) -> None:
         """the constructor"""
-        super(PreferencesMethods, self).__init__()
-        PreferencesMethods.logger = self.get_child_logger(__name__)
+        super(PreferencesDialog, self).__init__()
+        PreferencesDialog.logger = self.get_child_logger(__name__)
         self._parent = self
         self.create_qdialog = self._parent.create_qdialog
         self.cliopt = self._parent.cli_options
@@ -36,7 +36,7 @@ class PreferencesMethods(object):
         self.dlg = self.preferences.dlg
 
         self.builtin_methods = [
-            key for key in dataModels.default_session_model["opt"]["builtin methods"]
+            key for key in DataModels.default_session_model["opt"]["builtin methods"]
         ]
 
         self.builtin_cmb_dict = {}
@@ -59,7 +59,7 @@ class PreferencesMethods(object):
     def save_preferences(self):
         """save user preferences"""
         config_path = self.dlg.config_path_input.text()
-        PreferencesMethods.logger.info("preferences set")
+        PreferencesDialog.logger.info("preferences set")
         self.preferences.close()
 
     # TODO
@@ -67,7 +67,7 @@ class PreferencesMethods(object):
         """reset preferences to what they were before interaction"""
         config_path = self.session["opt"]["save_filename"]
         self.dlg.config_path_input.setText(str(config_path))
-        PreferencesMethods.logger.info("preferences dialog cancelled")
+        PreferencesDialog.logger.info("preferences dialog cancelled")
         self.preferences.close()
 
     def set_session_log_level(self, index):
@@ -97,7 +97,7 @@ class PreferencesMethods(object):
             state (Qt.CheckState): bool
         """
         if x > len(self.builtin_methods):
-            PreferencesMethods.logger.warning(
+            PreferencesDialog.logger.warning(
                 "builtin method checkbox index out of range"
             )
             return
@@ -112,7 +112,7 @@ class PreferencesMethods(object):
 
         # this sets InputHandler builtin methods to the user's preference on startup
         if self.loading == False:
-            PreferencesMethods.logger.info(
+            PreferencesDialog.logger.info(
                 "User builtin method preference for "
                 + self.builtin_methods[x]
                 + " is "
@@ -123,7 +123,7 @@ class PreferencesMethods(object):
             elif state == Qt.Unchecked:
                 self.session["opt"]["builtin methods"][self.builtin_methods[x]] = False
         else:
-            PreferencesMethods.logger.info(
+            PreferencesDialog.logger.info(
                 "Loaded user preference: " + self.builtin_methods[x] + " " + _state
             )
 
@@ -196,7 +196,7 @@ class PreferencesMethods(object):
             "default stream": "^([a-zA-Z0-9_*])+$",
             "default output buffer size": "^([0-9_*])+$",
         }
-        PreferencesMethods.logger.debug("preferences dialog setup")
+        PreferencesDialog.logger.debug("preferences dialog setup")
         self.get_comboboxes()
         # set initial field text
         config_path = self.session["opt"]["inputhandler_config_file_path"]
@@ -274,7 +274,7 @@ class PreferencesMethods(object):
         if int(self.cli_options["process output"]["var"]["buffer size"]) < int(
             self.session["opt"]["output"]["buffer size"]
         ):
-            PreferencesMethods.logger.info(
+            PreferencesDialog.logger.info(
                 "Buffer size in loaded file doesn't match user preference, changing to "
                 + str(self.session["opt"]["output"]["buffer size"])
                 + " bytes."
@@ -293,7 +293,7 @@ class PreferencesMethods(object):
             self.cli_options["process output"]["var"]["output stream"]
             != self.session["opt"]["output"]["stream"]
         ):
-            PreferencesMethods.logger.info(
+            PreferencesDialog.logger.info(
                 "Output Stream in loaded file doesn't match user preference, changing to "
                 + str(self.session["opt"]["output"]["stream"])
                 + "."
@@ -308,7 +308,7 @@ class PreferencesMethods(object):
             item.setData(
                 3, 0, str(self.cli_options["process output"]["var"]["output stream"])
             )
-        PreferencesMethods.logger.info("User preferences set.")
+        PreferencesDialog.logger.info("User preferences set.")
 
 
 # end of file

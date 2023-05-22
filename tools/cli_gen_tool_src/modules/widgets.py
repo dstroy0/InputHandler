@@ -49,9 +49,9 @@ from PySide6.QtWidgets import (
     QComboBox,
 )
 
-from modules.data_models import dataModels
-from modules.display_models import displayModels
-from modules.logging_setup import Logger
+from modules.data_models import DataModels
+from modules.display_models import DisplayModels
+from modules.logger import Logger
 
 
 class TableButtonBox(QWidget):
@@ -889,14 +889,14 @@ class CommandParametersPTableWidget(QTableWidget, object):
         for key in cls.prm:
             setting_item = QTableWidgetItem()
             setting_item.setData(0, key)
-            setting_item.setToolTip(displayModels.command_table_tooltip_dict[key])
+            setting_item.setToolTip(DisplayModels.command_table_tooltip_dict[key])
             setting_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
             setting_item.setFlags(setting_item.flags() & ~Qt.ItemIsEditable)
             cls.setItem(r, c, setting_item)
             c += 1
             value_item = QTableWidgetItem()
             value_item.setData(0, cls.prm[key])
-            value_item.setToolTip(displayModels.command_table_tooltip_dict[key])
+            value_item.setToolTip(DisplayModels.command_table_tooltip_dict[key])
             value_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
             value_item.setFlags(value_item.flags() & ~Qt.ItemIsEditable)
             cls.setItem(r, c, value_item)
@@ -927,7 +927,7 @@ class CommandParametersArgumentsTableWidget(QTableWidget, object):
             type_item = QTableWidgetItem()
             type_item.setData(0, cls.args_list[r])
             type_item.setToolTip(
-                displayModels.argument_table_tooltip_dict[cls.args_list[r]]
+                DisplayModels.argument_table_tooltip_dict[cls.args_list[r]]
             )
             type_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
             table.setItem(r, 0, type_item)
@@ -1109,8 +1109,8 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             list_commands = OrderedDict()
             list_commands = dict(
                 zip(
-                    dataModels.command_parameters_dict_keys_list,
-                    dataModels.LCcmdParam,
+                    DataModels.command_parameters_dict_keys_list,
+                    DataModels.LCcmdParam,
                 )
             )
             return list_commands
@@ -1118,8 +1118,8 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             list_settings = OrderedDict()
             list_settings = dict(
                 zip(
-                    dataModels.command_parameters_dict_keys_list,
-                    dataModels.LScmdParam,
+                    DataModels.command_parameters_dict_keys_list,
+                    DataModels.LScmdParam,
                 )
             )
             return list_settings
@@ -1300,7 +1300,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
     def make_command_index(self, parent_item):
         primary_id_key = self.cliopt["commands"]["primary id key"]
         self.cliopt["commands"]["index"].update(
-            {primary_id_key: copy.deepcopy(dataModels.parameters_index_struct)}
+            {primary_id_key: copy.deepcopy(DataModels.parameters_index_struct)}
         )
 
         if parent_item == self.invisibleRootItem() or parent_item == None:
@@ -1470,10 +1470,10 @@ class DelimiterTableWidget(QTableWidget):
         return super(DelimiterTableWidget, cls).__init_subclass__()
 
     def build_table(cls, container, cliopt):
-        cls.ddtt = displayModels._settings_tree_display["process parameters"][
+        cls.ddtt = DisplayModels._settings_tree_display["process parameters"][
             "data delimiter sequences"
         ]["tooltip"]
-        cls.sstt = displayModels._settings_tree_display["process parameters"][
+        cls.sstt = DisplayModels._settings_tree_display["process parameters"][
             "start stop data delimiter sequences"
         ]["tooltip"]
         cls._cursor = QCursor()
@@ -1809,12 +1809,12 @@ class SettingsTreeWidget(Logger, QTreeWidget):
         object_list = object_string.strip("\n").split(",")
         object_list[1] = int(object_list[1])
 
-        if object_list[0] in displayModels._settings_tree_display["config"]:
-            _tt = displayModels._settings_tree_display["config"][object_list[0]][
+        if object_list[0] in DisplayModels._settings_tree_display["config"]:
+            _tt = DisplayModels._settings_tree_display["config"][object_list[0]][
                 object_list[2]
             ]["tooltip"]
         else:
-            _tt = displayModels._settings_tree_display[object_list[0]][object_list[2]][
+            _tt = DisplayModels._settings_tree_display[object_list[0]][object_list[2]][
                 "tooltip"
             ]
 
@@ -2090,3 +2090,4 @@ class RootWidget(QWidget, object):
 
         self.version = self._parent.version
         self.splashscreen_duration = self._parent.splashscreen_duration
+        

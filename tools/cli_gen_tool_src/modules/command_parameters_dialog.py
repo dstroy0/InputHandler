@@ -29,13 +29,13 @@ from PySide6.QtWidgets import (
 )
 
 # data models
-from modules.data_models import dataModels
-from modules.display_models import displayModels
+from modules.data_models import DataModels
+from modules.display_models import DisplayModels
 from modules.widgets import TableButtonBox
 
 
 # command parameters methods
-class CommandParametersMethods(object):
+class CommandParametersDialog(object):
     """All things related to CommandParametersDialog operation
 
     Args:
@@ -52,16 +52,16 @@ class CommandParametersMethods(object):
     existing_command_parameters_key = ""
 
     ## Command parameters dicts are constructed using keys from this list.
-    command_parameters_dict_keys_list = dataModels.command_parameters_dict_keys_list
+    command_parameters_dict_keys_list = DataModels.command_parameters_dict_keys_list
 
     ## Acceptable command argument types.
-    command_arg_types_list = dataModels.command_arg_types_list
+    command_arg_types_list = DataModels.command_arg_types_list
 
     ## the constructor
     def __init__(self) -> None:
         """Constructor method"""
-        super(CommandParametersMethods, self).__init__()
-        CommandParametersMethods.logger = self.get_child_logger(__name__)
+        super(CommandParametersDialog, self).__init__()
+        CommandParametersDialog.logger = self.get_child_logger(__name__)
         self.create_qdialog = self.create_qdialog
         self.cliopt = self.cli_options
         # inherit from parameters.py
@@ -87,7 +87,7 @@ class CommandParametersMethods(object):
             type_item = QTableWidgetItem()
             type_item.setData(0, args_list[r])
             type_item.setToolTip(
-                displayModels.argument_table_tooltip_dict[args_list[r]]
+                DisplayModels.argument_table_tooltip_dict[args_list[r]]
             )
             table.setItem(r, 0, type_item)
             control_item = QTableWidgetItem()
@@ -145,7 +145,7 @@ class CommandParametersMethods(object):
         }
 
         self.command_parameters_input_field_settings = (
-            dataModels.command_parameters_input_field_settings_dict
+            DataModels.command_parameters_input_field_settings_dict
         )
         # set input field defaults
         self.set_commandparameters_field_defaults()
@@ -170,7 +170,7 @@ class CommandParametersMethods(object):
         # argumentsPane QWidget is automatically enabled/disabled with the setting of the arguments handling combobox
         # set False by default
         cmd_dlg.argumentsPane.setEnabled(False)
-        combobox_word_list = displayModels.argument_table_tooltip_dict.keys()
+        combobox_word_list = DisplayModels.argument_table_tooltip_dict.keys()
         cmd_dlg.argComboBox.addItems(combobox_word_list)
 
     ## spawns a regexp validator
@@ -187,13 +187,13 @@ class CommandParametersMethods(object):
         Returns:
             dict: key 0 is bool; True on success.  key 1 is a dict of the input parameters.
         """
-        wildcard_flag_strings = dataModels.wildcard_flag_strings
+        wildcard_flag_strings = DataModels.wildcard_flag_strings
 
-        arg_handling_strings = dataModels.arg_handling_strings
+        arg_handling_strings = DataModels.arg_handling_strings
 
         error_list = []
         settings_to_validate = dict.fromkeys(
-            CommandParametersMethods.command_parameters_dict_keys_list, None
+            CommandParametersDialog.command_parameters_dict_keys_list, None
         )
         settings_to_validate[
             "returnFunctionName"
@@ -313,8 +313,8 @@ class CommandParametersMethods(object):
             settings_to_validate[
                 "commandArguments"
             ] = self.generate_commandarguments_string(args_list)
-        CommandParametersMethods.logger.debug(settings_to_validate)
-        CommandParametersMethods.logger.debug(error_list)
+        CommandParametersDialog.logger.debug(settings_to_validate)
+        CommandParametersDialog.logger.debug(error_list)
         if err == True:
             self.err_settings_to_validate(error_list)
         return {0: err, 1: settings_to_validate}
@@ -396,14 +396,14 @@ class CommandParametersMethods(object):
         table.setCurrentCell(cell_row, 0)
 
     def edit_existing_command(self, parameters_key):
-        fields = copy.deepcopy(dataModels.command_parameters_input_field_settings_dict)
+        fields = copy.deepcopy(DataModels.command_parameters_input_field_settings_dict)
         command_parameters = self.cli_options["commands"]["parameters"][parameters_key]
         for key in fields:
             fields[key]["value"] = command_parameters[key]
         self.commandparameters_set_fields(fields)
         self.ui.commandParameters.dlg.defaults = fields
-        CommandParametersMethods.editing_existing_command = True
-        CommandParametersMethods.existing_command_parameters_key = parameters_key
+        CommandParametersDialog.editing_existing_command = True
+        CommandParametersDialog.existing_command_parameters_key = parameters_key
         parameters = self.cliopt["commands"]["parameters"][parameters_key]
         self.build_commandparameters_dialog_arg_table(parameters)
         self.ui.commandParameters.exec()
@@ -411,11 +411,11 @@ class CommandParametersMethods(object):
     ## command parameters dialog buttonbox ok
     def clicked_command_parameters_buttonbox_ok(self) -> None:
         """This function is reached when the user clicks `ok` on the CommandParametersDialog"""
-        CommandParametersMethods.logger.debug("clicked ok on command parameters menu")
+        CommandParametersDialog.logger.debug("clicked ok on command parameters menu")
         validate_result = self.validate_command_parameters()
         # error
         if validate_result[0] == True:
-            CommandParametersMethods.logger.info(
+            CommandParametersDialog.logger.info(
                 "one or more errors were detected in the input command parameters"
             )
             return
@@ -423,17 +423,17 @@ class CommandParametersMethods(object):
         validated_result = validate_result[1]
 
         # edit commands
-        if CommandParametersMethods.editing_existing_command == True:
-            CommandParametersMethods.editing_existing_command = False  # reset state
+        if CommandParametersDialog.editing_existing_command == True:
+            CommandParametersDialog.editing_existing_command = False  # reset state
             self.cli_options["commands"]["parameters"].pop(
-                CommandParametersMethods.existing_command_parameters_key
+                CommandParametersDialog.existing_command_parameters_key
             )
             self.cli_options["commands"]["parameters"].update(
                 {
-                    CommandParametersMethods.existing_command_parameters_key: validated_result
+                    CommandParametersDialog.existing_command_parameters_key: validated_result
                 }
             )
-            CommandParametersMethods.existing_command_parameters_key = (
+            CommandParametersDialog.existing_command_parameters_key = (
                 ""  # reset parameters key
             )
             self.update_code("parameters.h", validated_result["functionName"], True)
@@ -481,11 +481,11 @@ class CommandParametersMethods(object):
                 subcommands = int(prm["commandSubcommands"]) + 1
                 prm["commandSubcommands"] = str(subcommands)
                 self.command_tree.add_command_to_tree(parent)
-                CommandParametersMethods.logger.info(
+                CommandParametersDialog.logger.info(
                     parent_string + " commandSubcommands = " + str(subcommands)
                 )
             else:
-                CommandParametersMethods.logger.info("couldn't find parent")
+                CommandParametersDialog.logger.info("couldn't find parent")
 
         self.update_code("parameters.h", validated_result["functionName"], True)
         self.update_code("functions.h", validated_result["functionName"], True)
@@ -496,14 +496,14 @@ class CommandParametersMethods(object):
     ## command parameters dialog buttonbox reset value
     def clicked_command_parameters_buttonbox_reset(self) -> None:
         """This function is reached if the user clicked `reset` on CommandParametersDialog."""
-        CommandParametersMethods.logger.info("reset")
+        CommandParametersDialog.logger.info("reset")
         cmd_dlg = self.ui.commandParameters.dlg
         self.commandparameters_set_fields(cmd_dlg.defaults)
 
     ## command parameters dialog buttonbox cancel changes
     def clicked_command_parameters_buttonbox_cancel(self) -> None:
         """This function is reached if the user clicked `cancel` on CommandParametersDialog."""
-        CommandParametersMethods.logger.info("cancel")
+        CommandParametersDialog.logger.info("cancel")
         self.ui.commandParameters.close()
 
     ## refreshes `commandLength`
@@ -519,7 +519,7 @@ class CommandParametersMethods(object):
         """This function is reached if the user changes the position
         of the `Argument Handling` combobox on CommandParametersDialog.
         """
-        CommandParametersMethods.logger.info("argument handling changed")
+        CommandParametersDialog.logger.info("argument handling changed")
         cmd_dlg = self.ui.commandParameters.dlg
         if cmd_dlg.commandArgumentHandling.currentIndex() != 0:
             cmd_dlg.argumentsPane.setEnabled(True)
@@ -568,13 +568,13 @@ class CommandParametersMethods(object):
                         self.command_parameters_user_input_objects[key], QComboBox
                     ):
                         self.command_parameters_user_input_objects[key].setCurrentIndex(
-                            dataModels.arg_handling_strings.index(_fields[key]["value"])
+                            DataModels.arg_handling_strings.index(_fields[key]["value"])
                         )
 
                     self.command_parameters_user_input_objects[key].setEnabled(
                         _fields[key]["enabled"]
                     )
-                    CommandParametersMethods.logger.debug(
+                    CommandParametersDialog.logger.debug(
                         str(key)
                         + " field"
                         + str(_fields[key]["value"])
@@ -582,7 +582,7 @@ class CommandParametersMethods(object):
                         + str(_fields[key]["enabled"])
                     )
                 else:
-                    CommandParametersMethods.logger.debug("unknown field: " + str(key))
+                    CommandParametersDialog.logger.debug("unknown field: " + str(key))
 
     def set_commandparameters_field_defaults(self) -> None:
         """This function sets the DEFAULT values for CommandParametersDialog."""
@@ -596,7 +596,7 @@ class CommandParametersMethods(object):
         inp_setup["commandHasWildcards"]["value"] = False
         inp_setup["commandDepth"]["value"] = 0
         inp_setup["commandSubcommands"]["value"] = 0
-        inp_setup["commandArgumentHandling"]["value"] = dataModels.arg_handling_strings[
+        inp_setup["commandArgumentHandling"]["value"] = DataModels.arg_handling_strings[
             0
         ]
         inp_setup["commandMinArgs"]["value"] = 0

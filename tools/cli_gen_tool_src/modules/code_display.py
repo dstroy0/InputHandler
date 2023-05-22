@@ -39,9 +39,9 @@ from modules.cli.parse_config import ParseInputHandlerConfig
 from modules.widgets import CodePreviewWidget
 
 
-# TODO rename GUICodeGeneration
+# TODO rename CodeDisplay
 # code generation and preview
-class GUICodeGeneration(
+class CodeDisplay(
     ParseInputHandlerConfig,
     cliFileStrings,
     cliReadme,
@@ -89,7 +89,7 @@ class GUICodeGeneration(
         project_path = self._parent.get_project_dir()
         if project_path:
             self.session["opt"]["cli_output_dir"] = project_path
-            GUICodeGeneration.logger.info(
+            CodeDisplay.logger.info(
                 "set session output_dir to:\n" + str(project_path)
             )
             self.ui.generateDialog.dlg.outputPathLineEdit.setText(
@@ -111,10 +111,10 @@ class GUICodeGeneration(
             ).setEnabled(False)
 
     def generatedialog_clicked_platformio_file_output_structure(self):
-        GUICodeGeneration.logger.info("platformio file output structure selected")
+        CodeDisplay.logger.info("platformio file output structure selected")
 
     def generatedialog_clicked_arduino_file_output_structure(self):
-        GUICodeGeneration.logger.info("arduino file output structure selected")
+        CodeDisplay.logger.info("arduino file output structure selected")
 
     def clickable(self, widget):
         """makes objects emit "clicked"

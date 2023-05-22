@@ -13,9 +13,9 @@
 import argparse, pathlib, json, sys, os
 
 
-class ScriptCLI(object):
+class ToolCLI(object):
     def __init__(self):
-        super(ScriptCLI, self).__init__()
+        super(ToolCLI, self).__init__()
 
     def script_cli(self):
         # cli_gen_tool script command line interface

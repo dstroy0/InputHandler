@@ -15,7 +15,7 @@ import copy
 from collections import OrderedDict
 
 
-class dataModels(object):
+class DataModels(object):
     """app data models
 
     Args:
@@ -29,8 +29,8 @@ class dataModels(object):
         Args:
             version (str): app version
         """
-        super(dataModels, self).__init__()
-        dataModels.version = version
+        super(DataModels, self).__init__()
+        DataModels.version = version
 
     ## library version
     version = ""

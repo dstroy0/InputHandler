@@ -12,7 +12,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, QFile, QDir, QRegularExpression
 from PySide6.QtGui import QIcon
-from modules.data_models import dataModels
+from modules.data_models import DataModels
 
 
 class UserDialogs(object):
@@ -332,7 +332,7 @@ class UserDialogs(object):
         # load cli_gen_tool (session) json if exists, else use default options
         self.session = self.load_cli_gen_tool_json(self.cli_gen_tool_json_path)
         if not isinstance(self.session, dict):
-            self.session = dataModels.default_session_model
+            self.session = DataModels.default_session_model
         # pretty session json
         # session json contains only json serializable items, safe to print
         self.logger.debug(

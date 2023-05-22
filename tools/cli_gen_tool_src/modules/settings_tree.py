@@ -17,24 +17,24 @@ import copy
 
 from PySide6.QtWidgets import QHBoxLayout
 
-from modules.data_models import dataModels
-from modules.display_models import displayModels
+from modules.data_models import DataModels
+from modules.display_models import DisplayModels
 from modules.widgets import SettingsTreeWidget
 
 # settings_tree methods
-class SettingsTreeMethods(object):
+class SettingsTree(object):
     ## the constructor
     def __init__(self):
-        super(SettingsTreeMethods, self).__init__()
-        SettingsTreeMethods.logger = self.get_child_logger(__name__)
-        SettingsTreeMethods._tree = displayModels._settings_tree_display
-        self.settings_tree_buttons = copy.deepcopy(dataModels.button_dict)
+        super(SettingsTree, self).__init__()
+        SettingsTree.logger = self.get_child_logger(__name__)
+        SettingsTree._tree = DisplayModels._settings_tree_display
+        self.settings_tree_buttons = copy.deepcopy(DataModels.button_dict)
         self.settings_tree_buttons["buttons"].update(
             {
-                "edit": copy.deepcopy(dataModels.button_sub_dict),
-                "clear": copy.deepcopy(dataModels.button_sub_dict),
-                "default": copy.deepcopy(dataModels.button_sub_dict),
-                "collapse": copy.deepcopy(dataModels.button_sub_dict),
+                "edit": copy.deepcopy(DataModels.button_sub_dict),
+                "clear": copy.deepcopy(DataModels.button_sub_dict),
+                "default": copy.deepcopy(DataModels.button_sub_dict),
+                "collapse": copy.deepcopy(DataModels.button_sub_dict),
             }
         )
         self.settings_tree_buttons["buttons"]["edit"][
@@ -55,7 +55,7 @@ class SettingsTreeMethods(object):
         container = self.ui.settings_tree_container
         container.layout = QHBoxLayout(container)
         self.settings_tree = SettingsTreeWidget(
-            self, self.cli_options, self.session, SettingsTreeMethods.logger
+            self, self.cli_options, self.session, SettingsTree.logger
         )
         container.layout.addWidget(self.settings_tree)
         container.setLayout(container.layout)
@@ -65,7 +65,7 @@ class SettingsTreeMethods(object):
         container = self.ui.settings_tree_container
         container.layout.removeWidget(self.settings_tree)
         self.settings_tree = SettingsTreeWidget(
-            self, self.cli_options, self.session, SettingsTreeMethods.logger
+            self, self.cli_options, self.session, SettingsTree.logger
         )
         container.layout.addWidget(self.settings_tree)
 

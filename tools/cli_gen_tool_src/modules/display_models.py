@@ -11,7 +11,7 @@
 # version 3 as published by the Free Software Foundation.
 
 
-class displayModels(object):
+class DisplayModels(object):
     """display models and tooltips
 
     Args:

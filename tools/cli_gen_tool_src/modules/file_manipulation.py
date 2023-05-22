@@ -16,14 +16,14 @@ import os
 import glob
 import json
 import shutil
-from modules.data_models import dataModels
+from modules.data_models import DataModels
 from modules.pathing import Pathing
 
 
-class NoDialogFileManipulation(object):
+class FileManipulation(object):
     def __init__(self) -> None:
         super().__init__()
-        NoDialogFileManipulation.logger = self.get_child_logger(__name__)
+        FileManipulation.logger = self.get_child_logger(__name__)
 
     def write_cli_gen_tool_json(self):
         """writes session json
@@ -45,7 +45,7 @@ class NoDialogFileManipulation(object):
 
         size = self.write_json(self.session, Pathing.cli_gen_tool_json_path)
         if size > 0:
-            NoDialogFileManipulation.logger.info("session json saved")
+            FileManipulation.logger.info("session json saved")
         return size
 
     def write_json(self, dict_to_serialize: dict, path: str):
@@ -63,18 +63,18 @@ class NoDialogFileManipulation(object):
         file_name = os.path.abspath(path).split("/")[-1]
         if not file:
             file.close()
-            NoDialogFileManipulation.logger.info("Save " + file_name + " error.")
+            FileManipulation.logger.info("Save " + file_name + " error.")
             return -1  # file error
         output_json = json.dumps(dict_to_serialize, indent=2, sort_keys=False)
         size = file.write(output_json)
         if size != -1:
-            NoDialogFileManipulation.logger.info(
+            FileManipulation.logger.info(
                 "wrote " + str(size) + " bytes to " + file_name
             )
             if dict_to_serialize["type"] != "session" and not self.headless:
                 self.write_cli_gen_tool_json()
         else:
-            NoDialogFileManipulation.logger.info("Write " + file_name + " error.")
+            FileManipulation.logger.info("Write " + file_name + " error.")
         file.close()
         return size
 
@@ -90,12 +90,12 @@ class NoDialogFileManipulation(object):
         """
         abs_path = os.path.abspath(path)
         if not os.path.exists(abs_path):
-            NoDialogFileManipulation.logger.info("file does not exist")
+            FileManipulation.logger.info("file does not exist")
             return [-2, {}]  # file doesn't exist
         file = open(abs_path, "r", encoding="utf-8")
         if not file:
             file.close()
-            NoDialogFileManipulation.logger.warning("File access error.")
+            FileManipulation.logger.warning("File access error.")
             return [-3, {}]  # access error
         data_in = file.read()
         file.close()
@@ -103,18 +103,18 @@ class NoDialogFileManipulation(object):
             read_json = json.loads(data_in)
             if "type" in read_json:
                 json_type = read_json["type"]
-                NoDialogFileManipulation.logger.info(f"loaded json: {json_type}")
+                FileManipulation.logger.info(f"loaded json: {json_type}")
                 return [len(data_in), read_json]
             elif len(read_json) == 0:
                 return [-4, {}]
             else:
-                NoDialogFileManipulation.logger.info("invalid json type")
-                NoDialogFileManipulation.logger.debug(
+                FileManipulation.logger.info("invalid json type")
+                FileManipulation.logger.debug(
                     "json.loads():\n" + str(json.dumps(read_json, indent=2))
                 )
                 return [-4, {}]
         except Exception as e:
-            NoDialogFileManipulation.logger.warning(str(e))
+            FileManipulation.logger.warning(str(e))
             return [-4, {}]
 
     def load_cli_gen_tool_json(self, path):
@@ -132,14 +132,14 @@ class NoDialogFileManipulation(object):
         error = read_json_result[0]
         _json = read_json_result[1]
         if error == -2:  # file not exists
-            NoDialogFileManipulation.logger.info(
+            FileManipulation.logger.info(
                 "cli_gen_tool.json doesn't exist, using default options"
             )
             _json = self.defaultGuiOpt
             _json["opt"]["inputhandler_config_file_path"] = self.default_config_path
             return _json
         if error == -3:
-            NoDialogFileManipulation.logger.warning(
+            FileManipulation.logger.warning(
                 "open cli_gen_tool.json error; using default options"
             )
             _json = self.defaultGuiOpt
@@ -147,10 +147,10 @@ class NoDialogFileManipulation(object):
             return _json
         return _json
 
-    # TODO detect file structure as defined in dataModels
+    # TODO detect file structure as defined in DataModels
     def detect_output_type(self, project_path):
-        pio_structure = dataModels.pio_structure
-        arduino_structure = dataModels.arduino_structure
+        pio_structure = DataModels.pio_structure
+        arduino_structure = DataModels.arduino_structure
         if project_path == None:
             project_path = ""
         ino_search = glob.glob(os.path.join(project_path, "*.ino"))
@@ -162,9 +162,9 @@ class NoDialogFileManipulation(object):
             # empty sketch folder case
             arduino_compatibility = True
         if arduino_compatibility:
-            NoDialogFileManipulation.logger.info("detected arduino file structure")
+            FileManipulation.logger.info("detected arduino file structure")
         else:
-            NoDialogFileManipulation.logger.info("detected platformio file structure")
+            FileManipulation.logger.info("detected platformio file structure")
         return arduino_compatibility
 
     # TODO revert on fail
@@ -181,28 +181,28 @@ class NoDialogFileManipulation(object):
         """
         # require output directory
         if project_path == None or project_path == "":
-            NoDialogFileManipulation.logger.info("Output directory not set")
+            FileManipulation.logger.info("Output directory not set")
             return -1
 
         # get inputhandler src/ path
         src = os.path.abspath(os.path.join(self.lib_root_path, "/src/"))
         if os.path.exists(os.path.abspath(os.path.join(src, "InputHandler.h"))):
-            NoDialogFileManipulation.logger.info("found library")
+            FileManipulation.logger.info("found library")
         else:
-            NoDialogFileManipulation.logger.info("couldn't find library; aborting!")
+            FileManipulation.logger.info("couldn't find library; aborting!")
             return -2
         src_path = os.path.abspath(src)
 
         # check destination path
         dst = os.path.abspath(project_path)
         if os.path.exists(dst):
-            NoDialogFileManipulation.logger.info("found project dir")
+            FileManipulation.logger.info("found project dir")
         else:
             os.mkdir(dst)
             if os.path.exists(dst):
-                NoDialogFileManipulation.logger.info("created project dir")
+                FileManipulation.logger.info("created project dir")
             else:
-                NoDialogFileManipulation.logger.info("couldn't make project directory!")
+                FileManipulation.logger.info("couldn't make project directory!")
             return -1
 
         # detect output type
@@ -223,24 +223,24 @@ class NoDialogFileManipulation(object):
         # copy /InputHandler/src/ to project_path/CLI/src/
         # remove original config.h
         if not os.path.exists(cli_path):
-            NoDialogFileManipulation.logger.info(
+            FileManipulation.logger.info(
                 "creating dir <CLI> in <" + str(project_path) + ">"
             )
             shutil.copytree(src_path, cli_src_path)
             os.remove(cli_config_h_path)
             if os.path.exists(cli_src_path):
-                NoDialogFileManipulation.logger.info(
+                FileManipulation.logger.info(
                     "dir <CLI> created in <" + str(project_path) + ">"
                 )
             else:
-                NoDialogFileManipulation.logger.info(
+                FileManipulation.logger.info(
                     "Error creating dir <CLI> in <"
                     + str(project_path)
                     + "> aborting generation!"
                 )
                 return -3
         else:
-            NoDialogFileManipulation.logger.info(
+            FileManipulation.logger.info(
                 "dir <CLI> already exists in <" + str(project_path) + ">"
             )
             shutil.rmtree(cli_path)
@@ -265,7 +265,7 @@ class NoDialogFileManipulation(object):
         )
         size = self.write_cli_file(path, file_string)
         if size == -1:
-            NoDialogFileManipulation.logger.warning(
+            FileManipulation.logger.warning(
                 f"couldnt write library.properties, removing directory:\n{cli_path}"
             )
             os.rmtree(cli_path)
@@ -283,7 +283,7 @@ class NoDialogFileManipulation(object):
                 path = os.path.join(cli_src_path, filename)
             size = self.write_cli_file(path, file_string)
             if size == -1:
-                NoDialogFileManipulation.logger.warning(
+                FileManipulation.logger.warning(
                     f"couldnt write {filename}, removing directory:\n{cli_path}"
                 )
                 os.rmtree(cli_path)
@@ -300,16 +300,16 @@ class NoDialogFileManipulation(object):
         file = open(path, "w", encoding="utf-8")
         filename = os.path.basename(os.path.abspath(path))
         if not file:
-            NoDialogFileManipulation.logger.info(f"Save {filename} error.")
+            FileManipulation.logger.info(f"Save {filename} error.")
             file.close()
             return -1  # file error
         # file object
         out = bytearray(string_to_write)
         size = file.write(out)
         if size != -1:
-            NoDialogFileManipulation.logger.info(f"wrote {size} bytes to {filename}")
+            FileManipulation.logger.info(f"wrote {size} bytes to {filename}")
         else:
-            NoDialogFileManipulation.logger.info(f"Write {filename} error.")
+            FileManipulation.logger.info(f"Write {filename} error.")
             file.close()
             return -1
         file.close()

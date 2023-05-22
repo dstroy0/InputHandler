@@ -17,14 +17,13 @@ import sys
 import qdarktheme
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QApplication
-from modules.logging_setup import Logger  # logging methods
-from modules.script_cli import ScriptCLI  # cli_gen_tool CLI
-from modules.no_dialog_file_manipulation import NoDialogFileManipulation
+from modules.logger import Logger  # logging methods
+from modules.tool_cli import ToolCLI  # cli_gen_tool CLI
+from modules.file_manipulation import FileManipulation
 from modules.user_dialogs import UserDialogs
-from modules.main_window import MainWindow
+from modules.mainwindow import MainWindow
 from modules.widgets import RootWidget
 from modules.pathing import Pathing
-from modules.logging_setup import Logger
 
 ## tool version
 version = 1.0  # save serialization
@@ -34,11 +33,11 @@ splashscreen_duration = 750
 
 
 ## set up pathing, logging, splash screen
-class GUI(Pathing, Logger, UserDialogs, NoDialogFileManipulation, object):
+class GUI(Pathing, Logger, UserDialogs, FileManipulation, object):
     def __init__(self) -> None:
         super().__init__()
         UserDialogs.__init__(self)
-        NoDialogFileManipulation.__init__(self)
+        FileManipulation.__init__(self)
         self.version = version
         self.splashscreen_duration = splashscreen_duration
         # setup logger
@@ -92,17 +91,17 @@ class GUI(Pathing, Logger, UserDialogs, NoDialogFileManipulation, object):
             self.lib_root_path = os.path.abspath(os.getcwd())
 
 
-class Headless(Pathing, Logger, NoDialogFileManipulation, object):
+class Headless(Pathing, Logger, FileManipulation, object):
     def __init__(self) -> None:
         super(Headless, self).__init__()
-        NoDialogFileManipulation.__init__(self)
+        FileManipulation.__init__(self)
         self.lib_root_path = os.path.abspath(self.args.generate[0])
         self.set_pathing()
         print("creating cli with supplied arguments")
         sys.exit(0)
 
 
-class Init(Pathing, Logger, ScriptCLI, object):
+class Init(Pathing, Logger, ToolCLI, object):
     def __init__(self) -> None:
         super(Init, self).__init__()
         Logger.__init__(self)

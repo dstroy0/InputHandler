@@ -16,17 +16,17 @@ from __future__ import absolute_import
 # imports
 import copy
 from PySide6.QtWidgets import QHBoxLayout
-from modules.data_models import dataModels
+from modules.data_models import DataModels
 from modules.widgets import CommandTreeWidget
 
 
 ## self.ui.command_tree methods
-class CommandTreeMethods(object):
-    ## CommandTreeMethods constructor
+class CommandTree(object):
+    ## CommandTree constructor
     def __init__(self) -> None:
         """constructor method"""
-        super(CommandTreeMethods, self).__init__()
-        CommandTreeMethods.logger = self.get_child_logger(__name__)
+        super(CommandTree, self).__init__()
+        CommandTree.logger = self.get_child_logger(__name__)
 
         # new cmd button
         self.ui.new_cmd_button.setEnabled(False)
@@ -35,13 +35,13 @@ class CommandTreeMethods(object):
         # delete button
         self.ui.delete_cmd_button.setEnabled(False)
 
-        self.command_tree_buttons = copy.deepcopy(dataModels.button_dict)
+        self.command_tree_buttons = copy.deepcopy(DataModels.button_dict)
         self.command_tree_buttons["buttons"].update(
             {
-                "new": copy.deepcopy(dataModels.button_sub_dict),
-                "edit": copy.deepcopy(dataModels.button_sub_dict),
-                "delete": copy.deepcopy(dataModels.button_sub_dict),
-                "collapse": copy.deepcopy(dataModels.button_sub_dict),
+                "new": copy.deepcopy(DataModels.button_sub_dict),
+                "edit": copy.deepcopy(DataModels.button_sub_dict),
+                "delete": copy.deepcopy(DataModels.button_sub_dict),
+                "collapse": copy.deepcopy(DataModels.button_sub_dict),
             }
         )
         self.command_tree_buttons["buttons"]["new"][
@@ -62,7 +62,7 @@ class CommandTreeMethods(object):
         container = self.ui.command_tree_container
         container.layout = QHBoxLayout(container)
         self.command_tree = CommandTreeWidget(
-            self, self.cli_options, CommandTreeMethods.logger
+            self, self.cli_options, CommandTree.logger
         )
         container.layout.addWidget(self.command_tree)
         container.setLayout(container.layout)
@@ -72,7 +72,7 @@ class CommandTreeMethods(object):
         container = self.ui.command_tree_container
         container.layout.removeWidget(self.command_tree)
         self.command_tree = CommandTreeWidget(
-            self, self.cli_options, CommandTreeMethods.logger
+            self, self.cli_options, CommandTree.logger
         )
         container.layout.addWidget(self.command_tree)
 
