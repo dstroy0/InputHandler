@@ -1,9 +1,9 @@
 ##
 # @file cli_helper_methods.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-# @brief CodePreview/file generation external methods
+# @brief cli helper methods
 # @version 1.0
-# @date 2023-05-08
+# @date 2023-05-22
 # @copyright Copyright (c) 2023
 # Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
@@ -12,7 +12,7 @@
 
 from __future__ import absolute_import
 import datetime
-from modules.cli.filestrings import cliFileStrings
+from modules.cli.filestrings import CLIFileStrings
 
 
 class CLIHelperMethods(object):
@@ -32,11 +32,11 @@ class CLIHelperMethods(object):
         """
         docstring_list = []
         year = str(datetime.date.today())[0:4]
-        ll = cliFileStrings.lib_license_cpp.format(docs_year=year)
+        ll = CLIFileStrings.lib_license_cpp.format(docs_year=year)
         date = datetime.date.today()
-        docstring = cliFileStrings.docfs.format(
-            docs_version=cliFileStrings.version,
-            lib_version=cliFileStrings.lib_version,
+        docstring = CLIFileStrings.docfs.format(
+            docs_version=CLIFileStrings.version,
+            lib_version=CLIFileStrings.lib_version,
             lib_license=ll,
             docs_filename=filename,
             docs_brief=brief,

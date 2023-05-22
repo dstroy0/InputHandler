@@ -1,11 +1,11 @@
 ##
-# @file logging_setup.py
+# @file logger.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-# @brief MainWindow external methods
+# @brief logging methods
 # @version 1.0
-# @date 2022-07-19
-# @copyright Copyright (c) 2022
-# Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+# @date 2023-05-22
+# @copyright Copyright (c) 2023
+# Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.

@@ -1,17 +1,17 @@
 ##
 # @file clireadme.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-# @brief CodePreview/file generation external methods
+# @brief cli readme.md generator
 # @version 1.0
-# @date 2022-08-28
-# @copyright Copyright (c) 2022
-# Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+# @date 2023-05-22
+# @copyright Copyright (c) 2023
+# Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-from modules.cli.filestrings import cliFileStrings
+from modules.cli.filestrings import CLIFileStrings
 import datetime
 import os
 
@@ -78,10 +78,10 @@ class cliReadme(object):
             _loop_code = "InputHandler_loop();"
 
         if len(return_function_code) > 0:
-            return_function_inst = cliFileStrings.rdme_function_inst
-            copy_inst = cliFileStrings.rdme_copy_inst
-            gen_code_sect = cliFileStrings.rdme_gen_inst
-            include_inst = cliFileStrings.rdme_include_inst
+            return_function_inst = CLIFileStrings.rdme_function_inst
+            copy_inst = CLIFileStrings.rdme_copy_inst
+            gen_code_sect = CLIFileStrings.rdme_gen_inst
+            include_inst = CLIFileStrings.rdme_include_inst
             wrapped_include_inst = self.fsdb["readme"]["md"]["filestring components"][
                 "cpp md tag"
             ].format(statements=include_inst)
@@ -92,21 +92,21 @@ class cliReadme(object):
             wrapped_setup_code = self.fsdb["readme"]["md"]["filestring components"][
                 "cpp md tag"
             ].format(statements=_setup_code)
-            _setup_inst = cliFileStrings.rdme_setup_inst
+            _setup_inst = CLIFileStrings.rdme_setup_inst
 
         if len(_loop_code) > 0:
             wrapped_loop_code = self.fsdb["readme"]["md"]["filestring components"][
                 "cpp md tag"
             ].format(statements=_loop_code)
-            _loop_inst = cliFileStrings.rdme_loop_inst
+            _loop_inst = CLIFileStrings.rdme_loop_inst
 
         if len(username) > 0:
             username = username + " (retrieved using os.getlogin())"
-        ll = cliFileStrings.lib_license_md.format(docs_year=year)
-        code_string = cliFileStrings.readmemd.format(
+        ll = CLIFileStrings.lib_license_md.format(docs_year=year)
+        code_string = CLIFileStrings.readmemd.format(
             user=username,
-            tool_version=cliFileStrings.version,
-            lib_version=cliFileStrings.lib_version,
+            tool_version=CLIFileStrings.version,
+            lib_version=CLIFileStrings.lib_version,
             lib_license=ll,
             docs_date=date,
             docs_year=year,

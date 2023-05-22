@@ -3,9 +3,9 @@
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
 # @brief MainWindow external methods
 # @version 1.0
-# @date 2022-07-08
-# @copyright Copyright (c) 2022
-# Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+# @date 2023-05-22
+# @copyright Copyright (c) 2023
+# Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
@@ -47,7 +47,7 @@ class DataModels(object):
                     "files": [
                         "InputHandler.cpp",
                         "InputHandler.h",
-                        "CLI.h",
+                        "cli.h",
                         "functions.h",
                         "parameters.h",
                     ],
@@ -68,7 +68,7 @@ class DataModels(object):
                 "files": [
                     "InputHandler.cpp",
                     "InputHandler.h",
-                    "CLI.h",
+                    "cli.h",
                     "functions.h",
                     "parameters.h",
                 ],
@@ -263,7 +263,7 @@ class DataModels(object):
         "files": {
             "README.md": copy.deepcopy(generated_filename_sub_dict),
             "config.h": copy.deepcopy(generated_filename_sub_dict),
-            "CLI.h": copy.deepcopy(generated_filename_sub_dict),
+            "cli.h": copy.deepcopy(generated_filename_sub_dict),
             "parameters.h": copy.deepcopy(generated_filename_sub_dict),
             "functions.h": copy.deepcopy(generated_filename_sub_dict),
         }
@@ -272,7 +272,7 @@ class DataModels(object):
     minimum_file_len_dict = {
         "README.md": 0,
         "config.h": 0,
-        "CLI.h": 57,
+        "cli.h": 57,
         "parameters.h": 27,
         "functions.h": 27,
     }

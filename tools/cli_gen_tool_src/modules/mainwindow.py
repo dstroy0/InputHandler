@@ -1,9 +1,9 @@
 ##
-# @file main_window.py
+# @file mainwindow.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-# @brief InputHandler CLI generation tool
+# @brief app mainwindow
 # @version 1.0
-# @date 2023-05-16
+# @date 2023-05-22
 # @copyright Copyright (c) 2023
 # Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
@@ -56,7 +56,9 @@ from modules.uic.generateCLIDialog import Ui_generateDialog  # file generation d
 # external class methods
 from modules.data_models import DataModels  # app data models
 from modules.command_tree import CommandTree  # command tree interaction
-from modules.command_parameters_dialog import CommandParametersDialog # command parameters interaction
+from modules.command_parameters_dialog import (
+    CommandParametersDialog,
+)  # command parameters interaction
 from modules.settings_tree import SettingsTree  # settings tree interaction
 from modules.preferences_dialog import PreferencesDialog  # preferences interaction
 from modules.code_display import CodeDisplay  # code preview and generation
@@ -65,6 +67,8 @@ from modules.pathing import Pathing
 from modules.logger import Logger
 from modules.user_dialogs import UserDialogs
 from modules.file_manipulation import FileManipulation
+
+
 ## This is the main display window
 #
 # MainWindow is the parent of all process subwindows
@@ -74,7 +78,7 @@ class MainWindow(
     Pathing,
     Logger,
     UserDialogs,
-    FileManipulation,    
+    FileManipulation,
     SettingsTree,
     CommandParametersDialog,
     CommandTree,
@@ -946,7 +950,7 @@ class MainWindow(
                 items = table_widget.selectedItems()
                 item = items[0]
                 table_widget.editItem(item)
-                self.update_code("CLI.h", object_list[2], True)
+                self.update_code("cli.h", object_list[2], True)
                 return
             self.settings_tree.editItem(self.settings_tree.currentItem(), 3)
 
@@ -968,7 +972,7 @@ class MainWindow(
                 if row < table_widget.rowCount():
                     clear_item = table_widget.item(row, 0)
                     clear_item.setText("")
-                    self.update_code("CLI.h", object_list[2], True)
+                    self.update_code("cli.h", object_list[2], True)
                 self.cli_options["process parameters"]["var"][object_list[2]] = {}
                 for i in range(table_widget.rowCount() - 1):
                     self.cli_options["process parameters"]["var"][

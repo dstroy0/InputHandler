@@ -1,9 +1,9 @@
 ##
-# @file gui_code_generation.py
+# @file code_display.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
 # @brief MainWindow external methods
 # @version 1.0
-# @date 2023-005-17
+# @date 2023-05-22
 # @copyright Copyright (c) 2023
 # Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
@@ -31,37 +31,36 @@ from PySide6.QtWidgets import (
 # external methods and resources
 from modules.cli.clireadme import cliReadme
 from modules.cli.config import cliConfig
-from modules.cli.CLI import cliH
+from modules.cli.cli import cli_h
 from modules.cli.functions import cliFunctions
 from modules.cli.parameters import cliParameters
-from modules.cli.filestrings import cliFileStrings
+from modules.cli.filestrings import CLIFileStrings
 from modules.cli.parse_config import ParseInputHandlerConfig
 from modules.widgets import CodePreviewWidget
 
 
-# TODO rename CodeDisplay
-# code generation and preview
+# displays code in MainWindow
 class CodeDisplay(
     ParseInputHandlerConfig,
-    cliFileStrings,
+    CLIFileStrings,
     cliReadme,
     cliConfig,
-    cliH,
+    cli_h,
     cliFunctions,
     cliParameters,
     object,
 ):
-    """Generates code for display and writing to disk
+    """Displays Code for Gui
 
     Args:
-        ParseInputHandlerConfig (CodeGeneration): config.h parser
-        cliFileStrings (CodeGeneration): cli filestrings
-        cliReadme (CodeGeneration): generates README.md
-        cliConfig (CodeGeneration): generates config.h
-        cliH (CodeGeneration): generates CLI.h
-        cliFunctions (CodeGeneration): generates functions.h
-        cliParameters (CodeGeneration): generates parameters.h
-        object (object): base object specialization
+        ParseInputHandlerConfig (object): Parses InputHandler's config.h
+        CLIFileStrings (object): cli system filestrings
+        cliReadme (object): generates readme for the generated cli
+        cliConfig (object): generates the config.h file
+        cli_h (object): generates cli.h
+        cliFunctions (object): generates functions.h
+        cliParameters (object): generates parameters.h
+        object (object): extended base class
     """
 
     def __init__(self) -> None:
@@ -78,10 +77,10 @@ class CodeDisplay(
         self.tab_2 = ""
 
         ParseInputHandlerConfig.__init__(self)
-        cliFileStrings.__init__(self)
+        CLIFileStrings.__init__(self)
         cliReadme.__init__(self)
         cliConfig.__init__(self)
-        cliH.__init__(self)
+        cli_h.__init__(self)
         cliFunctions.__init__(self)
         cliParameters.__init__(self)
 
@@ -89,9 +88,7 @@ class CodeDisplay(
         project_path = self._parent.get_project_dir()
         if project_path:
             self.session["opt"]["cli_output_dir"] = project_path
-            CodeDisplay.logger.info(
-                "set session output_dir to:\n" + str(project_path)
-            )
+            CodeDisplay.logger.info("set session output_dir to:\n" + str(project_path))
             self.ui.generateDialog.dlg.outputPathLineEdit.setText(
                 self.session["opt"]["cli_output_dir"]
             )

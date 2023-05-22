@@ -1,3 +1,15 @@
+##
+# @file widgets.py
+# @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+# @brief InputHandler CLI generation tool widgets
+# @version 1.0
+# @date 2023-05-22
+# @copyright Copyright (c) 2023
+# Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# version 3 as published by the Free Software Foundation.
+
 from __future__ import absolute_import
 
 import copy
@@ -303,10 +315,10 @@ class CodePreviewWidget(
         ] = code_string.split("\n")
 
         code_string = self.cli_h()
-        self.code_preview_dict["files"]["CLI.h"]["file_string"] = code_string
-        self.set_code_string("CLI.h", code_string, None, False)
-        self.code_preview_dict["files"]["CLI.h"]["file_lines_list"] = []
-        self.code_preview_dict["files"]["CLI.h"]["file_lines_list"] = code_string.split(
+        self.code_preview_dict["files"]["cli.h"]["file_string"] = code_string
+        self.set_code_string("cli.h", code_string, None, False)
+        self.code_preview_dict["files"]["cli.h"]["file_lines_list"] = []
+        self.code_preview_dict["files"]["cli.h"]["file_lines_list"] = code_string.split(
             "\n"
         )
 
@@ -398,12 +410,12 @@ class CodePreviewWidget(
                 "file_lines_list"
             ] = code_string.split("\n")
 
-        elif filename == "CLI.h":
+        elif filename == "cli.h":
             code_string = self.cli_h()
-            self.code_preview_dict["files"]["CLI.h"]["file_string"] = code_string
-            self.set_code_string("CLI.h", code_string, item_string, place_cursor)
-            self.code_preview_dict["files"]["CLI.h"]["file_lines_list"] = []
-            self.code_preview_dict["files"]["CLI.h"][
+            self.code_preview_dict["files"]["cli.h"]["file_string"] = code_string
+            self.set_code_string("cli.h", code_string, item_string, place_cursor)
+            self.code_preview_dict["files"]["cli.h"]["file_lines_list"] = []
+            self.code_preview_dict["files"]["cli.h"][
                 "file_lines_list"
             ] = code_string.split("\n")
         elif filename == "parameters.h":
@@ -1289,7 +1301,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
         self.logger.info(f"added {command_string} to CommandTreeWidget {parent_string}")
 
         self._parent.update_code("README.md", command_string, True)
-        self._parent.update_code("CLI.h", command_string, True)
+        self._parent.update_code("cli.h", command_string, True)
         self._parent.update_code("functions.h", command_string, True)
         self._parent.update_code("parameters.h", command_string, True)
         return command_label
@@ -1422,7 +1434,7 @@ class CommandTreeWidget(QTreeWidget, QTreeWidgetItem):
             self.cliopt["builtin methods"]["var"][item.data(0, 0)] = False
 
         self._parent.update_code("README.md", item.data(0, 0), True)
-        self._parent.update_code("CLI.h", item.data(0, 0), True)
+        self._parent.update_code("cli.h", item.data(0, 0), True)
         self._parent.update_code("functions.h", item.data(0, 0), True)
         self._parent.update_code("parameters.h", item.data(0, 0), True)
         self.cliopt["commands"]["number of commands"] = str(int(number_of_commands) - 1)
@@ -1844,10 +1856,10 @@ class SettingsTreeWidget(Logger, QTreeWidget):
                 for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[0])
 
-            self.update_code("CLI.h", object_list[2], True)
+            self.update_code("cli.h", object_list[2], True)
 
             if object_list[2] == "outputToStream":
-                self.update_code("CLI.h", object_list[2], True)
+                self.update_code("cli.h", object_list[2], True)
 
             elif object_list[2] == "defaultFunction":
                 if combobox.currentText() == "Enabled":
@@ -1872,7 +1884,7 @@ class SettingsTreeWidget(Logger, QTreeWidget):
                         self.command_tree.remove_command_from_tree("listSettings")
             self.update_code("functions.h", object_list[2], True)
             self.update_code("parameters.h", object_list[2], True)
-            self.update_code("CLI.h", object_list[2], True)
+            self.update_code("cli.h", object_list[2], True)
 
         # if object_list[0] != "builtin methods":
         else:
@@ -2004,17 +2016,17 @@ class SettingsTreeWidget(Logger, QTreeWidget):
             item.setText(3, str(repr(val)))
             self.cliopt["process output"]["var"][object_data["pos"][2]] = val
             self.log_settings_tree_edit(item, object_data)
-            self.update_code("CLI.h", object_data["pos"][2], True)
+            self.update_code("cli.h", object_data["pos"][2], True)
             if object_data["pos"][2] == "defaultFunction":
                 self.update_code("functions.h", object_data["pos"][2], True)
             return
 
-        # process parameters (CLI.h)
+        # process parameters (cli.h)
         if object_data["pos"][0] == "process parameters":
             item.setText(3, "'" + str(val) + "'")
             self.log_settings_tree_edit(item, object_data)
             self.cliopt["process parameters"]["var"][item.text(1)] = val
-            self.update_code("CLI.h", val, True)
+            self.update_code("cli.h", val, True)
             return
 
         # config.h
@@ -2090,4 +2102,3 @@ class RootWidget(QWidget, object):
 
         self.version = self._parent.version
         self.splashscreen_duration = self._parent.splashscreen_duration
-        

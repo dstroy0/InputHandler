@@ -1,11 +1,11 @@
 ##
 # @file parse_config.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-# @brief MainWindow external methods
+# @brief parses InputHandler's config.h
 # @version 1.0
-# @date 2022-07-08
-# @copyright Copyright (c) 2022
-# Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+# @date 2023-05-22
+# @copyright Copyright (c) 2023
+# Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
@@ -81,7 +81,7 @@ class ParseInputHandlerConfig(object):
         for line in self.input_config_file_lines:
             for key in regexp_dict:
                 regexp = regexp_dict[key]
-                match = re.match(regexp, line)                
+                match = re.match(regexp, line)
                 if bool(match):
                     value = str(match[3])
                     if value == "true":

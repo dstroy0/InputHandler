@@ -15,7 +15,7 @@ from __future__ import absolute_import
 
 # TODO move license string to its own variable
 ## file construction strings
-class cliFileStrings(object):
+class CLIFileStrings(object):
     """contains all cli filestrings except config.h which is read from the lib root/src/config and regenerated
 
     Args:
@@ -25,10 +25,10 @@ class cliFileStrings(object):
     ## the constructor
     def __init__(self) -> None:
         """the constructor"""
-        super(cliFileStrings, self).__init__()
-        cliFileStrings.version = self.version
+        super(CLIFileStrings, self).__init__()
+        CLIFileStrings.version = self.version
         self.version = self.version
-        cliFileStrings.lib_version = self.lib_version
+        CLIFileStrings.lib_version = self.lib_version
         self.lib_version = self.lib_version
 
     ## library version
@@ -159,7 +159,7 @@ This makes debugging commands easy, it is trivial to disable output after verify
 */
 """
 
-    ## CLI.h filestring
+    ## cli.h filestring
     cli_h_fs = """
 #if !defined(__CLI_SETUP__)
     #define __CLI_SETUP__
@@ -201,13 +201,13 @@ const PROGMEM ih::InputParameters input_prm[1] = {{
 #endif
 // end of file
 """
-    ## CLI.h setup function
+    ## cli.h setup function
     cli_h_setup_function_string = """
 void InputHandler_setup()
 {{{setupfunctionentry}{defaultfunction}{commandlist}{begin}{options}{setupfunctionexit}
 }}
 """
-    ## CLI.h loop function
+    ## cli.h loop function
     cli_h_loop_function_string = """
 void InputHandler_loop()
 {{{loopstatements}
@@ -280,7 +280,7 @@ const PROGMEM ih::Parameters {functionname}_param[1 /* root */ + {numberofchildr
     parameters_h_fs = """
 #if !defined(__PARAMETERS_H__)
     #define __PARAMETERS_H__
-    #include "CLI.h"
+    #include "cli.h"
     
 {parameters}
 #endif

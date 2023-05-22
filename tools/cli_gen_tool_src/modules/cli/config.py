@@ -1,11 +1,11 @@
 ##
 # @file config.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-# @brief CodePreview/file generation external methods
+# @brief config.h file generator
 # @version 1.0
-# @date 2022-07-29
-# @copyright Copyright (c) 2022
-# Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+# @date 2023-05-22
+# @copyright Copyright (c) 2023
+# Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
@@ -48,9 +48,8 @@ class cliConfig(object):
                 line = "    #define " + str(item) + " " + val
                 code_list[int(sub_dict["lineno"])] = line
 
-        
         code_string = self.list_to_code_string(code_list)
-        
+
         return code_string
         # end update_config_h
 

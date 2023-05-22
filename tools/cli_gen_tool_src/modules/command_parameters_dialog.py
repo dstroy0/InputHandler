@@ -1,5 +1,5 @@
 ##
-# @file command_parameters.py
+# @file command_parameters_dialog.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
 # @brief MainWindow external methods
 # @version 1.0
@@ -11,7 +11,6 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-
 import copy
 
 # pyside imports
@@ -438,7 +437,7 @@ class CommandParametersDialog(object):
             )
             self.update_code("parameters.h", validated_result["functionName"], True)
             self.update_code("functions.h", validated_result["functionName"], True)
-            self.update_code("CLI.h", validated_result["functionName"], True)
+            self.update_code("cli.h", validated_result["functionName"], True)
             self.update_code("README.md", validated_result["functionName"], True)
             self.command_tree.update_command(self.command_tree.active_item)
             self.ui.commandParameters.close()
@@ -489,7 +488,7 @@ class CommandParametersDialog(object):
 
         self.update_code("parameters.h", validated_result["functionName"], True)
         self.update_code("functions.h", validated_result["functionName"], True)
-        self.update_code("CLI.h", validated_result["functionName"], True)
+        self.update_code("cli.h", validated_result["functionName"], True)
         self.update_code("README.md", validated_result["functionName"], True)
         self.ui.commandParameters.close()
 

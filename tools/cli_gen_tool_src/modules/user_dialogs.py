@@ -1,3 +1,15 @@
+##
+# @file user_dialogs.py
+# @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
+# @brief InputHandler CLI generation tool user dialogs
+# @version 1.0
+# @date 2023-05-22
+# @copyright Copyright (c) 2023
+# Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# version 3 as published by the Free Software Foundation.
+
 from __future__ import absolute_import
 import os, sys, json
 from PySide6.QtWidgets import (

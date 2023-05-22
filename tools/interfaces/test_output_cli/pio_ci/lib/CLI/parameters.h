@@ -20,7 +20,7 @@
 
 #if !defined(__PARAMETERS_H__)
     #define __PARAMETERS_H__
-    #include "CLI.h"
+    #include "cli.h"
     
 
 /**

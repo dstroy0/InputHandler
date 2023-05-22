@@ -1,9 +1,9 @@
 ##
-# @file no_dialog_file_manipulation.py
+# @file file_manipulation.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
-# @brief no dialog file manipulation
+# @brief file manipulation methods
 # @version 1.0
-# @date 2023-05-17
+# @date 2023-05-22
 # @copyright Copyright (c) 2023
 # Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
 # This program is free software; you can redistribute it and/or
@@ -250,7 +250,7 @@ class FileManipulation(object):
         # update code
         self.code_preview_dict["files"]["README.md"]["file_string"] = self.readme_md()
         self.code_preview_dict["files"]["config.h"]["file_string"] = self.config_h()
-        self.code_preview_dict["files"]["CLI.h"]["file_string"] = self.cli_h()
+        self.code_preview_dict["files"]["cli.h"]["file_string"] = self.cli_h()
         self.code_preview_dict["files"]["parameters.h"][
             "file_string"
         ] = self.parameters_h()
