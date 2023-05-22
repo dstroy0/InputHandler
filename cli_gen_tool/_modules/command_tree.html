@@ -239,17 +239,17 @@
 <span class="c1"># imports</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QHBoxLayout</span>
-<span class="kn">from</span> <span class="nn">modules.data_models</span> <span class="kn">import</span> <span class="n">dataModels</span>
+<span class="kn">from</span> <span class="nn">modules.data_models</span> <span class="kn">import</span> <span class="n">DataModels</span>
 <span class="kn">from</span> <span class="nn">modules.widgets</span> <span class="kn">import</span> <span class="n">CommandTreeWidget</span>
 
 
 <span class="c1">## self.ui.command_tree methods</span>
-<div class="viewcode-block" id="CommandTreeMethods"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods">[docs]</a><span class="k">class</span> <span class="nc">CommandTreeMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c1">## CommandTreeMethods constructor</span>
+<div class="viewcode-block" id="CommandTree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTree">[docs]</a><span class="k">class</span> <span class="nc">CommandTree</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c1">## CommandTree constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;constructor method&quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CommandTreeMethods</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CommandTree</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">CommandTree</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_child_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
         <span class="c1"># new cmd button</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">new_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -258,13 +258,13 @@
         <span class="c1"># delete button</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_cmd_button</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_buttons</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_buttons</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">DataModels</span><span class="o">.</span><span class="n">button_dict</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">&quot;new&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
-                <span class="s2">&quot;edit&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
-                <span class="s2">&quot;delete&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
-                <span class="s2">&quot;collapse&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">dataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
+                <span class="s2">&quot;new&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">DataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
+                <span class="s2">&quot;edit&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">DataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
+                <span class="s2">&quot;delete&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">DataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
+                <span class="s2">&quot;collapse&quot;</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">DataModels</span><span class="o">.</span><span class="n">button_sub_dict</span><span class="p">),</span>
             <span class="p">}</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;new&quot;</span><span class="p">][</span>
@@ -281,21 +281,21 @@
         <span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_collapse_button</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree_buttons</span><span class="p">[</span><span class="s2">&quot;buttons&quot;</span><span class="p">][</span><span class="s2">&quot;collapse&quot;</span><span class="p">][</span><span class="s2">&quot;enabled&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
-<div class="viewcode-block" id="CommandTreeMethods.build_command_tree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.build_command_tree">[docs]</a>    <span class="k">def</span> <span class="nf">build_command_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandTree.build_command_tree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTree.build_command_tree">[docs]</a>    <span class="k">def</span> <span class="nf">build_command_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_container</span>
         <span class="n">container</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span> <span class="o">=</span> <span class="n">CommandTreeWidget</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">,</span> <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">,</span> <span class="n">CommandTree</span><span class="o">.</span><span class="n">logger</span>
         <span class="p">)</span>
         <span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="p">)</span>
         <span class="n">container</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span></div>
 
-<div class="viewcode-block" id="CommandTreeMethods.rebuild_command_tree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTreeMethods.rebuild_command_tree">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_command_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CommandTree.rebuild_command_tree"><a class="viewcode-back" href="../modules/command_tree.html#command_tree.CommandTree.rebuild_command_tree">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_command_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">command_tree_container</span>
         <span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span> <span class="o">=</span> <span class="n">CommandTreeWidget</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">,</span> <span class="n">CommandTreeMethods</span><span class="o">.</span><span class="n">logger</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span><span class="p">,</span> <span class="n">CommandTree</span><span class="o">.</span><span class="n">logger</span>
         <span class="p">)</span>
         <span class="n">container</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_tree</span><span class="p">)</span></div></div>
 

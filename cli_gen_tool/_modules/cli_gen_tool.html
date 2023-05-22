@@ -240,14 +240,13 @@
 <span class="kn">import</span> <span class="nn">qdarktheme</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
 <span class="kn">from</span> <span class="nn">PySide6.QtWidgets</span> <span class="kn">import</span> <span class="n">QApplication</span>
-<span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>  <span class="c1"># logging methods</span>
-<span class="kn">from</span> <span class="nn">modules.script_cli</span> <span class="kn">import</span> <span class="n">ScriptCLI</span>  <span class="c1"># cli_gen_tool CLI</span>
-<span class="kn">from</span> <span class="nn">modules.no_dialog_file_manipulation</span> <span class="kn">import</span> <span class="n">NoDialogFileManipulation</span>
+<span class="kn">from</span> <span class="nn">modules.logger</span> <span class="kn">import</span> <span class="n">Logger</span>  <span class="c1"># logging methods</span>
+<span class="kn">from</span> <span class="nn">modules.tool_cli</span> <span class="kn">import</span> <span class="n">ToolCLI</span>  <span class="c1"># cli_gen_tool CLI</span>
+<span class="kn">from</span> <span class="nn">modules.file_manipulation</span> <span class="kn">import</span> <span class="n">FileManipulation</span>
 <span class="kn">from</span> <span class="nn">modules.user_dialogs</span> <span class="kn">import</span> <span class="n">UserDialogs</span>
-<span class="kn">from</span> <span class="nn">modules.main_window</span> <span class="kn">import</span> <span class="n">MainWindow</span>
+<span class="kn">from</span> <span class="nn">modules.mainwindow</span> <span class="kn">import</span> <span class="n">MainWindow</span>
 <span class="kn">from</span> <span class="nn">modules.widgets</span> <span class="kn">import</span> <span class="n">RootWidget</span>
 <span class="kn">from</span> <span class="nn">modules.pathing</span> <span class="kn">import</span> <span class="n">Pathing</span>
-<span class="kn">from</span> <span class="nn">modules.logging_setup</span> <span class="kn">import</span> <span class="n">Logger</span>
 
 <span class="c1">## tool version</span>
 <span class="n">version</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># save serialization</span>
@@ -257,11 +256,11 @@
 
 
 <span class="c1">## set up pathing, logging, splash screen</span>
-<div class="viewcode-block" id="GUI"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.GUI">[docs]</a><span class="k">class</span> <span class="nc">GUI</span><span class="p">(</span><span class="n">Pathing</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">UserDialogs</span><span class="p">,</span> <span class="n">NoDialogFileManipulation</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="GUI"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.GUI">[docs]</a><span class="k">class</span> <span class="nc">GUI</span><span class="p">(</span><span class="n">Pathing</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">UserDialogs</span><span class="p">,</span> <span class="n">FileManipulation</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">UserDialogs</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">NoDialogFileManipulation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">FileManipulation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">splashscreen_duration</span> <span class="o">=</span> <span class="n">splashscreen_duration</span>
         <span class="c1"># setup logger</span>
@@ -315,17 +314,17 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span></div></div>
 
 
-<div class="viewcode-block" id="Headless"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Headless">[docs]</a><span class="k">class</span> <span class="nc">Headless</span><span class="p">(</span><span class="n">Pathing</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">NoDialogFileManipulation</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Headless"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Headless">[docs]</a><span class="k">class</span> <span class="nc">Headless</span><span class="p">(</span><span class="n">Pathing</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">FileManipulation</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Headless</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="n">NoDialogFileManipulation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">FileManipulation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">generate</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_pathing</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;creating cli with supplied arguments&quot;</span><span class="p">)</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Init"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Init">[docs]</a><span class="k">class</span> <span class="nc">Init</span><span class="p">(</span><span class="n">Pathing</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">ScriptCLI</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Init"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Init">[docs]</a><span class="k">class</span> <span class="nc">Init</span><span class="p">(</span><span class="n">Pathing</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">ToolCLI</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Init</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
