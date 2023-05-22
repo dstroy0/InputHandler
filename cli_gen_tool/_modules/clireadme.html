@@ -224,17 +224,17 @@
 <span></span><span class="c1">##</span>
 <span class="c1"># @file clireadme.py</span>
 <span class="c1"># @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
-<span class="c1"># @brief CodePreview/file generation external methods</span>
+<span class="c1"># @brief cli readme.md generator</span>
 <span class="c1"># @version 1.0</span>
-<span class="c1"># @date 2022-08-28</span>
-<span class="c1"># @copyright Copyright (c) 2022</span>
-<span class="c1"># Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
+<span class="c1"># @date 2023-05-22</span>
+<span class="c1"># @copyright Copyright (c) 2023</span>
+<span class="c1"># Copyright (C) 2023 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
 <span class="c1"># This program is free software; you can redistribute it and/or</span>
 <span class="c1"># modify it under the terms of the GNU General Public License</span>
 <span class="c1"># version 3 as published by the Free Software Foundation.</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
-<span class="kn">from</span> <span class="nn">modules.cli.filestrings</span> <span class="kn">import</span> <span class="n">cliFileStrings</span>
+<span class="kn">from</span> <span class="nn">modules.cli.filestrings</span> <span class="kn">import</span> <span class="n">CLIFileStrings</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -301,10 +301,10 @@
             <span class="n">_loop_code</span> <span class="o">=</span> <span class="s2">&quot;InputHandler_loop();&quot;</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">return_function_code</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">return_function_inst</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_function_inst</span>
-            <span class="n">copy_inst</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_copy_inst</span>
-            <span class="n">gen_code_sect</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_gen_inst</span>
-            <span class="n">include_inst</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_include_inst</span>
+            <span class="n">return_function_inst</span> <span class="o">=</span> <span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">rdme_function_inst</span>
+            <span class="n">copy_inst</span> <span class="o">=</span> <span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">rdme_copy_inst</span>
+            <span class="n">gen_code_sect</span> <span class="o">=</span> <span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">rdme_gen_inst</span>
+            <span class="n">include_inst</span> <span class="o">=</span> <span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">rdme_include_inst</span>
             <span class="n">wrapped_include_inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;readme&quot;</span><span class="p">][</span><span class="s2">&quot;md&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
                 <span class="s2">&quot;cpp md tag&quot;</span>
             <span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">statements</span><span class="o">=</span><span class="n">include_inst</span><span class="p">)</span>
@@ -315,21 +315,21 @@
             <span class="n">wrapped_setup_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;readme&quot;</span><span class="p">][</span><span class="s2">&quot;md&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
                 <span class="s2">&quot;cpp md tag&quot;</span>
             <span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">statements</span><span class="o">=</span><span class="n">_setup_code</span><span class="p">)</span>
-            <span class="n">_setup_inst</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_setup_inst</span>
+            <span class="n">_setup_inst</span> <span class="o">=</span> <span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">rdme_setup_inst</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_loop_code</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">wrapped_loop_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fsdb</span><span class="p">[</span><span class="s2">&quot;readme&quot;</span><span class="p">][</span><span class="s2">&quot;md&quot;</span><span class="p">][</span><span class="s2">&quot;filestring components&quot;</span><span class="p">][</span>
                 <span class="s2">&quot;cpp md tag&quot;</span>
             <span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">statements</span><span class="o">=</span><span class="n">_loop_code</span><span class="p">)</span>
-            <span class="n">_loop_inst</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">rdme_loop_inst</span>
+            <span class="n">_loop_inst</span> <span class="o">=</span> <span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">rdme_loop_inst</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">username</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">username</span> <span class="o">=</span> <span class="n">username</span> <span class="o">+</span> <span class="s2">&quot; (retrieved using os.getlogin())&quot;</span>
-        <span class="n">ll</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">lib_license_md</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">docs_year</span><span class="o">=</span><span class="n">year</span><span class="p">)</span>
-        <span class="n">code_string</span> <span class="o">=</span> <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">readmemd</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">ll</span> <span class="o">=</span> <span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">lib_license_md</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">docs_year</span><span class="o">=</span><span class="n">year</span><span class="p">)</span>
+        <span class="n">code_string</span> <span class="o">=</span> <span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">readmemd</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">user</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
-            <span class="n">tool_version</span><span class="o">=</span><span class="n">cliFileStrings</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
-            <span class="n">lib_version</span><span class="o">=</span><span class="n">cliFileStrings</span><span class="o">.</span><span class="n">lib_version</span><span class="p">,</span>
+            <span class="n">tool_version</span><span class="o">=</span><span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
+            <span class="n">lib_version</span><span class="o">=</span><span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">lib_version</span><span class="p">,</span>
             <span class="n">lib_license</span><span class="o">=</span><span class="n">ll</span><span class="p">,</span>
             <span class="n">docs_date</span><span class="o">=</span><span class="n">date</span><span class="p">,</span>
             <span class="n">docs_year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>

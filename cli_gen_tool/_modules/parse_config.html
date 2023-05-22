@@ -224,11 +224,11 @@
 <span></span><span class="c1">##</span>
 <span class="c1"># @file parse_config.py</span>
 <span class="c1"># @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
-<span class="c1"># @brief MainWindow external methods</span>
+<span class="c1"># @brief parses InputHandler&#39;s config.h</span>
 <span class="c1"># @version 1.0</span>
-<span class="c1"># @date 2022-07-08</span>
-<span class="c1"># @copyright Copyright (c) 2022</span>
-<span class="c1"># Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
+<span class="c1"># @date 2023-05-22</span>
+<span class="c1"># @copyright Copyright (c) 2023</span>
+<span class="c1"># Copyright (C) 2023 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
 <span class="c1"># This program is free software; you can redistribute it and/or</span>
 <span class="c1"># modify it under the terms of the GNU General Public License</span>
 <span class="c1"># version 3 as published by the Free Software Foundation.</span>
@@ -304,7 +304,7 @@
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_config_file_lines</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">regexp_dict</span><span class="p">:</span>
                 <span class="n">regexp</span> <span class="o">=</span> <span class="n">regexp_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-                <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">regexp</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>                
+                <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">regexp</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">match</span><span class="p">):</span>
                     <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
                     <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;true&quot;</span><span class="p">:</span>

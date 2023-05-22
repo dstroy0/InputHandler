@@ -238,7 +238,7 @@
 
 <span class="c1"># TODO move license string to its own variable</span>
 <span class="c1">## file construction strings</span>
-<div class="viewcode-block" id="cliFileStrings"><a class="viewcode-back" href="../modules/cli/filestrings.html#filestrings.cliFileStrings">[docs]</a><span class="k">class</span> <span class="nc">cliFileStrings</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="CLIFileStrings"><a class="viewcode-back" href="../modules/cli/filestrings.html#filestrings.CLIFileStrings">[docs]</a><span class="k">class</span> <span class="nc">CLIFileStrings</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;contains all cli filestrings except config.h which is read from the lib root/src/config and regenerated</span>
 
 <span class="sd">    Args:</span>
@@ -248,10 +248,10 @@
     <span class="c1">## the constructor</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;the constructor&quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">cliFileStrings</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CLIFileStrings</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
-        <span class="n">cliFileStrings</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span>
+        <span class="n">CLIFileStrings</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span>
 
     <span class="c1">## library version</span>
@@ -382,7 +382,7 @@
 <span class="s2">*/</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-    <span class="c1">## CLI.h filestring</span>
+    <span class="c1">## cli.h filestring</span>
     <span class="n">cli_h_fs</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">#if !defined(__CLI_SETUP__)</span>
 <span class="s2">    #define __CLI_SETUP__</span>
@@ -424,13 +424,13 @@
 <span class="s2">#endif</span>
 <span class="s2">// end of file</span>
 <span class="s2">&quot;&quot;&quot;</span>
-    <span class="c1">## CLI.h setup function</span>
+    <span class="c1">## cli.h setup function</span>
     <span class="n">cli_h_setup_function_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">void InputHandler_setup()</span>
 <span class="s2">{{</span><span class="si">{setupfunctionentry}{defaultfunction}{commandlist}{begin}{options}{setupfunctionexit}</span>
 <span class="s2">}}</span>
 <span class="s2">&quot;&quot;&quot;</span>
-    <span class="c1">## CLI.h loop function</span>
+    <span class="c1">## cli.h loop function</span>
     <span class="n">cli_h_loop_function_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">void InputHandler_loop()</span>
 <span class="s2">{{</span><span class="si">{loopstatements}</span>
@@ -503,7 +503,7 @@
     <span class="n">parameters_h_fs</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">#if !defined(__PARAMETERS_H__)</span>
 <span class="s2">    #define __PARAMETERS_H__</span>
-<span class="s2">    #include &quot;CLI.h&quot;</span>
+<span class="s2">    #include &quot;cli.h&quot;</span>
 <span class="s2">    </span>
 <span class="si">{parameters}</span>
 <span class="s2">#endif</span>

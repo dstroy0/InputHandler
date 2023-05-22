@@ -224,11 +224,11 @@
 <span></span><span class="c1">##</span>
 <span class="c1"># @file config.py</span>
 <span class="c1"># @author Douglas Quigg (dstroy0 dquigg123@gmail.com)</span>
-<span class="c1"># @brief CodePreview/file generation external methods</span>
+<span class="c1"># @brief config.h file generator</span>
 <span class="c1"># @version 1.0</span>
-<span class="c1"># @date 2022-07-29</span>
-<span class="c1"># @copyright Copyright (c) 2022</span>
-<span class="c1"># Copyright (C) 2022 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
+<span class="c1"># @date 2023-05-22</span>
+<span class="c1"># @copyright Copyright (c) 2023</span>
+<span class="c1"># Copyright (C) 2023 Douglas Quigg (dstroy0) &lt;dquigg123@gmail.com&gt;</span>
 <span class="c1"># This program is free software; you can redistribute it and/or</span>
 <span class="c1"># modify it under the terms of the GNU General Public License</span>
 <span class="c1"># version 3 as published by the Free Software Foundation.</span>
@@ -271,9 +271,8 @@
                 <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;    #define &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">val</span>
                 <span class="n">code_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">sub_dict</span><span class="p">[</span><span class="s2">&quot;lineno&quot;</span><span class="p">])]</span> <span class="o">=</span> <span class="n">line</span>
 
-        
         <span class="n">code_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_to_code_string</span><span class="p">(</span><span class="n">code_list</span><span class="p">)</span>
-        
+
         <span class="k">return</span> <span class="n">code_string</span></div></div>
         <span class="c1"># end update_config_h</span>
 
