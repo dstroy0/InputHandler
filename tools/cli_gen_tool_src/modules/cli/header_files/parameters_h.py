@@ -13,7 +13,7 @@
 import copy
 
 
-class cliParameters(object):
+class Parameters_H(object):
     """parameters.h generator
 
     Args:
@@ -23,7 +23,7 @@ class cliParameters(object):
     ## the constructor
     def __init__(self) -> None:
         """the constructor"""
-        super(cliParameters, self).__init__()
+        super(Parameters_H, self).__init__()
         self.cliopt = self.cli_options
         self.command_index = self.cliopt["commands"]["index"]
         self.nested_children_string = ""

@@ -10,8 +10,6 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
-
-# imports
 import os
 import sys
 import qdarktheme
@@ -24,6 +22,7 @@ from modules.user_dialogs import UserDialogs
 from modules.mainwindow import MainWindow
 from modules.widgets import RootWidget
 from modules.pathing import Pathing
+
 
 ## tool version
 version = 1.0  # save serialization

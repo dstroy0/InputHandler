@@ -1,5 +1,5 @@
 ##
-# @file config.py
+# @file config_h.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
 # @brief config.h file generator
 # @version 1.0
@@ -13,7 +13,7 @@
 import copy
 
 
-class cliConfig(object):
+class Config_H(object):
     """config.h generator
 
     Args:
@@ -22,7 +22,7 @@ class cliConfig(object):
 
     def __init__(self) -> None:
         """the constructor"""
-        super(cliConfig, self).__init__()
+        super(Config_H, self).__init__()
 
     # refresh the contents of config.h
     def config_h(self) -> str:

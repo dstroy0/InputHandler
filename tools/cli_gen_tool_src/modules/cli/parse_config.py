@@ -10,15 +10,13 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
-from __future__ import absolute_import
-
 # imports
 import re
 import copy
 import json
 
 
-# parse inputhandler config
+# parses inputhandler config
 class ParseInputHandlerConfig(object):
     """InputHandler config.h parser
 

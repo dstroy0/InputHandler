@@ -11,7 +11,9 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-import os, sys, json
+import os
+import sys
+import json
 from PySide6.QtWidgets import (
     QDialog,
     QFileDialog,

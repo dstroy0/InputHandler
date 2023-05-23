@@ -11,12 +11,12 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-from modules.cli.filestrings import CLIFileStrings
-import datetime
 import os
+import datetime
+from modules.cli.filestrings import CLIFileStrings
 
 
-class cliReadme(object):
+class ReadMe(object):
     """README.md generator
 
     Args:
@@ -26,7 +26,7 @@ class cliReadme(object):
     ## the constructor
     def __init__(self) -> None:
         """the constructor"""
-        super(cliReadme, self).__init__()
+        super(ReadMe, self).__init__()
         self.cliopt = self.cli_options
         self.fsdb = self.fsdb
 

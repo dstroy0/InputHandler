@@ -11,12 +11,8 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-
-# imports
 import copy
-
 from PySide6.QtWidgets import QHBoxLayout
-
 from modules.data_models import DataModels
 from modules.display_models import DisplayModels
 from modules.widgets import SettingsTreeWidget

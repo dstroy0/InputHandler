@@ -1,5 +1,5 @@
 ##
-# @file cli.py
+# @file cli_h.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
 # @brief cli.h generator
 # @version 1.0
@@ -14,7 +14,7 @@ import os
 import glob
 
 
-class cli_h(object):
+class CLI_H(object):
     """cli.h generator
 
     Args:
@@ -23,7 +23,7 @@ class cli_h(object):
 
     def __init__(self) -> None:
         """the constructor"""
-        super(cli_h, self).__init__()
+        super(CLI_H, self).__init__()
         self.cliopt = self.cli_options
         self.command_index = self.cliopt["commands"]["index"]
 

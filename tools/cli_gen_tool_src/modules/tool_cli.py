@@ -10,7 +10,11 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
-import argparse, pathlib, json, sys, os
+import os
+import sys
+import json
+import pathlib
+import argparse
 
 
 class ToolCLI(object):

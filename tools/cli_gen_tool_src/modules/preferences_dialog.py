@@ -11,7 +11,6 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-
 from modules.logger import Logger
 from modules.data_models import DataModels
 from PySide6.QtWidgets import QLineEdit

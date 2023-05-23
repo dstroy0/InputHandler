@@ -12,8 +12,6 @@
 
 from __future__ import absolute_import
 import copy
-
-# pyside imports
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtWidgets import (
@@ -26,8 +24,6 @@ from PySide6.QtWidgets import (
     QTableWidgetItem,
     QHeaderView,
 )
-
-# data models
 from modules.data_models import DataModels
 from modules.display_models import DisplayModels
 from modules.widgets import TableButtonBox

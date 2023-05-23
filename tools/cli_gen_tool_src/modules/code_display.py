@@ -11,14 +11,11 @@
 # version 3 as published by the Free Software Foundation.
 
 from __future__ import absolute_import
-
-# pyside imports
 from PySide6.QtCore import (
     QEvent,
     QObject,
     Signal,
 )
-
 from PySide6.QtWidgets import (
     QWidget,
     QStyle,
@@ -27,13 +24,11 @@ from PySide6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
 )
-
-# external methods and resources
-from modules.cli.clireadme import cliReadme
-from modules.cli.config import cliConfig
-from modules.cli.cli import cli_h
-from modules.cli.functions import cliFunctions
-from modules.cli.parameters import cliParameters
+from modules.cli.readme import ReadMe
+from modules.cli.header_files.config_h import Config_H
+from modules.cli.header_files.cli_h import CLI_H
+from modules.cli.header_files.functions_h import Functions_H
+from modules.cli.header_files.parameters_h import Parameters_H
 from modules.cli.filestrings import CLIFileStrings
 from modules.cli.parse_config import ParseInputHandlerConfig
 from modules.widgets import CodePreviewWidget
@@ -43,11 +38,11 @@ from modules.widgets import CodePreviewWidget
 class CodeDisplay(
     ParseInputHandlerConfig,
     CLIFileStrings,
-    cliReadme,
-    cliConfig,
-    cli_h,
-    cliFunctions,
-    cliParameters,
+    ReadMe,
+    Config_H,
+    CLI_H,
+    Functions_H,
+    Parameters_H,
     object,
 ):
     """Displays Code for Gui
@@ -78,11 +73,11 @@ class CodeDisplay(
 
         ParseInputHandlerConfig.__init__(self)
         CLIFileStrings.__init__(self)
-        cliReadme.__init__(self)
-        cliConfig.__init__(self)
-        cli_h.__init__(self)
-        cliFunctions.__init__(self)
-        cliParameters.__init__(self)
+        ReadMe.__init__(self)
+        Config_H.__init__(self)
+        CLI_H.__init__(self)
+        Functions_H.__init__(self)
+        Parameters_H.__init__(self)
 
     def generatedialog_set_output_dir(self):
         project_path = self._parent.get_project_dir()

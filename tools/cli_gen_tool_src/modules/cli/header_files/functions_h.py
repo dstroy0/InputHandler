@@ -1,5 +1,5 @@
 ##
-# @file functions.py
+# @file functions_h.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
 # @brief functions.h generator
 # @version 1.0
@@ -11,7 +11,7 @@
 # version 3 as published by the Free Software Foundation.
 
 
-class cliFunctions(object):
+class Functions_H(object):
     """functions.h generator
 
     Args:
@@ -21,7 +21,7 @@ class cliFunctions(object):
     ## the constructor
     def __init__(self) -> None:
         """the constructor"""
-        super(cliFunctions, self).__init__()
+        super(Functions_H, self).__init__()
 
     ## update the text for functions.h
     def functions_h(self) -> str:

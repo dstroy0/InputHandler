@@ -10,8 +10,6 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
-from __future__ import absolute_import
-
 
 # TODO move license string to its own variable
 ## file construction strings

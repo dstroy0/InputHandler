@@ -10,10 +10,7 @@
 # modify it under the terms of the GNU General Public License
 # version 3 as published by the Free Software Foundation.
 
-# absolute imports
 from __future__ import absolute_import
-
-# imports
 import copy
 from PySide6.QtWidgets import QHBoxLayout
 from modules.data_models import DataModels
