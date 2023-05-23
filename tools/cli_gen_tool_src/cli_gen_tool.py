@@ -112,9 +112,10 @@ class Headless(Pathing, Logger, FileManipulation, object):
     def __init__(self) -> None:
         super(Headless, self).__init__()
         FileManipulation.__init__(self)
-        self.lib_root_path = os.path.abspath(self.args.generate[0])
+        self.lib_root_path = os.path.abspath(self.args.library_path)
         self.set_pathing()
-        print("creating cli with supplied arguments")
+        self.root_log_handler.info("creating cli with supplied arguments")
+        
         sys.exit(0)
 
 
@@ -137,6 +138,7 @@ class Init(Pathing, Logger, ToolCLI, object):
         self.stream_log_handler = self.get_stream_logger()
         self.args = self.get_args()
         if self.args.headless:
+            self.cli_options = self.args.cli_options_json
             Headless()
         else:
             GUI()

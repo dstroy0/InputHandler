@@ -89,8 +89,6 @@ class Pathing(object):
         cli_gen_tool_json_path = os.path.abspath(
             os.path.join(inputhandler_save_path, "session/cli_gen_tool.json")
         )
-        print(inputhandler_save_path)
-        print(cli_gen_tool_json_path)
 
         Pathing.default_config_path = default_config_path
         Pathing.cli_gen_tool_json_path = cli_gen_tool_json_path

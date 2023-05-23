@@ -95,7 +95,7 @@ class Logger(object):
         stream_log_handler.setFormatter(Logger.log_formatter)
         Logger.stream_log_handler = stream_log_handler
         Logger.root_log_handler.addHandler(stream_log_handler)
-
+        
     ## returns a logging object if setup_logging() has been called; else None
     def get_root_logger(self):
         return Logger.root_log_handler
