@@ -31,8 +31,17 @@ version = 1.0  # save serialization
 splashscreen_duration = 750
 
 
-## set up pathing, logging, splash screen
 class GUI(Pathing, Logger, UserDialogs, FileManipulation, object):
+    """Initializes Qt services and the tool GUI
+
+    Args:
+        Pathing (object): script/binary pathing
+        Logger (object): logging services
+        UserDialogs (object): user dialogs/interaction
+        FileManipulation (object): cli file editing, cli settings json read
+        object (object): base class extended
+    """
+
     def __init__(self) -> None:
         super().__init__()
         UserDialogs.__init__(self)
@@ -91,6 +100,15 @@ class GUI(Pathing, Logger, UserDialogs, FileManipulation, object):
 
 
 class Headless(Pathing, Logger, FileManipulation, object):
+    """No Qt services loaded, completely headless use -h to see options when launching cli_gen_tool.py
+
+    Args:
+        Pathing (object): script/binary pathing
+        Logger (object): logging services
+        FileManipulation (object): cli file editing, cli settings json read
+        object (object): base class extended
+    """
+    #TODO generate logic
     def __init__(self) -> None:
         super(Headless, self).__init__()
         FileManipulation.__init__(self)
@@ -101,6 +119,15 @@ class Headless(Pathing, Logger, FileManipulation, object):
 
 
 class Init(Pathing, Logger, ToolCLI, object):
+    """Pre-Qt script initialization
+
+    Args:
+        Pathing (object): script/binary pathing
+        Logger (object): logging services
+        ToolCLI (object): gets arguments to script
+        object (object): base class extended
+    """
+
     def __init__(self) -> None:
         super(Init, self).__init__()
         Logger.__init__(self)
@@ -108,22 +135,17 @@ class Init(Pathing, Logger, ToolCLI, object):
         self.setup_logging(__name__)
         self.root_log_handler = self.get_root_logger()
         self.stream_log_handler = self.get_stream_logger()
-        self.args = self.script_cli()
+        self.args = self.get_args()
         if self.args.headless:
             Headless()
         else:
             GUI()
 
 
-# end Initialize()
-
-
-## main function
 def main():
     Init()
 
 
-# you can run this script
 if __name__ == "__main__":
     main()
 
