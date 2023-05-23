@@ -254,8 +254,17 @@
 <span class="n">splashscreen_duration</span> <span class="o">=</span> <span class="mi">750</span>
 
 
-<span class="c1">## set up pathing, logging, splash screen</span>
 <div class="viewcode-block" id="GUI"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.GUI">[docs]</a><span class="k">class</span> <span class="nc">GUI</span><span class="p">(</span><span class="n">Pathing</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">UserDialogs</span><span class="p">,</span> <span class="n">FileManipulation</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initializes Qt services and the tool GUI</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        Pathing (object): script/binary pathing</span>
+<span class="sd">        Logger (object): logging services</span>
+<span class="sd">        UserDialogs (object): user dialogs/interaction</span>
+<span class="sd">        FileManipulation (object): cli file editing, cli settings json read</span>
+<span class="sd">        object (object): base class extended</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">UserDialogs</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -314,6 +323,15 @@
 
 
 <div class="viewcode-block" id="Headless"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Headless">[docs]</a><span class="k">class</span> <span class="nc">Headless</span><span class="p">(</span><span class="n">Pathing</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">FileManipulation</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;No Qt services loaded, completely headless use -h to see options when launching cli_gen_tool.py</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        Pathing (object): script/binary pathing</span>
+<span class="sd">        Logger (object): logging services</span>
+<span class="sd">        FileManipulation (object): cli file editing, cli settings json read</span>
+<span class="sd">        object (object): base class extended</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#TODO generate logic</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Headless</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">FileManipulation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -324,6 +342,15 @@
 
 
 <div class="viewcode-block" id="Init"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Init">[docs]</a><span class="k">class</span> <span class="nc">Init</span><span class="p">(</span><span class="n">Pathing</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">ToolCLI</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pre-Qt script initialization</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        Pathing (object): script/binary pathing</span>
+<span class="sd">        Logger (object): logging services</span>
+<span class="sd">        ToolCLI (object): gets arguments to script</span>
+<span class="sd">        object (object): base class extended</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Init</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">Logger</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -331,22 +358,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setup_logging</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_root_logger</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream_log_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_stream_logger</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">script_cli</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_args</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
             <span class="n">Headless</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">GUI</span><span class="p">()</span></div>
 
 
-<span class="c1"># end Initialize()</span>
-
-
-<span class="c1">## main function</span>
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">Init</span><span class="p">()</span></div>
 
 
-<span class="c1"># you can run this script</span>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 

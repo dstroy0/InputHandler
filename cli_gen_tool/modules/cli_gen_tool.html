@@ -227,6 +227,15 @@
 <dt class="sig sig-object py" id="cli_gen_tool.GUI">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cli_gen_tool.</span></span><span class="sig-name descname"><span class="pre">GUI</span></span><a class="reference internal" href="../_modules/cli_gen_tool.html#GUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli_gen_tool.GUI" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Pathing</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">UserDialogs</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">FileManipulation</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initializes Qt services and the tool GUI</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>Pathing (object): script/binary pathing
+Logger (object): logging services
+UserDialogs (object): user dialogs/interaction
+FileManipulation (object): cli file editing, cli settings json read
+object (object): base class extended</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cli_gen_tool.GUI.set_lib_root_path">
 <span class="sig-name descname"><span class="pre">set_lib_root_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cli_gen_tool.html#GUI.set_lib_root_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli_gen_tool.GUI.set_lib_root_path" title="Permalink to this definition">#</a></dt>
@@ -238,12 +247,28 @@
 <dt class="sig sig-object py" id="cli_gen_tool.Headless">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cli_gen_tool.</span></span><span class="sig-name descname"><span class="pre">Headless</span></span><a class="reference internal" href="../_modules/cli_gen_tool.html#Headless"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli_gen_tool.Headless" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Pathing</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">FileManipulation</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>No Qt services loaded, completely headless use -h to see options when launching cli_gen_tool.py</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>Pathing (object): script/binary pathing
+Logger (object): logging services
+FileManipulation (object): cli file editing, cli settings json read
+object (object): base class extended</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cli_gen_tool.Init">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cli_gen_tool.</span></span><span class="sig-name descname"><span class="pre">Init</span></span><a class="reference internal" href="../_modules/cli_gen_tool.html#Init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cli_gen_tool.Init" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Pathing</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ToolCLI</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Pre-Qt script initialization</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>Pathing (object): script/binary pathing
+Logger (object): logging services
+ToolCLI (object): gets arguments to script
+object (object): base class extended</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
