@@ -1,0 +1,30 @@
+name: Generate changelog
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    branches:
+      - main
+  release:
+    branches:
+      - release
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Generate changelog"
+        uses: heinrichreimer/github-changelog-generator-action@v2.3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  # checkpoint
+  generate-changelog-success:
+    runs-on: ubuntu-latest
+    name: generate-changelog-success
+    needs: [changelog]
+    steps:
+      - name: echo
+        run: echo Build Adafruit platforms success!
