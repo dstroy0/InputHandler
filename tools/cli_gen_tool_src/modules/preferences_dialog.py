@@ -79,7 +79,7 @@ class PreferencesDialog(object):
         Logger.session_log_level = index_val
         Logger.set_log_levels(self)
         self.logger.warning(
-            "Session log level set to : " + Logger.level_lookup[index_val]
+            f"Session log level set to : {Logger.level_lookup[index_val]}"
         )
 
     # TODO
@@ -112,10 +112,7 @@ class PreferencesDialog(object):
         # this sets InputHandler builtin methods to the user's preference on startup
         if self.loading == False:
             PreferencesDialog.logger.info(
-                "User builtin method preference for "
-                + self.builtin_methods[x]
-                + " is "
-                + _state
+                f"User builtin method preference for {self.builtin_methods[x]} is {_state}"
             )
             if state == Qt.Checked:
                 self.session["opt"]["builtin methods"][self.builtin_methods[x]] = True
@@ -123,7 +120,7 @@ class PreferencesDialog(object):
                 self.session["opt"]["builtin methods"][self.builtin_methods[x]] = False
         else:
             PreferencesDialog.logger.info(
-                "Loaded user preference: " + self.builtin_methods[x] + " " + _state
+                f"Loaded user preference: {self.builtin_methods[x]} {_state}"
             )
 
         if self.builtin_methods[x] in self.active_builtins and state == Qt.Unchecked:
@@ -273,10 +270,9 @@ class PreferencesDialog(object):
         if int(self.cli_options["process output"]["var"]["buffer size"]) < int(
             self.session["opt"]["output"]["buffer size"]
         ):
+            p = str(self.session["opt"]["output"]["buffer size"])
             PreferencesDialog.logger.info(
-                "Buffer size in loaded file doesn't match user preference, changing to "
-                + str(self.session["opt"]["output"]["buffer size"])
-                + " bytes."
+                f"Buffer size in loaded file doesn't match user preference, changing to {p} bytes."
             )
             self.cli_options["process output"]["var"]["buffer size"] = str(
                 self.session["opt"]["output"]["buffer size"]
@@ -292,10 +288,9 @@ class PreferencesDialog(object):
             self.cli_options["process output"]["var"]["output stream"]
             != self.session["opt"]["output"]["stream"]
         ):
+            p = str(self.session["opt"]["output"]["stream"])
             PreferencesDialog.logger.info(
-                "Output Stream in loaded file doesn't match user preference, changing to "
-                + str(self.session["opt"]["output"]["stream"])
-                + "."
+                f"Output Stream in loaded file doesn't match user preference, changing to {p}."
             )
             self.cli_options["process output"]["var"]["output stream"] = str(
                 self.session["opt"]["output"]["stream"]

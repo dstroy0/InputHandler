@@ -115,7 +115,7 @@ class Functions_H(object):
         )
         code_string = self.list_to_code_string(docstring)
         f_h_fs = functions_h_fs.format(functionprototypes=statements)
-        code_string = code_string + f_h_fs
+        code_string = f"{code_string}{f_h_fs}"
 
         return code_string
 

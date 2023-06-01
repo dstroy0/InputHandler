@@ -58,5 +58,5 @@ class CLIHelperMethods(object):
         """
         code_string = ""
         for line in list:
-            code_string = code_string + line + "\n"
+            code_string = f"{code_string}{line}\n"
         return code_string

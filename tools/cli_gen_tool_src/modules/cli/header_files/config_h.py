@@ -45,7 +45,7 @@ class Config_H(object):
                     val = "false"
                 else:
                     val = sub_dict["value"]
-                line = "    #define " + str(item) + " " + val
+                line = f"    #define {str(item)} {val}"
                 code_list[int(sub_dict["lineno"])] = line
 
         code_string = self.list_to_code_string(code_list)

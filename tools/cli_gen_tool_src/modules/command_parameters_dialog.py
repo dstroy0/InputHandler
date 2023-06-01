@@ -193,11 +193,9 @@ class CommandParametersDialog(object):
         settings_to_validate[
             "returnFunctionName"
         ] = self.command_parameters_user_input_objects["returnFunctionName"].text()
-        settings_to_validate["functionName"] = str(
-            str(self.command_parameters_user_input_objects["commandString"].text())
-            + "_"
-            + str(self.cli_options["commands"]["primary id key"])
-        )
+        cs = str(self.command_parameters_user_input_objects["commandString"].text())
+        ci = str(self.cli_options["commands"]["primary id key"])
+        settings_to_validate["functionName"] = f"{cs}_{ci}"
         settings_to_validate[
             "commandString"
         ] = self.command_parameters_user_input_objects["commandString"].text()
@@ -473,11 +471,11 @@ class CommandParametersDialog(object):
                 cmd_idx = self.cliopt["commands"]["index"]
                 prm_key = cmd_idx[cmd_idx_key]["parameters key"]
                 prm = self.cliopt["commands"]["parameters"][prm_key]
-                subcommands = int(prm["commandSubcommands"]) + 1
-                prm["commandSubcommands"] = str(subcommands)
+                subcommands = str(int(prm["commandSubcommands"]) + 1)
+                prm["commandSubcommands"] = subcommands
                 self.command_tree.add_command_to_tree(parent)
                 CommandParametersDialog.logger.info(
-                    parent_string + " commandSubcommands = " + str(subcommands)
+                    f"{parent_string} commandSubcommands = {subcommands}"
                 )
             else:
                 CommandParametersDialog.logger.info("couldn't find parent")
@@ -569,15 +567,11 @@ class CommandParametersDialog(object):
                     self.command_parameters_user_input_objects[key].setEnabled(
                         _fields[key]["enabled"]
                     )
-                    CommandParametersDialog.logger.debug(
-                        str(key)
-                        + " field"
-                        + str(_fields[key]["value"])
-                        + " "
-                        + str(_fields[key]["enabled"])
-                    )
+                    v = str(_fields[key]["value"])
+                    s = str(_fields[key]["enabled"])
+                    CommandParametersDialog.logger.debug(f"{str(key)} {v} {s}")
                 else:
-                    CommandParametersDialog.logger.debug("unknown field: " + str(key))
+                    CommandParametersDialog.logger.debug(f"Unknown field: {str(key)}")
 
     def set_commandparameters_field_defaults(self) -> None:
         """This function sets the DEFAULT values for CommandParametersDialog."""

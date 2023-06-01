@@ -101,7 +101,7 @@ class ReadMe(object):
             _loop_inst = CLIFileStrings.rdme_loop_inst
 
         if len(username) > 0:
-            username = username + " (retrieved using os.getlogin())"
+            username = f"User: {username}"
         ll = CLIFileStrings.lib_license_md.format(docs_year=year)
         code_string = CLIFileStrings.readmemd.format(
             user=username,

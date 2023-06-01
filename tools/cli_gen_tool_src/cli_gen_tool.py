@@ -67,7 +67,7 @@ class GUI(Pathing, Logger, UserDialogs, FileManipulation, object):
         self.root = RootWidget(self)
 
         self.mainwindow_screen = self.app.primaryScreen()
-        self.root_log_handler.info("Loading CLI generation tool.")
+        self.root_log_handler.info("Loading tool.")
         self.root.import_methods()
         self.mainwindow = MainWindow(self)  # pass init object to MainWindow
         # exit on user command
@@ -75,28 +75,23 @@ class GUI(Pathing, Logger, UserDialogs, FileManipulation, object):
 
     def set_lib_root_path(self):
         init_abs_path = os.path.abspath(os.getcwd())
-        self.root_log_handler.info("Path to me: " + str(init_abs_path))
+        self.root_log_handler.info("Setting up Pathing.")
+        self.root_log_handler.info(f"os.getcwd: {init_abs_path}")
         path_dir_list = init_abs_path.split(os.path.sep)
 
         if not bool(init_abs_path.find("InputHandler")):
             # prompt user for lib dir
             self.root.get_inputhandler_dir_from_user()
         else:
-            num_cdup_to_lib_root = 0
+            cdup = 0
             for dirname in reversed(range(len(path_dir_list))):
                 if path_dir_list[dirname] == "InputHandler":
-                    self.root_log_handler.info(
-                        "num dir below InputHandler root: " + str(num_cdup_to_lib_root)
-                    )
+                    self.root_log_handler.info("At InputHandler library root.")
                     break
-                num_cdup_to_lib_root += 1
-            self.root_log_handler.info(
-                "moving up " + str(num_cdup_to_lib_root) + " dir"
-            )
-            for i in range(num_cdup_to_lib_root):
-                os.chdir("..")
-            self.root_log_handler.info("Lib root path: " + os.path.abspath(os.getcwd()))
+                os.chdir("..")            
             self.lib_root_path = os.path.abspath(os.getcwd())
+            self.root_log_handler.info(f"Moved up {cdup} directories.")            
+            self.root_log_handler.info(f"InputHandler root path: {self.lib_root_path}")            
 
 
 class Headless(Pathing, Logger, FileManipulation, object):

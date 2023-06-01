@@ -115,8 +115,7 @@ class Logger(object):
         if not os.path.isdir(self.logs_path):
             return -1
         # log filehandler
-        file_log_handler = RotatingFileHandler(
-            self.logs_path + os.path.sep + Logger.log_filename,
+        file_log_handler = RotatingFileHandler(f"{self.logs_path}{os.path.sep}{Logger.log_filename}",
             "a",
             10 * Logger.mb,
             backupCount=5,
@@ -124,7 +123,7 @@ class Logger(object):
         file_log_handler.setLevel(Logger.session_log_level)
         file_log_handler.setFormatter(Logger.log_formatter)
         Logger.root_log_handler.info(
-            "Log file path: " + self.logs_path + os.path.sep + Logger.log_filename
+            f"Log file path: {self.logs_path}{os.path.sep}{Logger.log_filename}"
         )
         Logger.file_log_handler = file_log_handler
         return file_log_handler

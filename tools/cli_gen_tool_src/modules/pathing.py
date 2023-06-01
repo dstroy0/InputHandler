@@ -36,9 +36,7 @@ class Pathing(object):
         if "library version" not in firstline:
             # bad config.h
             self.root_log_handler.warning(
-                "this .h file:\n<"
-                + str(self.args.config[0])
-                + ">\nis not a valid InputHandler.h, please enter the full path to a valid InputHandler.h"
+                f"this .h file:\n<{str(self.args.config[0])}>\nis not a valid InputHandler.h, please enter the full path to a valid InputHandler.h"
             )
             sys.exit(0)
         self.lib_version = (

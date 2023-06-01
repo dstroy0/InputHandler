@@ -1557,10 +1557,10 @@ class SettingsTreeWidget(Logger, QTreeWidget):
                 # make these parents children of root using the keys from 'cfg_dict'
                 cfg_path = session["opt"]["inputhandler_config_file_path"]
                 setting_container = QTreeWidgetItem(
-                    self.invisibleRootItem(), [str("Input config: " + cfg_path), ""]
+                    self.invisibleRootItem(), [str(f"Input config: {cfg_path}"), ""]
                 )
                 setting_container.setIcon(0, self._parent.ui.fileDialogContentsViewIcon)
-                setting_container.setToolTip(0, "Input config: " + cfg_path)
+                setting_container.setToolTip(0, str(f"Input config: {cfg_path}"))
                 setting_label.setFlags(setting_label.flags() | Qt.ItemIsSelectable)
 
                 for subsection in self._tree["config"]:
@@ -1606,7 +1606,7 @@ class SettingsTreeWidget(Logger, QTreeWidget):
                 setting_container.setIcon(0, self._parent.ui.commandLinkIcon)
 
                 for child in self._tree[parent]:
-                    dict_pos = dict_key + "," + str(index_of_child) + "," + child
+                    dict_pos = f"{dict_key},{str(index_of_child)},{child}"
 
                     var_initial_val = self.cliopt[dict_key]["var"][child]
                     if (
@@ -1741,7 +1741,7 @@ class SettingsTreeWidget(Logger, QTreeWidget):
         column_label_list = ["", var_name, var_type, str(repr(var_initial_val))]
         child_container = QTreeWidgetItem(parent, column_label_list)
         _twi = child_container
-        dict_pos = dict_key + "," + str(index_of_child) + "," + var_name
+        dict_pos = f"{dict_key},{str(index_of_child)},{var_name}"
         _twi.setData(4, 0, dict_pos)
         _twi.setFlags(_twi.flags() | Qt.ItemIsEditable)
         if var_tooltip != "" and var_tooltip != None:
@@ -1836,7 +1836,7 @@ class SettingsTreeWidget(Logger, QTreeWidget):
                         "value"
                     ] = "True"
                 SettingsTreeWidget.logger.info(
-                    object_list[0] + " " + object_list[2] + " enabled"
+                    f"{object_list[0]} {object_list[2]} enabled."
                 )
                 for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[1])
@@ -1848,7 +1848,7 @@ class SettingsTreeWidget(Logger, QTreeWidget):
                         "value"
                     ] = "False"
                 SettingsTreeWidget.logger.info(
-                    object_list[0] + " " + object_list[2] + " disabled"
+                    f"{object_list[0]} {object_list[2]} disabled."
                 )
                 for col in range(self.columnCount()):
                     _twi.setToolTip(col, _tt[0])
@@ -1922,7 +1922,7 @@ class SettingsTreeWidget(Logger, QTreeWidget):
                 item.setExpanded(True)
             return
         object_list = str(item.data(4, 0)).split(",")
-        SettingsTreeWidget.logger.info(object_list[2] + " selected")
+        SettingsTreeWidget.logger.info(f"{object_list[2]} selected")
         self.edit_settings_tree_item(item)
 
     ## if the user double clicks on something, see if it is editable
@@ -1943,33 +1943,17 @@ class SettingsTreeWidget(Logger, QTreeWidget):
         val_type = object_data["type"]
         val = object_data["value"]
         if self._parent.loading:
+            p = object_data["pos"][2]
             SettingsTreeWidget.logger.info(
-                "Preference set "
-                + object_data["pos"][2]
-                + " to "
-                + "'"
-                + str(val)
-                + "' "
-                + str(val_type)
+                f"User preference set {p} to '{str(val)}' {str(val_type)}"
             )
         else:
+            p = object_data["pos"][2]
             SettingsTreeWidget.logger.info(
-                "User set "
-                + object_data["pos"][2]
-                + " to "
-                + "'"
-                + str(val)
-                + "' "
-                + str(val_type)
+                f"User set {p} to '{str(val)}' {str(val_type)}"
             )
         SettingsTreeWidget.logger.debug(
-            str(
-                "self.cli_options['config']['var']['{}']:".format(object_data["pos"][2])
-            )
-            + "\n"
-            + str(
-                json.dumps(info, indent=2, sort_keys=False, default=lambda o: "object")
-            )
+            str(json.dumps(info, indent=2, sort_keys=False, default=lambda o: "object"))
         )
 
     def get_object_data(self, item):
@@ -2020,7 +2004,7 @@ class SettingsTreeWidget(Logger, QTreeWidget):
 
         # process parameters (cli.h)
         if object_data["pos"][0] == "process parameters":
-            item.setText(3, "'" + str(val) + "'")
+            item.setText(3, f"'{str(val)}'")
             self.log_settings_tree_edit(item, object_data)
             self.cliopt["process parameters"]["var"][item.text(1)] = val
             self.update_code("cli.h", val, True)
@@ -2038,13 +2022,13 @@ class SettingsTreeWidget(Logger, QTreeWidget):
         else:
             if val == "":
                 tmp = 0
-                item.setText(3, "'" + str(repr(tmp)) + "'")
+                item.setText(3, f"'{str(repr(tmp))}'")
             else:
                 try:
                     tmp = str(int(val)).strip("'")
                 except:
                     tmp = str(val).strip("'")
-                item.setText(3, "'" + str(repr(tmp)) + "'")
+                item.setText(3, f"'{str(repr(tmp))}'")
         if tmp == info["value"]:
             return
         # update the config dict

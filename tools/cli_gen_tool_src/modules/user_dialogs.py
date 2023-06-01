@@ -141,7 +141,7 @@ class UserDialogs(object):
             info = self.objectName()
         else:
             info = str(self)
-        self.logger.info(info + " creating QDialog on: " + _qscreen.name())
+        self.logger.info(f"{info} creating QDialog on: {_qscreen.name()}")
         ret = dlg.exec()  # return the dialog exit code
         return ret
 
@@ -153,12 +153,12 @@ class UserDialogs(object):
             error_type (str): error description
             qfile (QFile): file information
         """
-        UserDialogs.logger.warning(error_type + " " + qfile.fileName() + " error.")
+        UserDialogs.logger.warning(f"{error_type} {qfile.fileName()} error.")
         self.create_qdialog(
             error_type,
             Qt.AlignCenter,
             0,
-            error_type + " " + qfile.fileName() + " error.",
+            str(f"{error_type} {qfile.fileName()} error."),
             None,
             None,
             self.ui.messageBoxCriticalIcon,
@@ -208,7 +208,7 @@ class UserDialogs(object):
         _dir = QDir(_dlg_result)
         _result = _dir.toNativeSeparators(_dir.absolutePath())
         if os.path.exists(_result):
-            UserDialogs.logger.info("valid directory selected:\n" + str(_result))
+            UserDialogs.logger.info(f"valid directory selected:\n{str(_result)}")
             return _result
         else:
             UserDialogs.logger.info("invalid directory selected")
@@ -350,7 +350,7 @@ class UserDialogs(object):
         # pretty session json
         # session json contains only json serializable items, safe to print
         self.logger.debug(
-            "cli_gen_tool.json =\n" + str(json.dumps(self.session, indent=2))
+            f"cli_gen_tool.json =\n{str(json.dumps(self.session, indent=2))}"
         )
         last_interface = QFile()
         if self.session["opt"]["save_file_path"] is not None:
@@ -372,7 +372,9 @@ class UserDialogs(object):
             buttons = [b.Ok, b.Cancel]
             button_text = ["Select last file", "Continue without locating"]
             result = self.create_qdialog(
-                "Cannot locate last working file: " + str(last_interface.fileName()),
+                str(
+                    f"Cannot locate last working file: {str(last_interface.fileName())}"
+                ),
                 Qt.AlignCenter,
                 Qt.NoTextInteraction,
                 "Error, cannot find interface file!",
@@ -384,7 +386,7 @@ class UserDialogs(object):
                 dlg = QFileDialog(self)
                 result = dlg.getOpenFileName(
                     self,
-                    "Locate: " + last_interface.fileName(),
+                    str(f"Locate: {last_interface.fileName()}"),
                     last_interface_path.toNativeSeparators(
                         last_interface_path.absoluteFilePath(last_interface.fileName())
                     ),
@@ -396,10 +398,8 @@ class UserDialogs(object):
                         "User couldn't locate last working file, continuing."
                     )
             else:
-                self.logger.info(
-                    "Couldn't locate last working file: "
-                    + str(self.session["opt"]["save_file_path"])
-                )
+                p = self.session["opt"]["save_file_path"]
+                self.logger.info(f"Couldn't locate last working file: {p}")
                 self.session["opt"]["save_file_path"] = ""
 
                 self.set_main_window_title("InputHandler CLI generation tool ")

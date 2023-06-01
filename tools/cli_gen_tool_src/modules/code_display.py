@@ -83,7 +83,7 @@ class CodeDisplay(
         project_path = self._parent.get_project_dir()
         if project_path:
             self.session["opt"]["cli_output_dir"] = project_path
-            CodeDisplay.logger.info("set session output_dir to:\n" + str(project_path))
+            CodeDisplay.logger.info(f"Set session output_dir to: <{str(project_path)}>")
             self.ui.generateDialog.dlg.outputPathLineEdit.setText(
                 self.session["opt"]["cli_output_dir"]
             )

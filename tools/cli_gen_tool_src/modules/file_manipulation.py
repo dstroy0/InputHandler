@@ -63,18 +63,18 @@ class FileManipulation(object):
         file_name = os.path.abspath(path).split("/")[-1]
         if not file:
             file.close()
-            FileManipulation.logger.info("Save " + file_name + " error.")
+            FileManipulation.logger.info(f"Save {file_name} error.")
             return -1  # file error
         output_json = json.dumps(dict_to_serialize, indent=2, sort_keys=False)
         size = file.write(output_json)
         if size != -1:
             FileManipulation.logger.info(
-                "wrote " + str(size) + " bytes to " + file_name
+                f"Wrote {str(size)} bytes to {file_name}"
             )
             if dict_to_serialize["type"] != "session" and not self.headless:
                 self.write_cli_gen_tool_json()
         else:
-            FileManipulation.logger.info("Write " + file_name + " error.")
+            FileManipulation.logger.info(f"Write {file_name} error.")
         file.close()
         return size
 
@@ -109,9 +109,7 @@ class FileManipulation(object):
                 return [-4, {}]
             else:
                 FileManipulation.logger.info("invalid json type")
-                FileManipulation.logger.debug(
-                    "json.loads():\n" + str(json.dumps(read_json, indent=2))
-                )
+                FileManipulation.logger.debug(f"json.loads():\n{str(json.dumps(read_json, indent=2))}")                
                 return [-4, {}]
         except Exception as e:
             FileManipulation.logger.warning(str(e))
@@ -224,24 +222,22 @@ class FileManipulation(object):
         # remove original config.h
         if not os.path.exists(cli_path):
             FileManipulation.logger.info(
-                "creating dir <CLI> in <" + str(project_path) + ">"
+                f"Creating dir <CLI> in <{str(project_path)}>"
             )
             shutil.copytree(src_path, cli_src_path)
             os.remove(cli_config_h_path)
             if os.path.exists(cli_src_path):
                 FileManipulation.logger.info(
-                    "dir <CLI> created in <" + str(project_path) + ">"
+                    f"Directory <CLI> created in <{str(project_path)}>"
                 )
             else:
                 FileManipulation.logger.info(
-                    "Error creating dir <CLI> in <"
-                    + str(project_path)
-                    + "> aborting generation!"
+                    f"Error creating directory <CLI> in <{str(project_path)}> aborting generation!"
                 )
                 return -3
         else:
             FileManipulation.logger.info(
-                "dir <CLI> already exists in <" + str(project_path) + ">"
+                f"Directory <CLI> already exists in <{str(project_path)}>"
             )
             shutil.rmtree(cli_path)
             shutil.copytree(src_path, cli_src_path)
@@ -276,7 +272,7 @@ class FileManipulation(object):
         for filename in files:
             file_string = self.code_preview_dict["files"][filename]["file_string"]
             if filename == "README.md":
-                path = os.path.join(project_path, "CLI_" + filename)
+                path = os.path.join(project_path, f"CLI_{filename}")
             elif filename == "config.h":
                 path = cli_config_h_path
             else:

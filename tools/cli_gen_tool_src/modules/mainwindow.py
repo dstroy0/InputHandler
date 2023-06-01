@@ -200,7 +200,7 @@ class MainWindow(
 
     @staticmethod
     def restart(self, reason: str) -> None:
-        MainWindow.logger.warning("Restarting app; " + reason)
+        MainWindow.logger.warning(f"Restarting app; {reason}")
         self.do_before_app_close(None, True)
 
     # visual indication to user of the current working file
@@ -219,16 +219,16 @@ class MainWindow(
         else:
             windowtitle = "InputHandler CLI generation tool "
             if self.prompt_to_save == True:
-                windowtitle = windowtitle + " - *"
+                windowtitle = f"{windowtitle} - *"
             else:
-                windowtitle = windowtitle + " - "
+                windowtitle = f"{windowtitle} - "
             if self.session["opt"]["save_file_path"]:
                 regexp = QRegularExpression("[^\/]*$")
                 match = regexp.match(str(self.session["opt"]["save_file_path"]))
                 if match.hasMatch():
-                    windowtitle = windowtitle + str(match.captured(0))
+                    windowtitle = f"{windowtitle} {str(match.captured(0))}"
             else:
-                windowtitle = windowtitle + "untitled"
+                windowtitle = f"{windowtitle} untitled"
             MainWindow.logger.debug("setting mainwindow title")
             self.setWindowTitle(windowtitle)
             self.windowtitle_set = True
@@ -313,7 +313,7 @@ class MainWindow(
             index = int(self.settings.value("tab"))
         self.ui.tabWidget.setCurrentIndex(index)
         _qscreen = self.screen()
-        MainWindow.logger.info("Display name: " + _qscreen.name())
+        MainWindow.logger.info(f"Display name: {_qscreen.name()}")
 
         if self.settings.value("command_tree_state") != None:
             self.command_tree.restoreState(self.settings.value("command_tree_state"))
@@ -338,7 +338,7 @@ class MainWindow(
         MainWindow.logger.info("load splash")
         self.splash = QSplashScreen(self.qscreen)
 
-        _splash_path = QDir(self.lib_root_path + "/docs/img/")
+        _splash_path = QDir(f"{self.lib_root_path}/docs/img/")
         self.splash.setPixmap(
             QPixmap(
                 _splash_path.toNativeSeparators(
@@ -411,7 +411,7 @@ class MainWindow(
         self.ui.setupUi(self)
         self.hide()
         # MainWindow icon
-        window_icon_path = QDir(self.lib_root_path + "/docs/img/")
+        window_icon_path = QDir(f"{self.lib_root_path}/docs/img/")
         self.setWindowIcon(
             QIcon(
                 window_icon_path.toNativeSeparators(
@@ -552,9 +552,9 @@ class MainWindow(
         if fileName[0] == "":
             MainWindow.logger.info("Save file dialog cancelled.")
             return QFileDialog.Rejected  # dialog cancelled
-        fqname = fileName[0] + ".json"
+        fqname = f"{fileName[0]}.json"
         self.session["opt"]["save_file_path"] = fqname
-        MainWindow.logger.info("save CLI settings file as: " + str(fqname))
+        MainWindow.logger.info(f"Save CLI settings file as: {str(fqname)}")
         file = QFile(fqname)
         ret = self.write_json(self.cli_options, file, True)
         return ret
@@ -983,13 +983,7 @@ class MainWindow(
                     default_index = "Disabled"
                 widget.setCurrentIndex(widget.findText(default_index))
                 MainWindow.logger.info(
-                    str(
-                        object_list[0]
-                        + " "
-                        + object_list[2]
-                        + " set to default: "
-                        + default_index
-                    )
+                    f"{str(object_list[0])} {object_list[2]} set to default: {default_index}"
                 )
             else:
                 default_val = str(
@@ -997,13 +991,7 @@ class MainWindow(
                 )
                 tree_item.setData(3, 0, default_val)
                 MainWindow.logger.info(
-                    str(
-                        object_list[0]
-                        + " "
-                        + object_list[2]
-                        + " set to default: "
-                        + default_val
-                    )
+                    f"{str(object_list[0])} {object_list[2]} set to default: {default_val}"
                 )
 
     # tab 2
