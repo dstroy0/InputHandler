@@ -13,14 +13,18 @@ on:
 
 jobs:
   changelog:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - name: "Generate changelog"
-        uses: heinrichreimer/github-changelog-generator-action@v2.3
+      - name: Install Ruby
+        uses: actions/setup-ruby@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          user: dstroy0
-          project: InputHandler
+          ruby-version: '2.6'
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Generate changelog
+        run: |
+          sudo gem install github_changelog_generator
+          github_changelog_generator    
 
   # checkpoint
   generate-changelog-success:
