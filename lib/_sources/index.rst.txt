@@ -5,6 +5,7 @@
    :caption: Command Line Interface Generation tool reference (InputHandler.h)
    :hidden:      
 
+   CHANGELOG.rst
    README.rst
    InputHandler github <https://github.com/dstroy0/InputHandler>
    cli_gen_tool docs <https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html>
@@ -15,5 +16,6 @@
 
     docs.rst   
 
-.. mdinclude:: ../../../CHANGELOG.md
+.. mdinclude:: ../../../CHANGELOG.md    
+
 .. mdinclude:: ../../../README.md    
