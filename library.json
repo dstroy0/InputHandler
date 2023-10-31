@@ -7,7 +7,7 @@
         "type": "git",
         "url": "https://github.com/dstroy0/InputHandler"
     },
-    "version": "0.0.1",
+    "version": "0.0.2",
     "export": {
         "exclude": [
             ".github/*",
