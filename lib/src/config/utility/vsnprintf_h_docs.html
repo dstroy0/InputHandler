@@ -1,16 +1,16 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="freeRam.h" href="freeram_h_docs.html" /><link rel="prev" title="namespace.h" href="namespace_h_docs.html" />
 
-    <meta name="generator" content="sphinx-5.2.0.post0, furo 2022.09.15"/>
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>vsnprintf.h - InputHandler documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=9ec31e2665bf879c1d47d93a8ec4893870ee1e45" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=36a5483c" />
     
     
 
@@ -135,7 +135,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -150,7 +150,7 @@
   <span class="sidebar-brand-text">InputHandler  documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -171,7 +171,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html">cli_gen_tool docs</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../docs.html">Documentation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../../docs.html">Documentation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../InputHandler_h_docs.html">InputHandler.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../config_h_docs.html">config.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../noedit_h_docs.html">noedit.h</a></li>
@@ -199,7 +199,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -207,14 +208,14 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
           <section id="vsnprintf-h">
-<h1>vsnprintf.h<a class="headerlink" href="#vsnprintf-h" title="Permalink to this heading">#</a></h1>
+<h1>vsnprintf.h<a class="headerlink" href="#vsnprintf-h" title="Link to this heading">#</a></h1>
 <p>InputHandler vsnprintf support. </p>
 <p><dl class="simple">
 <dt><strong>Author</strong></dt><dd><p>Douglas Quigg (dstroy0 <a class="reference external" href="mailto:dquigg123&#37;&#52;&#48;gmail&#46;com">dquigg123<span>&#64;</span>gmail<span>&#46;</span>com</a>) </p>
@@ -231,25 +232,25 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.va_start">
-<span class="target" id="dd/ddc/vsnprintf_8h_1aa0628ab596c3d7e78f5e08c2d98e24da"></span><span class="sig-name descname"><span class="n"><span class="pre">va_start</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">v</span></span>, <span class="n"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.va_start" title="Permalink to this definition">#</a><br /></dt>
+<span class="target" id="dd/ddc/vsnprintf_8h_1aa0628ab596c3d7e78f5e08c2d98e24da"></span><span class="sig-name descname"><span class="n"><span class="pre">va_start</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">v</span></span>, <span class="n"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.va_start" title="Link to this definition">#</a><br /></dt>
 <dd><p>initializes va_list variable used with vsnprintf.h::va_arg and vsnprintf.h::va_end </p>
-<p><a class="reference external" href="https://www.tutorialspoint.com/c_standard_library/c_macro_va_start.htm">va_start ref</a> </p>
+<p><a class="reference external" href="https://www.tutorialspoint.com/c_standard_library/c_macro_va_start.htm">va_start ref</a></p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.va_end">
-<span class="target" id="dd/ddc/vsnprintf_8h_1a823b205416e9129825841b74c3bf8484"></span><span class="sig-name descname"><span class="n"><span class="pre">va_end</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">v</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.va_end" title="Permalink to this definition">#</a><br /></dt>
+<span class="target" id="dd/ddc/vsnprintf_8h_1a823b205416e9129825841b74c3bf8484"></span><span class="sig-name descname"><span class="n"><span class="pre">va_end</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">v</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.va_end" title="Link to this definition">#</a><br /></dt>
 <dd><p>allows a function with arguments that used va_start to return. </p>
 <p>If va_end is not called after using va_start before returning from the function, the result is undefined.</p>
-<p><a class="reference external" href="https://www.tutorialspoint.com/c_standard_library/c_macro_va_end.htm">va_end ref</a> </p>
+<p><a class="reference external" href="https://www.tutorialspoint.com/c_standard_library/c_macro_va_end.htm">va_end ref</a></p>
 </dd></dl>
 
 <dl class="cpp macro">
 <dt class="sig sig-object cpp" id="c.va_arg">
-<span class="target" id="dd/ddc/vsnprintf_8h_1a9cfd655f1203c9a345ddd90446f0bcee"></span><span class="sig-name descname"><span class="n"><span class="pre">va_arg</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">v</span></span>, <span class="n"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.va_arg" title="Permalink to this definition">#</a><br /></dt>
+<span class="target" id="dd/ddc/vsnprintf_8h_1a9cfd655f1203c9a345ddd90446f0bcee"></span><span class="sig-name descname"><span class="n"><span class="pre">va_arg</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">v</span></span>, <span class="n"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.va_arg" title="Link to this definition">#</a><br /></dt>
 <dd><p>retrieves the next argument in the parameter list (va_list) </p>
 <p>No indication when reaching the tail of arguments passed.</p>
-<p><a class="reference external" href="https://www.tutorialspoint.com/c_standard_library/c_macro_va_arg.htm">va_arg ref</a> </p>
+<p><a class="reference external" href="https://www.tutorialspoint.com/c_standard_library/c_macro_va_arg.htm">va_arg ref</a></p>
 </dd></dl>
 
 </div>
@@ -257,20 +258,19 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv49vsnprintfPc6size_tPKc7va_list">
-<span id="_CPPv39vsnprintfPc6size_tPKc7va_list"></span><span id="_CPPv29vsnprintfPc6size_tPKc7va_list"></span><span id="vsnprintf__cP.s.cCP.va_list"></span><span class="target" id="dd/ddc/vsnprintf_8h_1a1b067588850d976fb7e9daf04c9fae35"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsnprintf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">str</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">format</span></span>, <span class="n"><span class="pre">va_list</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49vsnprintfPc6size_tPKc7va_list" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv39vsnprintfPc6size_tPKc7va_list"></span><span id="_CPPv29vsnprintfPc6size_tPKc7va_list"></span><span id="vsnprintf__cP.s.cCP.va_list"></span><span class="target" id="dd/ddc/vsnprintf_8h_1a1b067588850d976fb7e9daf04c9fae35"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsnprintf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">str</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">format</span></span>, <span class="n"><span class="pre">va_list</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49vsnprintfPc6size_tPKc7va_list" title="Link to this definition">#</a><br /></dt>
 <dd><p>InputHandler vsnprintf. </p>
 <p>InputHandler vsnprintf <a class="reference external" href="https://cplusplus.com/reference/cstdio/vsnprintf/">vsnprintf ref</a></p>
-<p><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">vsnprintf</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">__restrict</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">__restrict</span><span class="p">,</span><span class="w"> </span><span class="n">__VALIST</span><span class="p">)</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">vsnprintf</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">__restrict</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">__restrict</span><span class="p">,</span><span class="w"> </span><span class="n">__VALIST</span><span class="p">)</span>
 <span class="w">    </span><span class="n">_ATTRIBUTE</span><span class="p">((</span><span class="n">__format__</span><span class="p">(</span><span class="n">__printf__</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)));</span>
 </pre></div>
 </div>
-</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>str</strong> – <strong>[in]</strong> pointer to a buffer where the C-string is stored </p></li>
 <li><p><strong>size</strong> – <strong>[in]</strong> maximum number of bytes to write into the buffer </p></li>
-<li><p><strong>format</strong> – <strong>[in]</strong> C string that contains a format string which follows the same specifications as <code class="docutils literal notranslate"><span class="pre">format</span></code> in <code class="docutils literal notranslate"><span class="pre">printf</span></code> <a class="reference external" href="https://cplusplus.com/reference/cstdio/printf/">printf ref</a> </p></li>
+<li><p><strong>format</strong> – <strong>[in]</strong> C string that contains a format string which follows the same specifications as <code class="docutils literal notranslate"><span class="pre">format</span></code> in <code class="docutils literal notranslate"><span class="pre">printf</span></code> <a class="reference external" href="https://cplusplus.com/reference/cstdio/printf/">printf ref</a></p></li>
 <li><p><strong>args</strong> – <strong>[in]</strong> the argument list (va_list) </p></li>
 </ul>
 </dd>
@@ -320,26 +320,40 @@
             
           </div>
           <div class="right-details">
-            <div class="icons">
-              
-            </div>
+            
           </div>
         </div>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">vsnprintf.h</a><ul>
+<li><a class="reference internal" href="#_CPPv49vsnprintfPc6size_tPKc7va_list"><code class="docutils literal notranslate"><span class="pre">vsnprintf()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
   </div>
-</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/scripts/furo.js"></script>
+</div><script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
     </body>
 </html>
