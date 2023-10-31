@@ -23,8 +23,8 @@ jobs:
           git config user.name "dstroy0"
           git config user.email "dstroy0@users.noreply.github.com"
           git checkout origin/main
-          git mv library.json package.json
-          npm version patch
+          git mv library.json package.json          
+          npm version patch --no-git-tag-version          
           auto-changelog -p          
           git mv package.json library.json
           git add CHANGELOG.md library.json
