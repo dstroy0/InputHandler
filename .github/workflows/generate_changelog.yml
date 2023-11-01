@@ -24,9 +24,9 @@ jobs:
           git config user.email "dstroy0@users.noreply.github.com"          
           git checkout origin/main
           ln -s library.json package.json
-          npm version patch          
+          npm version patch             
           auto-changelog -p          
-          git add CHANGELOG.md
+          git add CHANGELOG.md library.json
           git rm package.json
           git commit -m "generate changelog" 
           git push origin HEAD:main
