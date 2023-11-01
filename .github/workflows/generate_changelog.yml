@@ -22,7 +22,8 @@ jobs:
           npm install -g auto-changelog          
           git config user.name "dstroy0"
           git config user.email "dstroy0@users.noreply.github.com"
-          git checkout origin main                         
+          git fetch origin
+          git checkout origin/main                         
           npm version patch
           auto-changelog -p          
           git add CHANGELOG.md library.json
