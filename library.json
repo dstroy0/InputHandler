@@ -1,6 +1,6 @@
 {
   "name": "InputHandler",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "keywords": "input, output, process, validate, serial, command line interface, CLI",
   "description": "Interface construction toolkit.",
   "author": "Douglas Quigg (https://github.com/dstroy0)",
@@ -10,7 +10,10 @@
     "url": "https://github.com/dstroy0/InputHandler"
   },
   "export": {
-    "exclude": [".github/*", "keywords.txt"]
+    "exclude": [
+      ".github/*",
+      "keywords.txt"
+    ]
   },
   "frameworks": "arduino",
   "platforms": [
