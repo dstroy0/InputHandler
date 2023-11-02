@@ -26,13 +26,13 @@ jobs:
           git config user.name "dstroy0"
           git config user.email "dstroy0@users.noreply.github.com"                    
           ln -s library.json package.json
-          npm version patch             
+          version=$(npm version patch)          
           auto-changelog -p -u -l 100 -b 100 --sort-commits date-desc                   
           rm README.md
           cat docs/LIB_README.md docs/LIB_CHANGELOG.md > README.md
           git rm package.json
           git add docs/LIB_CHANGELOG.md library.json README.md
-          git commit -m "generate changelog, update README.md" 
+          git commit -m "README.md $version" 
           git push origin HEAD:main
 
   # checkpoint

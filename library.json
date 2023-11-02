@@ -26,7 +26,7 @@
   ],
   "auto-changelog": {
     "output": "docs/LIB_CHANGELOG.md",
-    "template": "docs/changelog/template",
+    "template": "docs/changelog/template.hbs",
     "unreleased": true,
     "commitLimit": false
   }
