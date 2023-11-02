@@ -1,6 +1,6 @@
 {
   "name": "InputHandler",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "keywords": "input, output, process, validate, serial, command line interface, CLI",
   "description": "Interface construction toolkit.",
   "author": "Douglas Quigg (https://github.com/dstroy0)",
