@@ -10,6 +10,15 @@ on:
       - "**/tools/cli_gen_tool_src/**"
       - "README.md"
       - "CHANGELOG.md"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "**/src/**"
+      - "**/docs/**"
+      - "**/tools/cli_gen_tool_src/**"
+      - "README.md"
+      - "CHANGELOG.md"
   workflow_dispatch:
     branches:
       - main
