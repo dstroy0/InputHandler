@@ -8,8 +8,7 @@ on:
       - "**/src/**"
       - "**/docs/**"
       - "**/tools/cli_gen_tool_src/**"
-      - "README.md"
-      - "CHANGELOG.md"
+      - "README.md"      
   pull_request:
     branches:
       - main
@@ -17,8 +16,7 @@ on:
       - "**/src/**"
       - "**/docs/**"
       - "**/tools/cli_gen_tool_src/**"
-      - "README.md"
-      - "CHANGELOG.md"
+      - "README.md"      
   workflow_dispatch:
     branches:
       - main
@@ -26,8 +24,7 @@ on:
       - "**/src/**"
       - "**/docs/**"
       - "**/tools/cli_gen_tool_src/**"
-      - "README.md"
-      - "CHANGELOG.md"
+      - "README.md"      
   release:
     branches:
       - release
@@ -35,8 +32,7 @@ on:
       - "**/src/**"
       - "**/docs/**"
       - "**/tools/cli_gen_tool_src/**"
-      - "README.md"
-      - "CHANGELOG.md"
+      - "README.md"      
 
 jobs:
   build-and-deploy-docs:
