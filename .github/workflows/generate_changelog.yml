@@ -37,7 +37,8 @@ jobs:
           rm README.md
           cat docs/LIB_README.md docs/LIB_CHANGELOG.md > README.md           
           git add docs/LIB_CHANGELOG.md library.json README.md library.properties
-          git commit -m "README.md $version" 
+          git tag -a "$version" -m "patch"
+          git commit -m "$version" 
           git push origin HEAD:main
       
   # checkpoint
