@@ -20,20 +20,35 @@ jobs:
         with:
           ref: main
           fetch-depth: 0      
-      - name: Generate changelog                
-        run: |          
+      
+      - name: Configuration
+        run: |
           npm install -g auto-changelog          
           git config user.name "dstroy0"
           git config user.email "dstroy0@users.noreply.github.com"                    
-          ln -s library.json package.json
-          version=$(npm version patch)          
-          auto-changelog -p -u -l 100 -b 100 --sort-commits date-desc                   
+          ln -s library.json package.json          
+      
+      - name: Patch version
+        run: |
+          version=$(npm version patch)
+          sed -i "s/^version=.*$/version=$version/" library.properties
+      
+      - name: Generate changelog                
+        run: |                    
+          auto-changelog -p -u -l 100 -b 100 --sort-commits date-desc                             
+          git rm package.json                    
+      
+      - name: Merge changelog and readme
+        run: |
           rm README.md
-          cat docs/LIB_README.md docs/LIB_CHANGELOG.md > README.md
-          git rm package.json
-          git add docs/LIB_CHANGELOG.md library.json README.md
+          cat docs/LIB_README.md docs/LIB_CHANGELOG.md > README.md          
+      
+      - name: Commit and push
+        run: |    
+          git add docs/LIB_CHANGELOG.md library.json README.md library.properties
           git commit -m "README.md $version" 
           git push origin HEAD:main
+      
 
   # checkpoint
   generate-changelog-success:
