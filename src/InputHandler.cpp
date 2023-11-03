@@ -2,7 +2,7 @@
  *  @file InputHandler.cpp
  *  @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
  *  @brief InputHandler library cpp file
- *  @version 1.1
+ *  @version 1.0.0
  *  @date 2022-05-28
  *
  *  @copyright Copyright (c) 2022

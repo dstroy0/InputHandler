@@ -6,7 +6,7 @@
  * This file sets up your platform to use InputHandler and
  * sizes certain library variables based on what is found in
  * [src/config.h](https://github.com/dstroy0/InputHandler/blob/main/src/config/config.h).
- * @version 1.1
+ * @version 1.0.0
  * @date 2022-10-10
  *
  * @copyright Copyright (c) 2022

@@ -2,7 +2,7 @@
  * @file namespace.h
  * @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
  * @brief InputHandler specific namespaces
- * @version 1.0
+ * @version 1.0.0
  * @date 2023-02-13
  *
  * @copyright Copyright (c) 2023

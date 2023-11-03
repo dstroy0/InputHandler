@@ -2,7 +2,7 @@
 # @file file_manipulation.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
 # @brief file manipulation methods
-# @version 1.0
+# @version 1.0.0
 # @date 2023-05-22
 # @copyright Copyright (c) 2023
 # Copyright (C) 2023 Douglas Quigg (dstroy0) <dquigg123@gmail.com>

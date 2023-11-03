@@ -2,7 +2,7 @@
 # @file filestrings.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
 # @brief CLI filestrings
-# @version 1.0
+# @version 1.0.0
 # @date 2022-08-02
 # @copyright Copyright (c) 2022
 # Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>

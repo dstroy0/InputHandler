@@ -1,10 +1,9 @@
-/* library version 0.9a */
 /**
  * @file InputHandler.h
  * @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
  * @brief InputHandler library header file
- * @version 1.2
- * @date 2023-02-06
+ * @version 1.0.0
+ * @date 2023-11-03
  *
  * @copyright Copyright (c) 2022
  */

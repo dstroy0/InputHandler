@@ -2,7 +2,7 @@
  * @file freeRam.h
  * @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
  * @brief cross platform freeRam()
- * @version 1.0
+ * @version 1.0.0
  * @date 2022-05-18
  *
  * @copyright Copyright (c) 2022

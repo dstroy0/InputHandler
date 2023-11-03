@@ -2,7 +2,7 @@
 # @file command_parameters_dialog.py
 # @author Douglas Quigg (dstroy0 dquigg123@gmail.com)
 # @brief MainWindow external methods
-# @version 1.0
+# @version 1.0.0
 # @date 2022-07-08
 # @copyright Copyright (c) 2022
 # Copyright (C) 2022 Douglas Quigg (dstroy0) <dquigg123@gmail.com>
