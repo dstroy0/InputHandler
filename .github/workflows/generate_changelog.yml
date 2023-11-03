@@ -31,25 +31,15 @@ jobs:
       - name: Patch version
         run: |
           version=$(npm version patch)
-          sed -i "s/^version=.*$/version=$version/" library.properties
-      
-      - name: Generate changelog                
-        run: |                    
+          sed -i "s/^version=.*$/version=$version/" library.properties                   
           auto-changelog -p -u -l 100 -b 100 --sort-commits date-desc                             
           git rm package.json                    
-      
-      - name: Merge changelog and readme
-        run: |
           rm README.md
-          cat docs/LIB_README.md docs/LIB_CHANGELOG.md > README.md          
-      
-      - name: Commit and push
-        run: |    
+          cat docs/LIB_README.md docs/LIB_CHANGELOG.md > README.md           
           git add docs/LIB_CHANGELOG.md library.json README.md library.properties
           git commit -m "README.md $version" 
           git push origin HEAD:main
       
-
   # checkpoint
   generate-changelog-success:
     runs-on: ubuntu-latest
