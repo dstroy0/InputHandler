@@ -30,10 +30,10 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-      # generate a build matrix using InputHandler/supported_boards/generate_workflow_matrix.py
+      # generate a build matrix using InputHandler/tests/supported_boards/generate_workflow_matrix.py
       - id: set-build-matrix
         run: |
-          build_matrix=$(python supported_boards/generate_workflow_matrix.py -c ${{ inputs.compiler }} -p ${{ inputs.platform }})
+          build_matrix=$(python tests/supported_boards/generate_workflow_matrix.py -c ${{ inputs.compiler }} -p ${{ inputs.platform }})
           echo "build-matrix=$build_matrix" >> $GITHUB_OUTPUT
 
   generate-build-sequences:

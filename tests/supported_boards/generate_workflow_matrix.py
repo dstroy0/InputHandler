@@ -42,16 +42,17 @@ platformio_test_cli = "tools/interfaces/test_output_cli/pio_ci/src/main.cpp"
 
 def open_supported_boards_file(compiler: str) -> list:
     file_name = ""
+    # script is now in tests/supported_boards/
+    # if we are in the root directory, we need to go to tests/supported_boards/
+    # if we are in tests/supported_boards/, we are already there
+    base_path = os.getcwd()
+    if "supported_boards" not in base_path:
+        base_path = os.path.join(base_path, "tests", "supported_boards")
+    
     if compiler == "arduino":
-        if "supported_boards" not in os.getcwd():
-            file_name = os.path.join(os.getcwd(), "supported_boards", "arduino.txt")
-        else:
-            file_name = os.path.join(os.getcwd(), "arduino.txt")
+        file_name = os.path.join(base_path, "arduino.txt")
     elif compiler == "platformio":
-        if "supported_boards" not in os.getcwd():
-            file_name = os.path.join(os.getcwd(), "supported_boards", "platformio.txt")
-        else:
-            file_name = os.path.join(os.getcwd(), "platformio.txt")
+        file_name = os.path.join(base_path, "platformio.txt")
     else:
         return []  # error
     with open(file_name) as file:

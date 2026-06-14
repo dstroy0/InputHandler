@@ -27,7 +27,7 @@ jobs:
         with:
           style: file
           tidy-checks: "-*"
-          ignore: docs | examples | tools | supported_boards
+          ignore: docs | examples | tools | tests/supported_boards
           lines-changed-only: false
           files-changed-only: false
           extra-args: -w -fpermissive -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -Wno-error=narrowing

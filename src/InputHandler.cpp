@@ -510,6 +510,18 @@ void Input::listCommands()
 
 void Input::readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc, const Parameters** zdc)
 {
+    /**
+     * Entry point for processing raw input data.
+     * Performs:
+     * 1. Sanity and fatal error checks.
+     * 2. Optional splitting of Zero Delimiter Commands (ZDC).
+     * 3. Tokenization using delimiters, start/stop sequences, and control chars.
+     * 4. Linear search for root command matching first token.
+     * 5. Execution of launch logic for subcommands and arguments.
+     */
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ihout)
+    Input::ihout(PSTR("[DEBUG] readCommandFromBuffer: len=%d data=\"%s\"\n"), (int)len, (char*)data);
+#endif
     if (_fatalError()) // error checking
     {
         return;
@@ -521,8 +533,11 @@ void Input::readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zd
 #endif
         return;
     }
-    _rcfbprm rprm; // this is passed by reference to child functions
-    // initial settings
+
+    _data_pointers_index_ = 0; // reset token pointer index for this pass
+    _rcfbprm rprm; // internal state passed by reference through the matching process
+
+    // initial settings for the results structure
     rprm.launch_attempted = false; // made it to launchFunction if true
     rprm.command_matched = false; // error sentinel, true if error
     rprm.all_arguments_valid = true; // error sentinel, false if error
@@ -539,11 +554,16 @@ void Input::readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zd
     rprm.input_data = data; // working pointer, can point at data or split_input
     rprm.split_input = NULL; // split input will be NULL unless there are zero delim commands
 
+    // Handle Zero Delimiter Commands by injecting a delimiter between command and data
     if (Input::_splitZDC(rprm, num_zdc, zdc))
     {
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ihout)
+        Input::ihout(PSTR("[DEBUG] _splitZDC: new_len=%d new_data=\"%s\"\n"), (int)rprm.input_len, (char*)rprm.split_input);
+#endif
         rprm.input_data = rprm.split_input; // the input command and data have been split
     }
 
+    // Allocate temporary buffer for tokenization
     _token_buffer_ = (char*)calloc(rprm.token_buffer_len, sizeof(char)); // place to chop up the input into tokens
     if (_token_buffer_ == NULL) // if there was an error allocating the memory
     {
@@ -557,9 +577,8 @@ void Input::readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zd
         }
         return;
     }
-    // end error checking
 
-    // getTokens parameters
+    // setup tokenization parameters
     getTokensParam gtprm = {
         rprm.input_data, // input data uint8_t array
         rprm.input_len, // input len
@@ -573,9 +592,18 @@ void Input::readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zd
         true, // point_to_beginning_of_token
         _null_, // token_buffer sep char, _null_ == '\0'
     };
-    // tokenize the input
+
+    // tokenize the input stream
     rprm.tokens_received = Input::getTokens(gtprm, _input_prm_);
+#if defined(__DEBUG_READCOMMANDFROMBUFFER__) && defined(ENABLE_ihout)
+    Input::ihout(PSTR("[DEBUG] Tokens received: %d\n"), (int)rprm.tokens_received);
+    for (size_t i = 0; i < rprm.tokens_received; ++i)
+    {
+        Input::ihout(PSTR("[DEBUG]   token[%d]: \"%s\"\n"), (int)i, _data_pointers_[i]);
+    }
+#endif
     _data_pointers_index_max_ = rprm.tokens_received; // set index max to tokens received
+
     if (rprm.tokens_received == 0) // error condition
     {
         if (rprm.split_input != NULL)
@@ -592,55 +620,58 @@ void Input::readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zd
         Input::ihout(PSTR(">%S$ERROR: No tokens retrieved.\n"), _input_prm_.process_name);
 #endif
         return;
-    } // end error condition
+    }
 
-    for (rprm.cmd = _commands_head_; rprm.cmd != NULL; rprm.cmd = rprm.cmd->next_command) // iterate through Command linked-list
+    // Linear search through registered command trees to match the root command
+    for (rprm.cmd = _commands_head_; rprm.cmd != NULL; rprm.cmd = rprm.cmd->next_command) 
     {
-        rprm.result = Input::_compareCommandToString(rprm.cmd, 0, _data_pointers_[0]); // compare the root command to the first token
+        rprm.result = Input::_compareCommandToString(rprm.cmd, 0, _data_pointers_[0]); 
         if (rprm.result == match)
         {
-            break; // break command iterator for loop
+            break; // found exact match
         }
-        if (rprm.all_wcc_cmd == NULL && rprm.result == match_all_wcc_cmd) // remember first all wcc cmd
+        if (rprm.all_wcc_cmd == NULL && rprm.result == match_all_wcc_cmd) // fallback to first wildcard match
         {
             rprm.all_wcc_cmd = rprm.cmd;
         }
-    } // end root command for loop
-
-    if (rprm.result != match && rprm.all_wcc_cmd != NULL) // if there was not a "match" but we found an all wcc command (this makes all
-                                                          // wcc commands lower priority than a regular match)
-    {
-        rprm.result = match_all_wcc_cmd; // set result to all wcc
-        rprm.cmd = rprm.all_wcc_cmd; // point to the all wcc Command
     }
 
-    if (rprm.result >= match_all_wcc_cmd) // match root command
+    // prioritize exact matches over wildcard matches
+    if (rprm.result != match && rprm.all_wcc_cmd != NULL) 
     {
-        memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]),
-            sizeof(rprm.prm)); // move Parameters variables from PROGMEM to sram for work
-        _current_search_depth_ = 1; // start searching for subcommands at depth 1
-        _data_pointers_index_ = 1; // index 1 of _data_pointers_ is the token after the root command
-        rprm.command_matched = true; // root command match flag
-        _failed_on_subcommand_ = 0; // subcommand error index
-        rprm.result = no_match; // UI_COMPARE input/command compare result
+        rprm.result = match_all_wcc_cmd;
+        rprm.cmd = rprm.all_wcc_cmd;
+    }
+
+    if (rprm.result >= match_all_wcc_cmd) // matched a root command
+    {
+        // Copy Parameters to SRAM for performance during recursive search
+        memcpy_P(&rprm.prm, &(rprm.cmd->prm[0]), sizeof(rprm.prm));
+        _current_search_depth_ = 1; // root is at depth 0, first subcommand/argument is at depth 1
+        _data_pointers_index_ = 1; // start analyzing tokens from the second token
+        rprm.command_id = rprm.prm.command_id; // track current command ID for parent-child verification
+        rprm.command_matched = true;
+        _failed_on_subcommand_ = 0;
+        rprm.result = no_match;
         rprm.all_wcc_cmd = NULL;
 
-        Input::_launchLogic(rprm); // see if command has any subcommands, validate input types,
-                                   // try to launch function
-    } // end command logic
-
-    if (!rprm.launch_attempted && _default_function_ != NULL) // if there was no command match and a default function is configured
-    {
-#if defined(ENABLE_readCommandFromBufferErrorOutput)
-        Input::_readCommandFromBufferErrorOutput(rprm); // error output function
-#endif // end ENABLE_readCommandFromBufferErrorOutput
-        (*_default_function_)(this); // run the default function
+        // Recursively search subcommands and arguments
+        Input::_launchLogic(rprm);
     }
 
-    // cleanup
+    // Execute default callback if no command was launched
+    if (!rprm.launch_attempted && _default_function_ != NULL) 
+    {
+#if defined(ENABLE_readCommandFromBufferErrorOutput)
+        Input::_readCommandFromBufferErrorOutput(rprm); // format diagnostic output
+#endif
+        (*_default_function_)(this); 
+    }
+
+    // clean up temporary state and buffers
     for (size_t i = 0; i < _p_num_ptrs_; ++i)
     {
-        _data_pointers_[i] = NULL; // reinit _data_pointers_
+        _data_pointers_[i] = NULL;
     }
     if (rprm.split_input != NULL)
     {
@@ -738,6 +769,9 @@ char* Input::getArgument(size_t argument_number)
     {
         return _data_pointers_[argument_number];
     }
+#if defined(ENABLE_ihout)
+    // Input::ihout(PSTR("[DEBUG] getArgument(%d) out of range. max_idx=%d tokens=%d\n"), (int)argument_number, (int)(_max_depth_ + _max_args_), (int)_data_pointers_index_max_);
+#endif
     return NULL; // else return NULL
 } // end getArgument
 #else
@@ -1080,29 +1114,41 @@ inline void Input::_launchFunction(_rcfbprm& rprm, const ProcessName& process_na
 
 void Input::_launchLogic(_rcfbprm& rprm)
 {
+    /**
+     * Core recursive logic for matching subcommands and arguments.
+     * Decisions:
+     * 1. If it's a terminal command (no subcommands/args expected) -> Launch.
+     * 2. If it has arguments and no more potential subcommands -> Process args and Launch.
+     * 3. Else, search the parameter array for a child subcommand matching the next token.
+     */
     ProcessName process_name;
     memcpy_P(&process_name, _input_prm_.process_name, sizeof(process_name));        
-    if (rprm.tokens_received > 1 && rprm.prm.sub_commands == 0 && rprm.prm.max_num_args == 0) // error
+    
+    // Error check: too many tokens for a leaf command
+    if (rprm.tokens_received > 1 && rprm.prm.sub_commands == 0 && rprm.prm.max_num_args == 0) 
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ihout)        
         Input::ihout(PSTR(">%s$launchLogic: too many tokens for command_id %u\n"), process_name, rprm.prm.command_id);
         #endif
         return;
     }            
-    if ((rprm.subcommand_matched == false && rprm.tokens_received == 1 && rprm.prm.max_num_args == 0) // command with no arguments
-        || (rprm.tokens_received == 1 && _current_search_depth_ > 1 && rprm.subcommand_matched == true && rprm.prm.max_num_args == 0)) // subcommand with no arguments
+
+    // Terminal case 1: No more tokens or arguments expected
+    if ((rprm.subcommand_matched == false && rprm.tokens_received == 1 && rprm.prm.max_num_args == 0) 
+        || (rprm.tokens_received == 1 && _current_search_depth_ > 1 && rprm.subcommand_matched == true && rprm.prm.max_num_args == 0)) 
     {
         #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ihout)
         Input::ihout(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), process_name, rprm.prm.command_id);
         #endif
 
-        rprm.launch_attempted = true; // don't run default callback
-        Input::_launchFunction(rprm, process_name); // launch the matched command
+        rprm.launch_attempted = true; 
+        Input::_launchFunction(rprm, process_name); 
         return;
     }    
 
-    if ((rprm.subcommand_matched == false && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0) // command with arguments, potentially has subcommands but none were entered
-        || (_current_search_depth_ == (rprm.prm.depth + 1) && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0 && rprm.prm.sub_commands == 0)) // command with arguments (max depth)
+    // Terminal case 2: Arguments found at correct depth
+    if ((rprm.subcommand_matched == false && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0) 
+        || (_current_search_depth_ == (rprm.prm.depth + 1) && rprm.tokens_received > 1 && rprm.prm.max_num_args > 0 && rprm.prm.sub_commands == 0)) 
     {
         Input::_getArgs(rprm);
         if (_rec_num_arg_strings_ >= rprm.prm.num_args && _rec_num_arg_strings_ <= rprm.prm.max_num_args && rprm.all_arguments_valid == true)
@@ -1110,16 +1156,16 @@ void Input::_launchLogic(_rcfbprm& rprm)
             #if defined(__DEBUG_LAUNCH_LOGIC__) && defined(ENABLE_ihout)
             Input::ihout(PSTR(">%s$launchLogic: launchFunction command_id %u\n"), process_name, rprm.prm.command_id);
             #endif
-            rprm.launch_attempted = true;                                                      // don't run default callback
-            Input::_launchFunction(rprm, process_name); // launch the matched command
+            rprm.launch_attempted = true;                                                      
+            Input::_launchFunction(rprm, process_name); 
         }
-        return; // if !match, error
+        return; 
     }    
 
-    // subcommand search
+    // Subcommand search: Look for a child command in the current tree
     rprm.subcommand_matched = false;       
-    if (_current_search_depth_ <= (rprm.cmd->tree_depth))             // dig starting at depth 1
-    {                                                                  // this index starts at one because the parameter array's first element will be the root command        
+    if (_current_search_depth_ <= (rprm.cmd->tree_depth))             
+    {                                                                  
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ihout)
         Input::ihout(PSTR(">%s$launchLogic: search depth (%d)\n"), process_name, _current_search_depth_);
         #endif
@@ -1127,18 +1173,21 @@ void Input::_launchLogic(_rcfbprm& rprm)
         rprm.all_wcc_cmd = NULL;
         rprm.idx = 0;
         rprm.all_wcc_idx = 0;        
-        for (size_t j = 1; j < (rprm.cmd->param_array_len + 1U); ++j) // through the parameter array
+        
+        // Search through the entire parameter array for this tree
+        for (size_t j = 1; j < (rprm.cmd->param_array_len); ++j) 
         {
-            if (rprm.tokens_received == 1) // pointer index protection
+            if (rprm.tokens_received == 1) // protection
             {
                 break;
             }
             
+            // Compare next token against this parameter's command string
             rprm.result = Input::_compareCommandToString(rprm.cmd, j, _data_pointers_[_data_pointers_index_]);
             if (rprm.result == match)
             {
                 rprm.idx = j;
-                break; // break command iterator for loop
+                break; 
             }
             if (rprm.all_wcc_cmd == NULL && rprm.result == match_all_wcc_cmd)
             {
@@ -1147,6 +1196,7 @@ void Input::_launchLogic(_rcfbprm& rprm)
             }
         }        
 
+        // fallback to wildcard subcommand if no exact match
         if (rprm.result != match && rprm.all_wcc_cmd != NULL)
         {
             rprm.result = match_all_wcc_cmd;
@@ -1154,7 +1204,8 @@ void Input::_launchLogic(_rcfbprm& rprm)
             rprm.idx = rprm.all_wcc_idx;
         }
             
-        if (rprm.result >= match_all_wcc_cmd) // match subcommand string
+        // If a match was found, verify hierarchy (parent ID and depth)
+        if (rprm.result >= match_all_wcc_cmd) 
         {                
             memcpy_P(&rprm.prm, &(rprm.cmd->prm[rprm.idx]), sizeof(rprm.prm));
             if (rprm.prm.depth == _current_search_depth_ && rprm.prm.parent_command_id == rprm.command_id)
@@ -1162,14 +1213,14 @@ void Input::_launchLogic(_rcfbprm& rprm)
                 #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ihout)
                 Input::ihout(PSTR(">%s$launchLogic: subcommand (%s) match, command_id (%u), (%d) subcommands, max_num_args (%d)\n"), process_name, rprm.prm.command, rprm.prm.command_id, rprm.prm.sub_commands, rprm.prm.max_num_args);
                 #endif
-                if (rprm.tokens_received > 0) // subcommand matched
+                if (rprm.tokens_received > 0) 
                 {
-                    rprm.tokens_received--; // subtract subcommand from tokens received
-                    _data_pointers_index_++; // increment to the next token
+                    rprm.tokens_received--; // consume one token for the command
+                    _data_pointers_index_++; // move token pointer forward
                 }
-                rprm.command_id = rprm.prm.command_id; // set command_id to matched subcommand
-                rprm.subcommand_matched = true;         // subcommand matched
-                _failed_on_subcommand_ = rprm.idx;      // set error index                
+                rprm.command_id = rprm.prm.command_id; // update context with new parent ID
+                rprm.subcommand_matched = true;         
+                _failed_on_subcommand_ = rprm.idx;      
             }
         }
         
@@ -1177,8 +1228,10 @@ void Input::_launchLogic(_rcfbprm& rprm)
         {
             _current_search_depth_++;
         }
-    }                                     // end subcommand search
-    if (rprm.subcommand_matched == true) // recursion
+    }                                     
+
+    // if matched, recurse to process next depth level
+    if (rprm.subcommand_matched == true) 
     {
         #if defined(__DEBUG_SUBCOMMAND_SEARCH__) && defined(ENABLE_ihout)
         Input::ihout(PSTR(">%s$launchLogic: launchLogic recurse, command_id (%u)\n"), process_name, rprm.prm.command_id);
@@ -1364,6 +1417,11 @@ char* Input::_addEscapedControlCharToBuffer(char* buf, size_t& idx, const char* 
 
 inline void Input::_getTokensDelimiters(getTokensParam& gtprm, const InputParameters& input_prm)
 {
+    /**
+     * Skips over consecutive delimiter sequences and prepares the buffer for the next token.
+     * Fix: Ensure that if any delimiters were found, we mark the start of a new token
+     * as long as there is still data to process. 
+     */
     DelimiterSequences delimseq;
     memcpy_P(&delimseq, input_prm.delimiter_sequences, sizeof(delimseq));
     bool found_delimiter_sequence = false;
@@ -1398,10 +1456,12 @@ inline void Input::_getTokensDelimiters(getTokensParam& gtprm, const InputParame
             found_delimiter_sequence = true;
         }
     } while (match == true); // end do-while loop
-    if (found_delimiter_sequence == true && (gtprm.data_pos + _term_len_ < gtprm.len))
+
+    // If delimiters were skipped and data remains, prepare the token buffer for the next word.
+    if (found_delimiter_sequence == true && (gtprm.data_pos < gtprm.len))
     {
         gtprm.point_to_beginning_of_token = true;
-        gtprm.token_buffer[gtprm.token_buffer_index] = gtprm.token_buffer_sep;
+        gtprm.token_buffer[gtprm.token_buffer_index] = gtprm.token_buffer_sep; // null separate tokens in buffer
         gtprm.token_buffer_index++;
     }
 } // end _getTokensDelimiters
@@ -1563,22 +1623,26 @@ inline bool Input::_splitZDC(_rcfbprm& rprm, const size_t num_zdc, const Paramet
 
 void Input::_calcCmdMemcmpRanges(Command& command, Parameters& prm, size_t prm_idx, memcmp_idx_t& memcmp_ranges_idx, max_per_root_memcmp_ranges* memcmp_ranges)
 {
+    /**
+     * Pre-calculates the indices of non-wildcard segments in a command string.
+     * These ranges are stored in pairs [start1, end1, start2, end2, ...]
+     * which allows efficient memcmp during runtime matching, skipping wildcards.
+     */
     // this function is only used inside of Input::addCommand() and is not iterated over in
     // loop()
     if (prm.has_wildcards == true) // if this command has wildcards
     {
         WildcardChar wcc; // char array to hold WildCard Character (wcc)
-        size_t cmd_str_pos = 0; // prm.command char array index
-        bool start_memcmp_range = true; // sentinel
+        size_t num_wcc = 0; // prm.command wildcard char counter
         memcpy_P(&wcc, _input_prm_.wildcard_char, sizeof(wcc)); // copy WildCard Character (wcc) to ram
         for (size_t i = 0; i < prm.command_length; ++i)
         {
             if (prm.command[i] == wcc[0]) // detect wildcard char
             {
-                cmd_str_pos++; // use cmd_str_pos as temp counter
+                num_wcc++;
             }
         }
-        if (cmd_str_pos == strlen(prm.command)) // all wildcard char command, strlen is safe to use on prm.command
+        if (num_wcc == prm.command_length) // special case: all chars are wildcards
         {
             memcmp_ranges[0] = UI_ALL_WCC_CMD;
             memcmp_ranges[1] = UI_ALL_WCC_CMD;
@@ -1586,31 +1650,25 @@ void Input::_calcCmdMemcmpRanges(Command& command, Parameters& prm, size_t prm_i
         }
         else
         {
-            cmd_str_pos = 0;
-            while (cmd_str_pos < prm.command_length) // iterate over whole command len
+            size_t i = 0;
+            memcmp_ranges_idx = 0;
+            while (i < prm.command_length)
             {
-                if (prm.command[cmd_str_pos] == wcc[0])
+                // Find start of next non-wildcard sequence
+                while (i < prm.command_length && prm.command[i] == wcc[0])
                 {
-                    cmd_str_pos++;
+                    i++;
                 }
-                if (prm.command[cmd_str_pos] != wcc[0] && start_memcmp_range == true) // start memcmp range
+                if (i < prm.command_length)
                 {
-                    memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos;
-                    memcmp_ranges_idx++;
-                    start_memcmp_range = false;
+                    memcmp_ranges[memcmp_ranges_idx++] = (max_per_root_memcmp_ranges)i; // sequence start
+                    // Find end of current non-wildcard sequence
+                    while (i < prm.command_length && prm.command[i] != wcc[0])
+                    {
+                        i++;
+                    }
+                    memcmp_ranges[memcmp_ranges_idx++] = (max_per_root_memcmp_ranges)i; // sequence end (exclusive)
                 }
-                if (prm.command[cmd_str_pos] == wcc[0] && prm.command[cmd_str_pos - 1] != wcc[0]) // end memcmp range
-                {
-                    memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos - 1;
-                    memcmp_ranges_idx++;
-                    start_memcmp_range = true;
-                }
-                cmd_str_pos++; // increment char array index
-            }
-            if (memcmp_ranges_idx % 2 != 0) // memcmp ranges needs to be / 2
-            {
-                memcmp_ranges[memcmp_ranges_idx] = cmd_str_pos; // remember the end of the array
-                memcmp_ranges_idx++;
             }
         }
     }
@@ -1649,28 +1707,25 @@ inline UI_COMPARE Input::_compareCommandToString(Command* cmd, size_t prm_idx, c
     }
     else // has wildcards
     {
-        if (cmd->calc->memcmp_ranges_arr[prm_idx][0] != UI_ALL_WCC_CMD && cmd->calc->memcmp_ranges_arr[prm_idx][1] != UI_ALL_WCC_CMD) // but is not an all wcc cmd
-        {
-            for (size_t i = 0; i < cmd->calc->num_memcmp_ranges_this_row[prm_idx]; i = i + 2) // iterate through memcmp range sets
-            {
-                long result = (int)cmd->calc->memcmp_ranges_arr[prm_idx][i + 1] - (int)cmd->calc->memcmp_ranges_arr[prm_idx][i];
-                result = abs(result); // remove the sign
-                size_t size = ((size_t)result == 0) ? 1 : (size_t)result;
-                char* cmp_ptr = &str[cmd->calc->memcmp_ranges_arr[prm_idx][i]];
-                if (memcmp_P(cmp_ptr, &(cmd->prm[prm_idx].command[cmd->calc->memcmp_ranges_arr[prm_idx][i]]),
-                        size) != 0) // doesn't match
-                {
-                    retval = no_match;
-                }
-                else
-                {
-                    retval = match;
-                }
-            }
-        }
-        else if (cmd_len_pgm == input_len && cmd->calc->memcmp_ranges_arr[prm_idx][0] == UI_ALL_WCC_CMD && cmd->calc->memcmp_ranges_arr[prm_idx][1] == UI_ALL_WCC_CMD) // all wcc
+        if (cmd->calc->memcmp_ranges_arr[prm_idx][0] == UI_ALL_WCC_CMD && cmd->calc->memcmp_ranges_arr[prm_idx][1] == UI_ALL_WCC_CMD) // all wcc
         {
             retval = match_all_wcc_cmd;
+        }
+        else
+        {
+            retval = match; // Assume match until failure
+            for (size_t i = 0; i < cmd->calc->num_memcmp_ranges_this_row[prm_idx]; i = i + 2) // iterate through memcmp range sets
+            {
+                size_t start = (size_t)cmd->calc->memcmp_ranges_arr[prm_idx][i];
+                size_t end = (size_t)cmd->calc->memcmp_ranges_arr[prm_idx][i + 1];
+                size_t size = end - start;
+
+                if (memcmp_P(&str[start], &(cmd->prm[prm_idx].command[start]), size) != 0) // doesn't match
+                {
+                    retval = no_match;
+                    break;
+                }
+            }
         }
     }
     return retval;
