@@ -5,47 +5,64 @@ on:
     branches:
       - main
   workflow_dispatch:
-    branches:
-      - main
   release:
-    branches:
-      - release
+    types: [published] # Fixed syntax for standard release triggers
 
 jobs:
   changelog:
-    runs-on: ubuntu-latest    
-    steps:      
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: main
-          fetch-depth: 100      
-      
+          fetch-depth: 0 # Fetches all history and tags
+
       - name: Configuration
         run: |
-          npm install -g auto-changelog          
+          npm install -g auto-changelog
           git config user.name "dstroy0"
-          git config user.email "dstroy0@users.noreply.github.com"                    
-          ln -s library.json package.json          
-      
+          git config user.email "dstroy0@users.noreply.github.com"
+          # Create symlink so npm can interact with library.json
+          ln -s library.json package.json
+
       - name: Patch version
         run: |
-          version=$(npm version patch)
-          sed -i "s/^version=.*$/version=$version/" library.properties                   
-          auto-changelog -p -u -l 100 -b 100 --sort-commits date-desc                             
-          git rm package.json                    
-          rm README.md
-          cat docs/LIB_README.md docs/LIB_CHANGELOG.md > README.md           
+          # 1. Sync tags (Fixed the space syntax error)
+          git fetch --tags --prune --force
+
+          # 2. Get the new version tag from the symlink target
+          version=$(npm version patch --no-git-tag-version)
+          echo "New version: $version"
+
+          # 3. Strip the leading 'v' from version string if needed for Arduino properties
+          clean_version=$(echo "$version" | sed 's/^v//')
+          sed -i "s/^version=.*$/version=$clean_version/" library.properties
+
+          # 4. Generate changelog and update README.md
+          npx auto-changelog --output docs/LIB_CHANGELOG.md --commit-limit false --unreleased-only false --template keepachangelog
+          cat docs/LIB_README.md docs/LIB_CHANGELOG.md > README.md
+
+          # 5. Stage files (library.json is modified via package.json symlink)
           git add docs/LIB_CHANGELOG.md library.json README.md library.properties
+
+          # 6. Commit changes
+          git commit -m "docs: update changelog for version $version"
+
+          # 7. Create tag explicitly after the commit so it points to the updated history
           git tag -a "$version" -m "patch"
-          git commit -m "$version" 
+
+          # 8. Clean up symlink so checkout check passes cleanly
+          rm package.json
+
+          # 9. Push both commits and tags back to main branch
           git push origin HEAD:main
-      
-  # checkpoint
+          git push origin "$version"
+
   generate-changelog-success:
     runs-on: ubuntu-latest
     name: generate-changelog-success
     needs: [changelog]
     steps:
       - name: echo
-        run: echo generate LIB_CHANGELOG.md, update README.md success!
+        run: echo "generate LIB_CHANGELOG.md, update README.md success!"
