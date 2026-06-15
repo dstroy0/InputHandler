@@ -15,11 +15,11 @@
  version 3 as published by the Free Software Foundation.
  */
 #if !defined(__USER_INPUT_HANDLER_H__)
-    #define __USER_INPUT_HANDLER_H__
+#define __USER_INPUT_HANDLER_H__
 
-    // user configurable items located in src/config/config.h and src/config/advanced_config.h
-    // see examples/all_platforms/advanced/GetCommandFromStream.ino for an example
-    #include "config/noedit.h"
+// user configurable items located in src/config/config.h and src/config/advanced_config.h
+// see examples/all_platforms/advanced/GetCommandFromStream.ino for an example
+#include "config/noedit.h"
 
 /**
  * @addtogroup Namespaces
@@ -38,18 +38,18 @@ class Input; // forward declaration for Parameters
  */
 struct Parameters
 {
-    void (*function)(Input*); ///< void function pointer, void your_function(Input *inputProcess)
-    bool has_wildcards; ///< if true this command has one or more wildcard char
+    void (*function)(Input *);             ///< void function pointer, void your_function(Input *inputProcess)
+    bool has_wildcards;                    ///< if true this command has one or more wildcard char
     char command[IH_MAX_CMD_STR_LEN + 1U]; ///< command string + nullchar
-    max_cmd_str_len command_length; ///< command length in characters
-    cmd_id_grp parent_command_id; ///< parent command's unique id root-MAX
-    cmd_id_grp command_id; ///< this command's unique id root-MAX
-    max_tree_depth_per_cmd depth; ///< command tree depth root-MAX
-    max_num_child_cmds sub_commands; ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
-    UI_ARG_HANDLING argument_flag; ///< argument handling flag
-    max_args_per_cmd num_args; ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
-    max_args_per_cmd max_num_args; ///< maximum number of arguments this command expects 0 -
-                                   ///< UI_MAX_ARGS, cannot be less than num_args
+    max_cmd_str_len command_length;        ///< command length in characters
+    cmd_id_grp parent_command_id;          ///< parent command's unique id root-MAX
+    cmd_id_grp command_id;                 ///< this command's unique id root-MAX
+    max_tree_depth_per_cmd depth;          ///< command tree depth root-MAX
+    max_num_child_cmds sub_commands;       ///< how many subcommands does this command have 0 - UI_MAX_SUBCOMMANDS
+    UI_ARG_HANDLING argument_flag;         ///< argument handling flag
+    max_args_per_cmd num_args;             ///< minimum number of arguments this command expects 0 - UI_MAX_ARGS
+    max_args_per_cmd max_num_args;         ///< maximum number of arguments this command expects 0 -
+                                           ///< UI_MAX_ARGS, cannot be less than num_args
     UITYPE arg_type_arr[IH_MAX_ARGS_PER_COMMAND]; ///< argument UITYPE array
 };
 /**
@@ -72,7 +72,7 @@ struct Parameters
  */
 class Command
 {
-public:
+  public:
     /**
      * @brief Constructor method.
      *
@@ -88,19 +88,17 @@ public:
      * @param parameter_array_elements number of elements in the parameter array
      * @param tree_depth depth of command tree
      */
-    Command(const Parameters* parameters, const max_cmds_per_tree parameter_array_elements = 1, const max_tree_depth_per_cmd tree_depth = 0)
-        : prm(parameters)
-        , param_array_len(parameter_array_elements)
-        , tree_depth(tree_depth + 1U)
-        , calc(NULL)
-        , next_command(NULL)
+    Command(const Parameters *parameters, const max_cmds_per_tree parameter_array_elements = 1,
+            const max_tree_depth_per_cmd tree_depth = 0)
+        : prm(parameters), param_array_len(parameter_array_elements), tree_depth(tree_depth + 1U), calc(NULL),
+          next_command(NULL)
     {
     }
-    const Parameters* prm; ///< pointer to PROGMEM Parameters array
+    const Parameters *prm;                   ///< pointer to PROGMEM Parameters array
     const max_cmds_per_tree param_array_len; ///< user input param array len, either as digits or through nprms
-    const max_cmds_per_tree tree_depth; ///< user input depth + 1
-    CommandRuntimeCalc* calc; ///< pointer to CommandRuntimeCalc struct
-    Command* next_command; ///< Command iterator/pointer
+    const max_cmds_per_tree tree_depth;      ///< user input depth + 1
+    CommandRuntimeCalc *calc;                ///< pointer to CommandRuntimeCalc struct
+    Command *next_command;                   ///< Command iterator/pointer
 };
 
 /**
@@ -116,7 +114,7 @@ public:
  */
 class Input
 {
-public:
+  public:
     /**
      * @brief Input constructor, no output by default
      *
@@ -130,39 +128,18 @@ public:
      * @param output_buffer_len size of output_buffer, use @link buffsz() @endlink to prevent
      * accidental buffer sizing errors.
      */
-    Input(const InputParameters* input_prm = NULL, char* output_buffer = NULL, size_t output_buffer_len = 0)
-        : _input_prm_ptr_((input_prm == NULL) ? &ihc::default_parameters : input_prm)
-        , _output_buffer_(output_buffer)
-        , _output_buffer_len_(output_buffer_len)
-        , _output_enabled_((output_buffer == NULL) ? false : true)
-        , _output_buffer_bytes_left_(output_buffer_len)
-        , _term_len_(strlen_P(((input_prm == NULL) ? (char*)ihc::default_parameters.eol_char : (char*)input_prm->eol_char)))
-        , _term_index_(0)
-        , _default_function_(NULL)
-        , _commands_head_(NULL)
-        , _commands_tail_(NULL)
-        , _commands_count_(0)
-        , _max_depth_(0)
-        , _max_args_(0)
-        , _input_type_match_flags_(NULL)
-        , _output_flag_(false)
-        , _token_buffer_(NULL)
-        , _data_pointers_(NULL)
-        , _data_pointers_index_(0)
-        , _data_pointers_index_max_(0)
-        , _p_num_ptrs_(0)
-        , _rec_num_arg_strings_(0)
-        , _failed_on_subcommand_(0)
-        , _current_search_depth_(1)
-        , _null_('\0')
-        , _neg_('-')
-        , _dot_('.')
-        , _stream_buffer_allocated_(false)
-        , _new_stream_data_(false)
-        , _stream_data_(NULL)
-        , _stream_data_index_(0)
-        , _begin_(false)
-        , _halt_(false)
+    Input(const InputParameters *input_prm = NULL, char *output_buffer = NULL, size_t output_buffer_len = 0)
+        : _input_prm_ptr_((input_prm == NULL) ? &ihc::default_parameters : input_prm), _output_buffer_(output_buffer),
+          _output_buffer_len_(output_buffer_len), _output_enabled_((output_buffer == NULL) ? false : true),
+          _output_buffer_bytes_left_(output_buffer_len),
+          _term_len_(
+              strlen_P(((input_prm == NULL) ? (char *)ihc::default_parameters.eol_char : (char *)input_prm->eol_char))),
+          _term_index_(0), _default_function_(NULL), _commands_head_(NULL), _commands_tail_(NULL), _commands_count_(0),
+          _max_depth_(0), _max_args_(0), _input_type_match_flags_(NULL), _output_flag_(false), _token_buffer_(NULL),
+          _data_pointers_(NULL), _data_pointers_index_(0), _data_pointers_index_max_(0), _p_num_ptrs_(0),
+          _rec_num_arg_strings_(0), _failed_on_subcommand_(0), _current_search_depth_(1), _null_('\0'), _neg_('-'),
+          _dot_('.'), _stream_buffer_allocated_(false), _new_stream_data_(false), _stream_data_(NULL),
+          _stream_data_index_(0), _begin_(false), _halt_(false)
     {
         // load input parameters from PROGMEM
         memcpy_P(&_input_prm_, _input_prm_ptr_, sizeof(_input_prm_));
@@ -184,7 +161,7 @@ public:
      * @param function a pointer to a user specified function to use as the default function with
      * the format of `void (*function)(Input*)`.
      */
-    void defaultFunction(void (*function)(Input*));
+    void defaultFunction(void (*function)(Input *));
 
     /**
      * @brief Adds user commands to the input process.
@@ -202,7 +179,7 @@ public:
      *
      * @param command reference to Command object
      */
-    void addCommand(Command& command);
+    void addCommand(Command &command);
 
     /**
      * @brief Allocates memory to run the input process.
@@ -265,7 +242,7 @@ public:
      * @param num_zdc size of Parameters zero delimiter command pointers array
      * @param zdc array of Parameters zero delimiter command pointers
      */
-    void readCommandFromBuffer(uint8_t* data, size_t len, const size_t num_zdc = 0, const Parameters** zdc = NULL);
+    void readCommandFromBuffer(uint8_t *data, size_t len, const size_t num_zdc = 0, const Parameters **zdc = NULL);
 
     /**
      * @brief Gets bytes from a Stream object and feeds a buffer to readCommandFromBuffer.
@@ -284,7 +261,8 @@ public:
      * @param num_zdc size of Parameters zero delimiter command pointers array
      * @param zdc array of Parameters zero delimiter command pointers
      */
-    void getCommandFromStream(Stream& stream, size_t rx_buffer_size = IH_MAX_PROC_INPUT_LEN, const size_t num_zdc = 0, const Parameters** zdc = NULL);
+    void getCommandFromStream(Stream &stream, size_t rx_buffer_size = IH_MAX_PROC_INPUT_LEN, const size_t num_zdc = 0,
+                              const Parameters **zdc = NULL);
 
     /**
      * @brief Returns a pointer to the next token in Input::_token_buffer_.
@@ -296,7 +274,7 @@ public:
      *
      * @return valid pointer if there is another token else NULL.
      */
-    char* nextArgument();
+    char *nextArgument();
 
     /**
      * @brief Returns a pointer to argument_number token in Input::_token_buffer_
@@ -310,7 +288,7 @@ public:
      * @param argument_number The argument number to retrieve.
      * @return valid pointer if argument_number exists else NULL.
      */
-    char* getArgument(size_t argument_number);
+    char *getArgument(size_t argument_number);
 
     /**
      * @brief Output is available from Input if True.
@@ -348,7 +326,7 @@ public:
      *
      * @param stream The Stream to write to.
      */
-    void outputToStream(Stream& stream);
+    void outputToStream(Stream &stream);
 
     /**
      * @brief Clears the output buffer if defined.
@@ -369,18 +347,18 @@ public:
      */
     struct getTokensParam
     {
-        uint8_t* data; ///< pointer to uint8_t array
-        size_t len; ///< length of uint8_t array
-        size_t data_pos; ///< index of data
-        char* token_buffer; ///< pointer to null terminated char array
-        size_t token_buffer_len; ///< size of data + 1 + 1(if there are zero delim commands)
-        size_t token_buffer_index; ///< index of token_buffer
-        size_t num_token_ptrs; ///< token_pointers[MAX]
-        uint8_t& token_pointer_index; ///< index of token_pointers
-        char** token_pointers; ///< array of token_buffer pointers
+        uint8_t *data;                    ///< pointer to uint8_t array
+        size_t len;                       ///< length of uint8_t array
+        size_t data_pos;                  ///< index of data
+        char *token_buffer;               ///< pointer to null terminated char array
+        size_t token_buffer_len;          ///< size of data + 1 + 1(if there are zero delim commands)
+        size_t token_buffer_index;        ///< index of token_buffer
+        size_t num_token_ptrs;            ///< token_pointers[MAX]
+        uint8_t &token_pointer_index;     ///< index of token_pointers
+        char **token_pointers;            ///< array of token_buffer pointers
         bool point_to_beginning_of_token; ///< assign pointer to &token_buffer[token_buffer_index]
                                           ///< if true
-        char& token_buffer_sep; ///< token_buffer token delimiter
+        char &token_buffer_sep;           ///< token_buffer token delimiter
     };
 
     /**
@@ -400,7 +378,7 @@ public:
      *
      * @return size_t number of tokens retrieved
      */
-    size_t getTokens(getTokensParam& gtprm, const InputParameters& input_prm);
+    size_t getTokens(getTokensParam &gtprm, const InputParameters &input_prm);
 
     /**
      * @brief null separated input
@@ -408,12 +386,12 @@ public:
      */
     struct validateNullSepInputParam
     {
-        UITYPE arg_type; ///< the UITYPE to test
-        char** token_pointers; ///< pointers to null separated tokens
+        UITYPE arg_type;            ///< the UITYPE to test
+        char **token_pointers;      ///< pointers to null separated tokens
         size_t token_pointer_index; ///< index of token_pointers to test
-        char& neg_sign; ///< single char neg sign, if different than '-' parseInt and the like will
-                        ///< not assign your input negative
-        char& float_sep; ///< whole and fraction separator
+        char &neg_sign;             ///< single char neg sign, if different than '-' parseInt and the like will
+                                    ///< not assign your input negative
+        char &float_sep;            ///< whole and fraction separator
     };
 
     /**
@@ -428,7 +406,7 @@ public:
      * @return true argument-type is valid
      * @return false argument-type is not valid
      */
-    bool validateNullSepInput(validateNullSepInputParam& vprm);
+    bool validateNullSepInput(validateNullSepInputParam &vprm);
 
     /**
      * @brief Transform 2d matrix indices to flat array index.
@@ -452,7 +430,10 @@ public:
      * @param col column you want to access
      * @return size_t the transformed index
      */
-    size_t mIndex(size_t m_width, size_t row, size_t col) const { return row * m_width + col; }
+    size_t mIndex(size_t m_width, size_t row, size_t col) const
+    {
+        return row * m_width + col;
+    }
 
     /**
      * @brief Input vsnprintf
@@ -467,65 +448,65 @@ public:
      * @param fmt   the format string
      * @param ...   arguments
      */
-    void ihout(const char* fmt, ...);
+    void ihout(const char *fmt, ...);
 
-private:
+  private:
     /*
         Input Constructor variables
     */
 
     // (potentially) user entered constructor variables
-    const InputParameters* _input_prm_ptr_; ///< user input constructor parameters pointer
-    char* _output_buffer_; ///< pointer to the output char buffer
-    const size_t _output_buffer_len_; ///< Input::_output_buffer_ size in bytes
+    const InputParameters *_input_prm_ptr_; ///< user input constructor parameters pointer
+    char *_output_buffer_;                  ///< pointer to the output char buffer
+    const size_t _output_buffer_len_;       ///< Input::_output_buffer_ size in bytes
     // end user entered constructor variables
 
-    bool _output_enabled_; ///< true if Input::_output_buffer_ is not NULL (the user has
-                           ///< defined and passed an output buffer to Input's constructor)
+    bool _output_enabled_;             ///< true if Input::_output_buffer_ is not NULL (the user has
+                                       ///< defined and passed an output buffer to Input's constructor)
     size_t _output_buffer_bytes_left_; ///< index of Input::_output_buffer_, messages are
                                        ///< appended to the output buffer and this keeps track of
                                        ///< where to write to next without overwriting
 
-    uint8_t _term_len_; ///< _term_ length in characters, determined in Input::Input().
+    uint8_t _term_len_;   ///< _term_ length in characters, determined in Input::Input().
     uint8_t _term_index_; ///< _term_ index, match all characters in term or reject input.
 
-    void (*_default_function_)(Input*); ///< pointer to the default function.
+    void (*_default_function_)(Input *); ///< pointer to the default function.
 
     // linked-list
-    Command* _commands_head_; ///< pointer to Command singly-linked-list head.
-    Command* _commands_tail_; ///< pointer to Command singly-linked-list tail.
+    Command *_commands_head_; ///< pointer to Command singly-linked-list head.
+    Command *_commands_tail_; ///< pointer to Command singly-linked-list tail.
     // end linked-list
 
-    max_cmds_per_tree _commands_count_; ///< How many commands were accepted from input Parameters.
-    max_tree_depth_per_cmd _max_depth_; ///< Max command depth found in the accepted input Parameters.
-    max_args_per_cmd _max_args_; ///< Max command or subcommand arguments found in the accepted
-                                 ///< input Parameters.
-    type_match_flags* _input_type_match_flags_; ///< Bool array the size of Input::_max_args_.
+    max_cmds_per_tree _commands_count_;         ///< How many commands were accepted from input Parameters.
+    max_tree_depth_per_cmd _max_depth_;         ///< Max command depth found in the accepted input Parameters.
+    max_args_per_cmd _max_args_;                ///< Max command or subcommand arguments found in the accepted
+                                                ///< input Parameters.
+    type_match_flags *_input_type_match_flags_; ///< Bool array the size of Input::_max_args_.
 
     bool _output_flag_; ///< Output is available flag, set by member functions.
 
-    char* _token_buffer_; ///< pointer to tokenized c-string
-    char** _data_pointers_; ///< token_buffer pointers
-    max_args_per_cmd _data_pointers_index_; ///< data_pointer index
+    char *_token_buffer_;                       ///< pointer to tokenized c-string
+    char **_data_pointers_;                     ///< token_buffer pointers
+    max_args_per_cmd _data_pointers_index_;     ///< data_pointer index
     max_args_per_cmd _data_pointers_index_max_; ///< data_pointer index max
-    max_args_per_cmd _p_num_ptrs_; ///< Input process number of pointers, computed in Input::begin().
+    max_args_per_cmd _p_num_ptrs_;              ///< Input process number of pointers, computed in Input::begin().
 
-    max_args_per_cmd _rec_num_arg_strings_; ///< number of tokens after first valid token
-    max_num_child_cmds _failed_on_subcommand_; ///< subcommand error index
+    max_args_per_cmd _rec_num_arg_strings_;        ///< number of tokens after first valid token
+    max_num_child_cmds _failed_on_subcommand_;     ///< subcommand error index
     max_tree_depth_per_cmd _current_search_depth_; ///< current subcommand search depth
 
     char _null_; ///< char null
-    char _neg_; ///< char '-'
-    char _dot_; ///< char '.'
+    char _neg_;  ///< char '-'
+    char _dot_;  ///< char '.'
 
     bool _stream_buffer_allocated_; ///< this flag is set true on GetCommandFromStream entry if a
                                     ///< buffer is not allocated
-    bool _new_stream_data_; ///< if there is new data in *stream_data this is true
-    uint8_t* _stream_data_; ///< pointer to stream input, a string of char
-    uint16_t _stream_data_index_; ///< the index of stream_data
+    bool _new_stream_data_;         ///< if there is new data in *stream_data this is true
+    uint8_t *_stream_data_;         ///< pointer to stream input, a string of char
+    uint16_t _stream_data_index_;   ///< the index of stream_data
 
     bool _begin_; ///< begin() error flag
-    bool _halt_; ///< fatal error flag
+    bool _halt_;  ///< fatal error flag
 
     InputParameters _input_prm_; ///< user input process parameters pointer struct
     //  end constructor initialized variables
@@ -538,27 +519,27 @@ private:
      */
     struct _rcfbprm
     {
-        bool launch_attempted; ///< function launch attempted if true
-        bool command_matched; ///< matched root command if true
+        bool launch_attempted;    ///< function launch attempted if true
+        bool command_matched;     ///< matched root command if true
         bool all_arguments_valid; ///< argument error sentinel
-        bool subcommand_matched; ///< matched a subcommand
-        Command* cmd; ///< pointer to Command
-        Command* all_wcc_cmd; ///< pointer to Command
-        UI_COMPARE result; ///< result of Input::_compareCommandToString()
-        cmd_id_grp command_id; ///< type set by macro
-        size_t idx; ///< Parameters index
-        size_t all_wcc_idx; ///< index of Parameters that has an all wcc command
-        size_t input_len; ///< length of input data
-        size_t token_buffer_len; ///< length of token buffer
-        size_t tokens_received; ///< how many tokens we received
-        Parameters prm; ///< Parameters struct
-        uint8_t* input_data; ///< pointer to input_data
-        uint8_t* split_input; ///< pointer to Input::_splitZDC() modified data
+        bool subcommand_matched;  ///< matched a subcommand
+        Command *cmd;             ///< pointer to Command
+        Command *all_wcc_cmd;     ///< pointer to Command
+        UI_COMPARE result;        ///< result of Input::_compareCommandToString()
+        cmd_id_grp command_id;    ///< type set by macro
+        size_t idx;               ///< Parameters index
+        size_t all_wcc_idx;       ///< index of Parameters that has an all wcc command
+        size_t input_len;         ///< length of input data
+        size_t token_buffer_len;  ///< length of token buffer
+        size_t tokens_received;   ///< how many tokens we received
+        Parameters prm;           ///< Parameters struct
+        uint8_t *input_data;      ///< pointer to input_data
+        uint8_t *split_input;     ///< pointer to Input::_splitZDC() modified data
     };
 
     // private methods
 
-    #if defined(ENABLE_readCommandFromBufferErrorOutput) || defined(DOXYGEN_XML_BUILD)
+#if defined(ENABLE_readCommandFromBufferErrorOutput) || defined(DOXYGEN_XML_BUILD)
     /**
      * @brief ReadCommandFromBuffer error output
      *
@@ -568,8 +549,8 @@ private:
      *
      * @param rprm reference to Input::_rcfbprm
      */
-    void _readCommandFromBufferErrorOutput(_rcfbprm& rprm);
-    #endif // end ENABLE_readCommandFromBufferErrorOutput
+    void _readCommandFromBufferErrorOutput(_rcfbprm &rprm);
+#endif // end ENABLE_readCommandFromBufferErrorOutput
 
     /**
      * @brief launches either (this) function or the root command function
@@ -581,7 +562,7 @@ private:
      * @param rprm reference to Input::_rcfbprm
      * @param process_name ProcessName char array
      */
-    void _launchFunction(_rcfbprm& rprm, const ProcessName& process_name);
+    void _launchFunction(_rcfbprm &rprm, const ProcessName &process_name);
 
     /**
      * @brief function launch logic, recursive on subcommand match
@@ -592,7 +573,7 @@ private:
      *
      * @param rprm reference to Input::_rcfbprm
      */
-    void _launchLogic(_rcfbprm& rprm);
+    void _launchLogic(_rcfbprm &rprm);
 
     /**
      * @brief Escapes control characters so they will print
@@ -606,7 +587,7 @@ private:
      *
      * @return pointer to buf, so you can use this inside of ihout()
      */
-    char* _escapeCharactersSoTheyPrint(char input, char* buf);
+    char *_escapeCharactersSoTheyPrint(char input, char *buf);
 
     /**
      * @brief Triggers on the input a control character sequence.
@@ -632,7 +613,7 @@ private:
      * @return true never
      * @return false each call
      */
-    bool _addCommandErrorMessage(ihc::CMD_ERR_IDX error, char* cmd);
+    bool _addCommandErrorMessage(ihc::CMD_ERR_IDX error, char *cmd);
     /**
      * @brief determines if input Parameters struct is valid before adding to linked-list
      *
@@ -645,7 +626,7 @@ private:
      * @return true if there are no errors
      * @return false if there were one or more errors
      */
-    bool _addCommandAbort(Command& cmd, Parameters& prm);
+    bool _addCommandAbort(Command &cmd, Parameters &prm);
 
     /**
      * @brief Get the UITYPE equivalent for the argument, internally we use uint8_t
@@ -658,7 +639,7 @@ private:
      * @param index argument number
      * @return UITYPE argument type
      */
-    UITYPE _getArgType(Parameters& prm, size_t index = 0);
+    UITYPE _getArgType(Parameters &prm, size_t index = 0);
 
     /**
      * @brief validate the arguments as specified in the user defined Parameters struct
@@ -669,7 +650,7 @@ private:
      *
      * @param rprm reference to Input::_rcfbprm
      */
-    void _getArgs(_rcfbprm& rprm);
+    void _getArgs(_rcfbprm &rprm);
 
     /**
      * @brief adds escaped control characters to a buffer
@@ -684,7 +665,7 @@ private:
      * @param input_len length of string
      * @return pointer to null terminated escaped control char string
      */
-    char* _addEscapedControlCharToBuffer(char* buf, size_t& idx, const char* input, size_t input_len);
+    char *_addEscapedControlCharToBuffer(char *buf, size_t &idx, const char *input, size_t input_len);
 
     /**
      * @brief find delimiters in input data
@@ -696,7 +677,7 @@ private:
      * @param gtprm reference to getTokensParam struct in getTokens
      * @param input_prm reference to InputParameters struct
      */
-    void _getTokensDelimiters(getTokensParam& gtprm, const InputParameters& input_prm);
+    void _getTokensDelimiters(getTokensParam &gtprm, const InputParameters &input_prm);
 
     /**
      * @brief get delimited c-strings from input data
@@ -708,7 +689,7 @@ private:
      * @param gtprm reference to getTokensParam struct in getTokens
      * @param input_prm reference to InputParameters struct
      */
-    void _getTokensStartStop(getTokensParam& gtprm, const InputParameters& input_prm);
+    void _getTokensStartStop(getTokensParam &gtprm, const InputParameters &input_prm);
 
     /**
      * @brief add uchar to token_buffer
@@ -720,7 +701,7 @@ private:
      * @param gtprm reference to getTokensParam struct in getTokens
      * @param input_prm reference to InputParameters struct
      */
-    void _getTokensChar(getTokensParam& gtprm, const InputParameters& input_prm);
+    void _getTokensChar(getTokensParam &gtprm, const InputParameters &input_prm);
 
     /**
      * @brief split a zero delimiter command, separate command and string with token delimiter for
@@ -736,7 +717,7 @@ private:
      * @return true if split
      * @return false no match no split
      */
-    bool _splitZDC(_rcfbprm& rprm, const size_t num_zdc, const Parameters** zdc);
+    bool _splitZDC(_rcfbprm &rprm, const size_t num_zdc, const Parameters **zdc);
 
     /**
      * @brief calculates memcmp ranges for a given command around wildcard char, noninclusive
@@ -750,7 +731,8 @@ private:
      * @param memcmp_ranges_idx index of memcmp_ranges
      * @param memcmp_ranges memcmp ranges array
      */
-    void _calcCmdMemcmpRanges(Command& command, Parameters& prm, size_t prm_idx, memcmp_idx_t& memcmp_ranges_idx, max_per_root_memcmp_ranges* memcmp_ranges);
+    void _calcCmdMemcmpRanges(Command &command, Parameters &prm, size_t prm_idx, memcmp_idx_t &memcmp_ranges_idx,
+                              max_per_root_memcmp_ranges *memcmp_ranges);
 
     /**
      * @brief compares (memcmp) str to cmd->prm[prm_idx].command
@@ -764,24 +746,24 @@ private:
      * @param str c-string
      * @return UI_COMPARE match type
      */
-    UI_COMPARE _compareCommandToString(Command* cmd, size_t prm_idx, char* str);
+    UI_COMPARE _compareCommandToString(Command *cmd, size_t prm_idx, char *str);
 
-    #if defined(__UI_VERBOSE__) && defined(ENABLE_listCommands)
+#if defined(__UI_VERBOSE__) && defined(ENABLE_listCommands)
     /**
      * @brief used internally by listCommands()
      *
      */
     struct _searchStruct
     {
-        Command* cmd; // pointer to a Command
-        Parameters& prm; // pointer to a Parameters
-        uint8_t* sort_array; // partial command array
-        uint8_t** sorted_ptr; // pointer array
-        uint8_t& sorted_idx; // index of pointer array
-        uint8_t& ls_value; // value to search for
-        int& lsize; // linear search index
-        uint8_t& prev_dp; // depth
-        uint8_t& sc_num; // subcommand number
+        Command *cmd;         // pointer to a Command
+        Parameters &prm;      // pointer to a Parameters
+        uint8_t *sort_array;  // partial command array
+        uint8_t **sorted_ptr; // pointer array
+        uint8_t &sorted_idx;  // index of pointer array
+        uint8_t &ls_value;    // value to search for
+        int &lsize;           // linear search index
+        uint8_t &prev_dp;     // depth
+        uint8_t &sc_num;      // subcommand number
     };
     /**
      * @brief recursive linear array search
@@ -789,7 +771,7 @@ private:
      * @param s _searchStruct
      * @return int index of match else -1
      */
-    int _linearSearch(_searchStruct& s); // recursive linear search
+    int _linearSearch(_searchStruct &s); // recursive linear search
     /**
      * @brief recursive linear matrix search
      *
@@ -798,7 +780,7 @@ private:
      * @param lms_values match values
      * @return int index of match else -1
      */
-    int _linearMatrixSearch(_searchStruct& s, int& lmsize, uint8_t* lms_values); // recursive linear "matrix" search
+    int _linearMatrixSearch(_searchStruct &s, int &lmsize, uint8_t *lms_values); // recursive linear "matrix" search
     /**
      * @brief sorts a pointer array to print commands by heirarchy
      *
@@ -808,15 +790,15 @@ private:
      * @return true on success
      * @return false on fail
      */
-    bool _sortSubcommands(_searchStruct& s, int& lmsize, uint8_t* lms_values); // recursive sort
+    bool _sortSubcommands(_searchStruct &s, int &lmsize, uint8_t *lms_values); // recursive sort
     /**
      * @brief prints s.cmd->prm[index]
      *
      * @param s _searchStruct
      * @param index index of the parameter to print
      */
-    void _printCommand(_searchStruct& s, uint8_t index); // print a single command at s.cmd->prm[index]
-    #endif
+    void _printCommand(_searchStruct &s, uint8_t index); // print a single command at s.cmd->prm[index]
+#endif
     /**
      * @brief lib fatal error
      *
@@ -831,7 +813,7 @@ private:
 };
 // end group classes
 ///@}
-};
+}; // namespace ih
 // end addtogroup namespaces
 /** @} */
 #endif // header guard include

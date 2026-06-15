@@ -1,8 +1,8 @@
-#include "Arduino.h"
-#include <cstdint>
-#include "../src/InputHandler.h"
 #include "../src/InputHandler.cpp"
+#include "../src/InputHandler.h"
+#include "Arduino.h"
 #include <cassert>
+#include <cstdint>
 #include <iostream>
 
 using namespace ih;
@@ -25,9 +25,18 @@ Parameters create_params(void (*func)(Input *), const char *cmd, uint8_t id, uin
 }
 
 static int last_id = -1;
-void cmd_root_cb(Input *in) { last_id = 1; }
-void cmd_sub_cb(Input *in) { last_id = 2; }
-void cmd_subsub_cb(Input *in) { last_id = 3; }
+void cmd_root_cb(Input *in)
+{
+    last_id = 1;
+}
+void cmd_sub_cb(Input *in)
+{
+    last_id = 2;
+}
+void cmd_subsub_cb(Input *in)
+{
+    last_id = 3;
+}
 
 void test_nested_commands()
 {

@@ -1,8 +1,8 @@
-#include "Arduino.h"
-#include <cstdint>
-#include "../src/InputHandler.h"
 #include "../src/InputHandler.cpp"
+#include "../src/InputHandler.h"
+#include "Arduino.h"
 #include <cassert>
+#include <cstdint>
 #include <iostream>
 #include <string>
 
@@ -69,7 +69,8 @@ void test_max_args()
     }
     if (received_args_count != IH_MAX_ARGS_PER_COMMAND)
     {
-        std::cerr << "Max Args FAILED: Expected " << IH_MAX_ARGS_PER_COMMAND << " args, got " << received_args_count << std::endl;
+        std::cerr << "Max Args FAILED: Expected " << IH_MAX_ARGS_PER_COMMAND << " args, got " << received_args_count
+                  << std::endl;
         exit(1);
     }
     std::cout << "Max Args PASSED" << std::endl;
@@ -170,7 +171,10 @@ void test_zdc()
 }
 
 static int last_executed_id = 0;
-void cb_lvl1(Input *in) { last_executed_id = 1; }
+void cb_lvl1(Input *in)
+{
+    last_executed_id = 1;
+}
 void cb_lvl2(Input *in)
 {
     last_executed_id = 2;
@@ -186,7 +190,8 @@ void cb_lvl3(Input *in)
         strncpy(last_arg1, a1, 63);
 }
 
-Parameters create_limit_params(void (*func)(Input *), const char *cmd, uint8_t id, uint8_t parent = root, uint8_t depth = 0)
+Parameters create_limit_params(void (*func)(Input *), const char *cmd, uint8_t id, uint8_t parent = root,
+                               uint8_t depth = 0)
 {
     Parameters p = {};
     p.function = func;

@@ -1,8 +1,8 @@
-#include "Arduino.h"
-#include <cstdint>
-#include "../src/InputHandler.h"
 #include "../src/InputHandler.cpp"
+#include "../src/InputHandler.h"
+#include "Arduino.h"
 #include <cassert>
+#include <cstdint>
 #include <iostream>
 
 using namespace ih;
