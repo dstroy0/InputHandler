@@ -1,24 +1,24 @@
 <!doctype html>
 <html class="no-js" lang="en" data-content_root="./">
-  <head><meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="InputHandler.h" href="src/InputHandler_h_docs.html" /><link rel="prev" title="InputHandler README" href="README.html" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="InputHandler.h" href="src/InputHandler_h_docs.html"><link rel="prev" title="InputHandler" href="README.html">
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2025.12.19 -->
         <title>Documentation - InputHandler documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
     
     
 
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
-  --color-code-foreground: black;
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
   
   }
   @media not print {
@@ -69,7 +69,7 @@
   <symbol id="svg-sun" viewBox="0 0 24 24">
     <title>Light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
       <circle cx="12" cy="12" r="5"></circle>
       <line x1="12" y1="1" x2="12" y2="3"></line>
       <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -84,34 +84,73 @@
   <symbol id="svg-moon" viewBox="0 0 24 24">
     <title>Dark mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
   </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
 </svg>
 
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
-<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
-<label class="overlay sidebar-overlay" for="__navigation">
-  <div class="visually-hidden">Hide navigation sidebar</div>
-</label>
-<label class="overlay toc-overlay" for="__toc">
-  <div class="visually-hidden">Hide table of contents sidebar</div>
-</label>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 
 
 
@@ -119,8 +158,7 @@
   <header class="mobile-header">
     <div class="header-left">
       <label class="nav-overlay-icon" for="__navigation">
-        <div class="visually-hidden">Toggle site navigation sidebar</div>
-        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
       </label>
     </div>
     <div class="header-center">
@@ -128,16 +166,15 @@
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
-        <button class="theme-toggle">
-          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
           <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
-        <div class="visually-hidden">Toggle table of contents sidebar</div>
-        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
   </header>
@@ -145,7 +182,6 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
-  
   
   <span class="sidebar-brand-text">InputHandler  documentation</span>
   
@@ -157,21 +193,12 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Command Line Interface Generation tool reference (InputHandler.h)</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">InputHandler README</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#bug-reporting">Bug Reporting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#library-build-status">Library Build Status</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#docs-build-status">Docs Build Status</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#source-format-conformity">Source Format Conformity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#prebuilt-cli-gen-tool-binaries">Prebuilt cli_gen_tool Binaries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#design-goals">Design Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#news">News</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#supported-platforms">Supported Platforms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#inputhandler-library-documentation-note">InputHandler library documentation note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">InputHandler</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/dstroy0/InputHandler">InputHandler github</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html">cli_gen_tool docs</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Documentation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Documentation</a><input aria-label="Toggle navigation of Documentation" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="src/InputHandler_h_docs.html">InputHandler.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html">config.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html">noedit.h</a></li>
@@ -199,31 +226,95 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/docs.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
 <div class="theme-toggle-container theme-toggle-content">
-            <button class="theme-toggle">
-              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
               <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
           <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
-            <div class="visually-hidden">Toggle table of contents sidebar</div>
-            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
-        <article role="main">
+        <article role="main" id="furo-main-content">
           <section id="documentation">
-<h1>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h1>
+<h1>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="src/InputHandler_h_docs.html">InputHandler.h</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="src/InputHandler_h_docs.html#_CPPv42ih"><code class="docutils literal notranslate"><span class="pre">ih</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="src/config/config_h_docs.html">config.h</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/config/noedit_h_docs.html">noedit.h</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/config/config_h_docs.html">config.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_MAX_COMMANDS_PER_TREE"><code class="docutils literal notranslate"><span class="pre">IH_MAX_COMMANDS_PER_TREE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_MAX_ARGS_PER_COMMAND"><code class="docutils literal notranslate"><span class="pre">IH_MAX_ARGS_PER_COMMAND</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_MAX_TREE_DEPTH_PER_COMMAND"><code class="docutils literal notranslate"><span class="pre">IH_MAX_TREE_DEPTH_PER_COMMAND</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT"><code class="docutils literal notranslate"><span class="pre">IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_MAX_CMD_STR_LEN"><code class="docutils literal notranslate"><span class="pre">IH_MAX_CMD_STR_LEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_MAX_NUM_PROC_DELIM_SEQ"><code class="docutils literal notranslate"><span class="pre">IH_MAX_NUM_PROC_DELIM_SEQ</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_MAX_NUM_START_STOP_SEQ"><code class="docutils literal notranslate"><span class="pre">IH_MAX_NUM_START_STOP_SEQ</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_MAX_PROC_INPUT_LEN"><code class="docutils literal notranslate"><span class="pre">IH_MAX_PROC_INPUT_LEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_MAX_PER_ROOT_MEMCMP_RANGES"><code class="docutils literal notranslate"><span class="pre">IH_MAX_PER_ROOT_MEMCMP_RANGES</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_INPUT_TYPE_STRINGS_PGM_LEN"><code class="docutils literal notranslate"><span class="pre">IH_INPUT_TYPE_STRINGS_PGM_LEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_EOL_SEQ_PGM_LEN"><code class="docutils literal notranslate"><span class="pre">IH_EOL_SEQ_PGM_LEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_DELIM_SEQ_PGM_LEN"><code class="docutils literal notranslate"><span class="pre">IH_DELIM_SEQ_PGM_LEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_START_STOP_SEQ_PGM_LEN"><code class="docutils literal notranslate"><span class="pre">IH_START_STOP_SEQ_PGM_LEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_PROCESS_NAME_PGM_LEN"><code class="docutils literal notranslate"><span class="pre">IH_PROCESS_NAME_PGM_LEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_INPUT_CONTROL_CHAR_SEQ_PGM_LEN"><code class="docutils literal notranslate"><span class="pre">IH_INPUT_CONTROL_CHAR_SEQ_PGM_LEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_WCC_SEQ_PGM_LEN"><code class="docutils literal notranslate"><span class="pre">IH_WCC_SEQ_PGM_LEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_ECHO_ONLY"><code class="docutils literal notranslate"><span class="pre">IH_ECHO_ONLY</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.IH_VERBOSE"><code class="docutils literal notranslate"><span class="pre">IH_VERBOSE</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DEBUG_GETCOMMANDFROMSTREAM"><code class="docutils literal notranslate"><span class="pre">DEBUG_GETCOMMANDFROMSTREAM</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DEBUG_READCOMMANDFROMBUFFER"><code class="docutils literal notranslate"><span class="pre">DEBUG_READCOMMANDFROMBUFFER</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DEBUG_GET_TOKEN"><code class="docutils literal notranslate"><span class="pre">DEBUG_GET_TOKEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DEBUG_SUBCOMMAND_SEARCH"><code class="docutils literal notranslate"><span class="pre">DEBUG_SUBCOMMAND_SEARCH</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DEBUG_ADDCOMMAND"><code class="docutils literal notranslate"><span class="pre">DEBUG_ADDCOMMAND</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DEBUG_LAUNCH_LOGIC"><code class="docutils literal notranslate"><span class="pre">DEBUG_LAUNCH_LOGIC</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DEBUG_LAUNCH_FUNCTION"><code class="docutils literal notranslate"><span class="pre">DEBUG_LAUNCH_FUNCTION</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DEBUG_INCLUDE_FREERAM"><code class="docutils literal notranslate"><span class="pre">DEBUG_INCLUDE_FREERAM</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DISABLE_listSettings"><code class="docutils literal notranslate"><span class="pre">DISABLE_listSettings</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DISABLE_listCommands"><code class="docutils literal notranslate"><span class="pre">DISABLE_listCommands</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DISABLE_getCommandFromStream"><code class="docutils literal notranslate"><span class="pre">DISABLE_getCommandFromStream</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DISABLE_nextArgument"><code class="docutils literal notranslate"><span class="pre">DISABLE_nextArgument</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DISABLE_getArgument"><code class="docutils literal notranslate"><span class="pre">DISABLE_getArgument</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DISABLE_outputIsAvailable"><code class="docutils literal notranslate"><span class="pre">DISABLE_outputIsAvailable</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DISABLE_outputIsEnabled"><code class="docutils literal notranslate"><span class="pre">DISABLE_outputIsEnabled</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DISABLE_outputToStream"><code class="docutils literal notranslate"><span class="pre">DISABLE_outputToStream</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DISABLE_clearOutputBuffer"><code class="docutils literal notranslate"><span class="pre">DISABLE_clearOutputBuffer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DISABLE_readCommandFromBufferErrorOutput"><code class="docutils literal notranslate"><span class="pre">DISABLE_readCommandFromBufferErrorOutput</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html#c.DISABLE_ihout"><code class="docutils literal notranslate"><span class="pre">DISABLE_ihout</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/config/noedit_h_docs.html">noedit.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.TRM"><code class="docutils literal notranslate"><span class="pre">TRM</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.CMD_ERR_MSG"><code class="docutils literal notranslate"><span class="pre">CMD_ERR_MSG</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.CMD_ERR"><code class="docutils literal notranslate"><span class="pre">CMD_ERR</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.AE_CMD_ERR"><code class="docutils literal notranslate"><span class="pre">AE_CMD_ERR</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.ERR_TYP"><code class="docutils literal notranslate"><span class="pre">ERR_TYP</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.ERR_MSG"><code class="docutils literal notranslate"><span class="pre">ERR_MSG</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.VAR_ID"><code class="docutils literal notranslate"><span class="pre">VAR_ID</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.FE_VAR_ID"><code class="docutils literal notranslate"><span class="pre">FE_VAR_ID</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.nprms"><code class="docutils literal notranslate"><span class="pre">nprms</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.buffsz"><code class="docutils literal notranslate"><span class="pre">buffsz</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.nelems"><code class="docutils literal notranslate"><span class="pre">nelems</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.S"><code class="docutils literal notranslate"><span class="pre">S</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.STR"><code class="docutils literal notranslate"><span class="pre">STR</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.LOC"><code class="docutils literal notranslate"><span class="pre">LOC</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.LOCATION"><code class="docutils literal notranslate"><span class="pre">LOCATION</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.UI_ALL_WCC_CMD"><code class="docutils literal notranslate"><span class="pre">UI_ALL_WCC_CMD</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.ih_pgm_read_dword"><code class="docutils literal notranslate"><span class="pre">ih_pgm_read_dword</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.UI_ESCAPED_CHAR_STRLEN"><code class="docutils literal notranslate"><span class="pre">UI_ESCAPED_CHAR_STRLEN</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html#c.IH_PORTABILITY_DIRECTIVES"><code class="docutils literal notranslate"><span class="pre">IH_PORTABILITY_DIRECTIVES</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="src/config/utility/namespace_h_docs.html">namespace.h</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="src/config/utility/namespace_h_docs.html#_CPPv47ih_auto"><code class="docutils literal notranslate"><span class="pre">ih_auto</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/config/utility/namespace_h_docs.html#_CPPv42ih"><code class="docutils literal notranslate"><span class="pre">ih</span></code></a></li>
@@ -231,6 +322,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="src/config/utility/vsnprintf_h_docs.html">vsnprintf.h</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/config/utility/vsnprintf_h_docs.html#c.va_start"><code class="docutils literal notranslate"><span class="pre">va_start</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/utility/vsnprintf_h_docs.html#c.va_end"><code class="docutils literal notranslate"><span class="pre">va_end</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/config/utility/vsnprintf_h_docs.html#c.va_arg"><code class="docutils literal notranslate"><span class="pre">va_arg</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/config/utility/vsnprintf_h_docs.html#_CPPv49vsnprintfPc6size_tPKc7va_list"><code class="docutils literal notranslate"><span class="pre">vsnprintf()</span></code></a></li>
 </ul>
 </li>
@@ -266,7 +360,7 @@
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">InputHandler README</div>
+                <div class="title">InputHandler</div>
                 
               </div>
             </a>
@@ -295,8 +389,8 @@
     </aside>
   </div>
 </div><script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>

@@ -1,24 +1,24 @@
 <!doctype html>
 <html class="no-js" lang="en" data-content_root="./">
-  <head><meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Documentation" href="docs.html" /><link rel="prev" title="InputHandler README" href="index.html" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Documentation" href="docs.html"><link rel="prev" title="InputHandler" href="index.html">
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>InputHandler README - InputHandler documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    <!-- Generated with Sphinx 7.4.7 and Furo 2025.12.19 -->
+        <title>InputHandler - InputHandler documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
     
     
 
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
-  --color-code-foreground: black;
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
   
   }
   @media not print {
@@ -69,7 +69,7 @@
   <symbol id="svg-sun" viewBox="0 0 24 24">
     <title>Light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
       <circle cx="12" cy="12" r="5"></circle>
       <line x1="12" y1="1" x2="12" y2="3"></line>
       <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -84,34 +84,73 @@
   <symbol id="svg-moon" viewBox="0 0 24 24">
     <title>Dark mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
   </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
 </svg>
 
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
-<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
-<label class="overlay sidebar-overlay" for="__navigation">
-  <div class="visually-hidden">Hide navigation sidebar</div>
-</label>
-<label class="overlay toc-overlay" for="__toc">
-  <div class="visually-hidden">Hide table of contents sidebar</div>
-</label>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 
 
 
@@ -119,8 +158,7 @@
   <header class="mobile-header">
     <div class="header-left">
       <label class="nav-overlay-icon" for="__navigation">
-        <div class="visually-hidden">Toggle site navigation sidebar</div>
-        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
       </label>
     </div>
     <div class="header-center">
@@ -128,16 +166,15 @@
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
-        <button class="theme-toggle">
-          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
           <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
-        <div class="visually-hidden">Toggle table of contents sidebar</div>
-        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
   </header>
@@ -145,7 +182,6 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
-  
   
   <span class="sidebar-brand-text">InputHandler  documentation</span>
   
@@ -157,21 +193,12 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Command Line Interface Generation tool reference (InputHandler.h)</span></p>
 <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">InputHandler README</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#bug-reporting">Bug Reporting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#library-build-status">Library Build Status</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#docs-build-status">Docs Build Status</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#source-format-conformity">Source Format Conformity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#prebuilt-cli-gen-tool-binaries">Prebuilt cli_gen_tool Binaries</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#design-goals">Design Goals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#news">News</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#supported-platforms">Supported Platforms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#inputhandler-library-documentation-note">InputHandler library documentation note</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">InputHandler</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/dstroy0/InputHandler">InputHandler github</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html">cli_gen_tool docs</a></li>
 </ul>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="docs.html">Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="docs.html">Documentation</a><input aria-label="Toggle navigation of Documentation" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="src/InputHandler_h_docs.html">InputHandler.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/config/config_h_docs.html">config.h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="src/config/noedit_h_docs.html">noedit.h</a></li>
@@ -199,190 +226,156 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/README.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
 <div class="theme-toggle-container theme-toggle-content">
-            <button class="theme-toggle">
-              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
               <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
-            <div class="visually-hidden">Toggle table of contents sidebar</div>
-            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
-        <article role="main">
-          <a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler"><img alt="Alt text" src="https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true" /></a>
-<section id="inputhandler-readme">
-<h1>InputHandler README<a class="headerlink" href="#inputhandler-readme" title="Link to this heading">#</a></h1>
-<p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino">It’s easy to start using</a></p>
-<p>Check out the <a class="reference external" href="https://github.com/dstroy0/InputHandler/tree/main/examples">examples</a> for different use cases.</p>
-<p>This library is meant to assist in interfacing with your hardware, either through a uint8_t buffer, or a <a class="reference external" href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream</a>, such as a <a class="reference external" href="https://www.arduino.cc/en/reference/serial">Serial</a> interface object.</p>
-<p>Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information. <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih5InputE">ih::Input</a> (the input parser) will function as normal without an output buffer.</p>
-<p>Command length has no restrictions, any printable char or control char that is not your end of line character, token delimiter, or c-string delimiter is a valid commandString. You can have up to <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/config_h_docs.html#c.IH_MAX_ARGS_PER_COMMAND">config.h:IH_MAX_ARGS_PER_COMMAND</a> number of arguments. At runtime, <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih5Input10addCommandER7Command">ih::Input:addCommand()</a> scans <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10ParametersE">ih::Parameters</a> and determines the maximum number of arguments you intend to use, it then allocates a dynamically sized array of flags (bit flags in a future feature) which lives for the duration of the process (one allocation per invocation of <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N9Input5beginEv">ih::Input::begin()</a>)</p>
-<p>User-defined commands have a <a class="reference external" href="https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm">general tree structure</a>, each command has its own <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10ParametersE">ih::Parameters</a> struct which is stored in non-volatile program memory (<a class="reference external" href="https://www.arduino.cc/reference/en/language/variables/utilities/progmem/">PROGMEM on Arduino platforms</a>).</p>
-<p>Individual commands that do not contain a wildcard character (each call to <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih7CommandE">ih::Command</a>) use 8 bytes of RAM (on avr). Commands that contain wildcards use more, how much they use depends on the placement of the wildcard characters, and the command length.</p>
-<p>The <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih7CommandE">ih::Command</a> <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10ParametersE">ih::Parameters</a> <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10Parameters8functionE">target function</a> will not execute if the input does not match the <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih7CommandE">ih::Command</a> <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10ParametersE">ih::Parameters</a> <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10Parameters7commandE">ih::Parameters::command</a>, if any arguments are type-invalid, or if an unexpected amount of arguments are received.</p>
-<p>To make input matching more performant, <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10Parameters7commandE">ih::Parameters::command</a> that contain one or more <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/utility/namespace_h_docs.html#_CPPv4N2ih12WildcardCharE">ih::WildcardChar</a> have their <a class="reference external" href="https://www.cplusplus.com/reference/cstring/memcmp/">memcmp</a> ranges computed at runtime for each command containing a wildcard char, each memcmp range that needs to be remembered uses <code class="docutils literal notranslate"><span class="pre">((1</span> <span class="pre">+</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">1*n_wcc_containing_prm)</span> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">+</span> <span class="pre">n_memcmp_ranges*2)</span></code> bytes. <code class="docutils literal notranslate"><span class="pre">****</span></code>, <code class="docutils literal notranslate"><span class="pre">8***</span></code>, <code class="docutils literal notranslate"><span class="pre">*8**</span></code>, <code class="docutils literal notranslate"><span class="pre">**8*</span></code>, <code class="docutils literal notranslate"><span class="pre">***8</span></code> would compute one memcmp range <code class="docutils literal notranslate"><span class="pre">8**8</span></code> computes as two, <code class="docutils literal notranslate"><span class="pre">8888</span></code> doesn’t have any wcc, so it would undergo “length of input” memcmp. Memcmp ranges are command-wide, if you have a nested command it will only have one associated <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/utility/namespace_h_docs.html#_CPPv4N2ih18CommandRuntimeCalcE">ih::CommandRuntimeCalc</a> struct.</p>
-<p>InputHandler uses <a class="reference external" href="https://en.cppreference.com/w/cpp/language/aggregate_initialization">C++11 Aggregate initialization</a> for <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih10ParametersE">ih::Parameters</a> and <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/utility/namespace_h_docs.html#_CPPv4N2ih15InputParametersE">ih::InputParameters</a> structs.</p>
-<p>Class output is enabled by defining a buffer, the class methods format the buffer into useful human readable information.</p>
-<p>Default InputHandler Input constructor initialization with no output:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm">  InputHandler default Input constructor uses InputParameters variables defined in the namespace ihc src/config/utility/namespace.h</span>
-<span class="cm">*/</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;InputHandler.h&gt;</span>
-<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">ih</span><span class="p">;</span>
-
-<span class="n">Input</span><span class="w"> </span><span class="n">inputHandler</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>Default InputHandler Input constructor initialization with output buffer:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm">  InputHandler default Input constructor uses InputParameters variables defined in the namespace ihc src/config/utility/namespace.h</span>
-<span class="cm">  This constructor will output messages into `output_buffer`, you can check to see if there&#39;s a message with ih::Input::isOutputAvailable()</span>
-<span class="cm">*/</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;InputHandler.h&gt;</span>
-<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">ih</span><span class="p">;</span>
-<span class="kt">char</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">[</span><span class="mi">512</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;\0&#39;</span><span class="p">};</span><span class="w"> </span><span class="c1">//  output buffer</span>
-<span class="n">Input</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffsz</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">));</span><span class="w"> </span><span class="c1">// Input constructor with output buffer and buffer length</span>
-</pre></div>
-</div>
-<p>Many aspects of <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/utility/namespace_h_docs.html#_CPPv4N2ih15InputParametersE">InputParameters</a> are customizable:</p>
+        <article role="main" id="furo-main-content">
+          <a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler"><img alt="Alt text" src="https://github.com/dstroy0/InputHandler/blob/main/docs/img/_Logolarge.png?raw=true" />
+</a>
+<section id="inputhandler">
+<h1>InputHandler<a class="headerlink" href="#inputhandler" title="Link to this heading">¶</a></h1>
+<p>A lightweight, feature-rich C++ command parser library designed for microcontrollers (Arduino, ESP32, Teensy, etc.). It enables complex command tree structures with subcommands, type-safe argument parsing, and wildcard support—all while maintaining a minimal memory footprint.</p>
+<p><a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/examples/all_platforms/basic/GetCommandFromStream/GetCommandFromStream.ino">**Quick Start Guide**</a> | <a class="reference external" href="https://github.com/dstroy0/InputHandler/tree/main/examples">**View Examples**</a> | <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html">**API Documentation**</a></p>
+<hr class="docutils" />
+<section id="core-features">
+<h2>Core Features<a class="headerlink" href="#core-features" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Hierarchical Command Trees:</strong> Organize commands with nested subcommands (e.g., <code class="docutils literal notranslate"><span class="pre">LED</span> <span class="pre">ON</span> <span class="pre">RED</span></code>).</p></li>
+<li><p><strong>Type-Safe Arguments:</strong> Automatic validation for <code class="docutils literal notranslate"><span class="pre">int16_t</span></code>, <code class="docutils literal notranslate"><span class="pre">uint16_t</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">char</span></code>, and specialized sequences.</p></li>
+<li><p><strong>Wildcard Support:</strong> Match dynamic patterns in command strings (e.g., <code class="docutils literal notranslate"><span class="pre">SET*</span></code>).</p></li>
+<li><p><strong>Zero Delimiter Commands (ZDC):</strong> Handle commands fused with data (e.g., <code class="docutils literal notranslate"><span class="pre">Z123</span></code>).</p></li>
+<li><p><strong>Minimal RAM Usage:</strong> Command structures live in <code class="docutils literal notranslate"><span class="pre">PROGMEM</span></code>. Non-wildcard commands use 8 bytes or less of SRAM (AVR).</p></li>
+<li><p><strong>Platform Agnostic:</strong> Compatible with any <code class="docutils literal notranslate"><span class="pre">Stream</span></code>-based interface (Serial, WiFi, etc.) or raw buffers.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="technical-overview">
+<h2>Technical Overview<a class="headerlink" href="#technical-overview" title="Link to this heading">¶</a></h2>
+<p>InputHandler uses <a class="reference external" href="https://en.cppreference.com/w/cpp/language/aggregate_initialization">C++11 Aggregate initialization</a> for <code class="docutils literal notranslate"><span class="pre">ih::Parameters</span></code> and <code class="docutils literal notranslate"><span class="pre">ih::InputParameters</span></code> structs.</p>
+<section id="basic-initialization">
+<h3>Basic Initialization<a class="headerlink" href="#basic-initialization" title="Link to this heading">¶</a></h3>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;InputHandler.h&gt;</span>
 <span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">ih</span><span class="p">;</span>
 
-<span class="c1">// char array typdef aliases</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ProcessName</span><span class="w"> </span><span class="n">process_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;_test_&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// process name</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">EndOfLineChar</span><span class="w"> </span><span class="n">process_eol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w">  </span><span class="c1">// end of line characters</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">ControlCharSeq</span><span class="w"> </span><span class="n">process_ccseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;##&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// input control character sequence</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">WildcardChar</span><span class="w"> </span><span class="n">process_wcc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="p">;</span><span class="w">      </span><span class="c1">// process wildcard character</span>
+<span class="c1">// Initialize with an optional output buffer for human-readable feedback</span>
+<span class="kt">char</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">[</span><span class="mi">512</span><span class="p">];</span>
+<span class="n">Input</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">));</span>
 
-<span class="c1">// ih_auto::size_t, {ih_auto::size_t,...}, {ih_auto::char_array,...}</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">DelimiterSequences</span><span class="w"> </span><span class="n">process_delimseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="mi">1</span><span class="p">,</span><span class="w">    </span><span class="c1">// number of delimiter sequences</span>
-<span class="w">  </span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w">  </span><span class="c1">// delimiter sequence lens</span>
-<span class="w">  </span><span class="p">{</span><span class="s">&quot; &quot;</span><span class="p">}</span><span class="w"> </span><span class="c1">// delimiter sequences</span>
-<span class="p">};</span>
-
-<span class="c1">// ih_auto::size_t, {ih_auto::size_t,...}, {ih_auto::char_array,...}</span>
-<span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">StartStopSequences</span><span class="w"> </span><span class="n">process_ststpseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="mi">1</span><span class="p">,</span><span class="w">           </span><span class="c1">// num start stop sequence pairs</span>
-<span class="w">  </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w">      </span><span class="c1">// start stop sequence lens</span>
-<span class="w">  </span><span class="p">{</span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">}</span><span class="w"> </span><span class="c1">// start stop sequence pairs</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Register commands and call begin()</span>
+<span class="w">    </span><span class="n">inputHandler</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="advanced-configuration">
+<h3>Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Link to this heading">¶</a></h3>
+<p>Aspects of <code class="docutils literal notranslate"><span class="pre">InputParameters</span></code> such as delimiters, line endings, and control characters are fully customizable:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">DelimiterSequences</span><span class="w"> </span><span class="n">process_delimseq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="mi">2</span><span class="p">,</span><span class="w">          </span><span class="c1">// Number of sequences</span>
+<span class="w">  </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span><span class="w">     </span><span class="c1">// Lengths</span>
+<span class="w">  </span><span class="p">{</span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;,&quot;</span><span class="p">}</span><span class="w">  </span><span class="c1">// Delimiters: space or comma</span>
 <span class="p">};</span>
 
 <span class="k">const</span><span class="w"> </span><span class="n">PROGMEM</span><span class="w"> </span><span class="n">InputParameters</span><span class="w"> </span><span class="n">input_prm</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">process_name</span><span class="p">,</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">process_eol</span><span class="p">,</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">process_ccseq</span><span class="p">,</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">process_wcc</span><span class="p">,</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">process_delimseq</span><span class="p">,</span>
-<span class="w">  </span><span class="o">&amp;</span><span class="n">process_ststpseq</span>
+<span class="w">  </span><span class="o">&amp;</span><span class="n">process_name</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">process_eol</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">process_ccseq</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">process_wcc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">process_delimseq</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">process_ststpseq</span>
 <span class="p">};</span>
-
-<span class="kt">char</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">[</span><span class="mi">512</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;\0&#39;</span><span class="p">};</span><span class="w"> </span><span class="c1">//  output buffer</span>
-<span class="n">Input</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="n">input_prm</span><span class="p">,</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffsz</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">));</span><span class="w"> </span><span class="c1">// Input constructor</span>
-</pre></div>
-</div>
-<p>A valid command string would look like this with the above <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/utility/namespace_h_docs.html#_CPPv4N2ih15InputParametersE">InputParameters</a>:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>your_command arg_1 arg_2 arg... &quot;arguments enclosed with start/stop delimiter sequences can have any char value 0-255, you can memcpy these argument types directly into a recipient struct (size - 1 to remove the null terminator) as uint8_t&quot;
-your_command subcommand_1 subcommand_2 ... subcommand_N subcommand_N_arg1 subcommand_N_arg2 ...
-y*ur_co***** ...
-</pre></div>
-</div>
-<p><a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/InputHandler_h_docs.html#_CPPv4N2ih5InputE">ih::Input’s</a> input methods are:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">getCommandFromStream</span><span class="p">(</span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">rx_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IH_MAX_PROC_INPUT_LEN</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>Or, if you don’t want to use a <a class="reference external" href="https://www.arduino.cc/reference/en/language/functions/communication/stream/">Stream</a> object use this method instead:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">readCommandFromBuffer</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>This method will output to any initialized stream (hardware or software Serial):</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">ih::Input::outputToStream</span><span class="p">(</span><span class="n">Stream</span><span class="w"> </span><span class="o">&amp;</span><span class="n">stream</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>or, you can check to see if ihout output is available with:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">ih::Input::outputIsAvailable</span><span class="p">();</span>
-</pre></div>
-</div>
-<p>and then when you are done with the output buffer, it needs to be reinitialized with:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">ih::Input::clearOutputBuffer</span><span class="p">();</span>
 </pre></div>
 </div>
 </section>
-<section id="bug-reporting">
-<h1>Bug Reporting<a class="headerlink" href="#bug-reporting" title="Link to this heading">#</a></h1>
-<p>Please report any bugs in InputHandler/src/ using <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/bug_report.md">bug_report.md</a> at <a class="reference external" href="https://github.com/dstroy0/InputHandler/discussions/60">InputHandler/src/ bug report forum</a></p>
 </section>
-<section id="library-build-status">
-<h1>Library Build Status<a class="headerlink" href="#library-build-status" title="Link to this heading">#</a></h1>
-<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml:alt:Adafruitplatforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml:alt:Adafruitplatforms:raw-html-md:`&lt;br/&gt;`" />
-<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml:alt:Arduinoplatforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml:alt:Arduinoplatforms:raw-html-md:`&lt;br/&gt;`" />
-<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml:alt:ESP32platforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml:alt:ESP32platforms:raw-html-md:`&lt;br/&gt;`" />
-<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml:alt:ESP8266platforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml:alt:ESP8266platforms:raw-html-md:`&lt;br/&gt;`" />
-<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml:alt:RPiplatforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml:alt:RPiplatforms:raw-html-md:`&lt;br/&gt;`" />
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/teensyduino_platforms.yml"><img alt="Teensyduino platforms" src="https://github.com/dstroy0/InputHandler/actions/workflows/teensyduino_platforms.yml/badge.svg" /></a>
+<hr class="docutils" />
+<section id="unit-testing-verification">
+<h2>Unit Testing &amp; Verification<a class="headerlink" href="#unit-testing-verification" title="Link to this heading">¶</a></h2>
+<p>The library includes a robust cross-platform test suite to ensure stability across updates.</p>
+<section id="test-structure">
+<h3>Test Structure<a class="headerlink" href="#test-structure" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>``tests/cases/``</strong>: Unit tests covering argument parsing, nesting, wildcards, and boundary limits.</p></li>
+<li><p><strong>``tests/mocks/``</strong>: Hardware abstraction layer (HAL) mocks for non-embedded environments.</p></li>
+<li><p><strong>``tools/``</strong>: Automated test runners.</p></li>
+</ul>
 </section>
-<section id="docs-build-status">
-<h1>Docs Build Status<a class="headerlink" href="#docs-build-status" title="Link to this heading">#</a></h1>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml"><img alt="Docs CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/docs.yml/badge.svg" /></a>
+<section id="running-tests">
+<h3>Running Tests<a class="headerlink" href="#running-tests" title="Link to this heading">¶</a></h3>
+<p>You can run the full suite from the project root or the <code class="docutils literal notranslate"><span class="pre">tools/</span></code> directory.</p>
+<p><strong>Windows (PowerShell):</strong></p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="p">./</span><span class="n">tools</span><span class="p">/</span><span class="n">run_tests</span><span class="p">.</span><span class="n">ps1</span>
+</pre></div>
+</div>
+<p><strong>Linux/Ubuntu (Bash):</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/run_tests.sh
+</pre></div>
+</div>
 </section>
-<section id="source-format-conformity">
-<h1>Source Format Conformity<a class="headerlink" href="#source-format-conformity" title="Link to this heading">#</a></h1>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml"><img alt="src-cpp-linter CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg" /></a>
+<section id="coverage-highlights">
+<h3>Coverage Highlights<a class="headerlink" href="#coverage-highlights" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>``test_args``</strong>: Verifies type-safe extraction of signed/unsigned integers and floats.</p></li>
+<li><p><strong>``test_limits``</strong>: Stress tests maximum argument counts (32+), command lengths, and input overflows.</p></li>
+<li><p><strong>``test_nested``</strong>: Validates deep command tree traversal and hierarchical parent-child matching.</p></li>
+<li><p><strong>``test_wildcards``</strong>: Ensures complex wildcard patterns match correctly while excluding invalid inputs.</p></li>
+</ul>
 </section>
-<section id="prebuilt-cli-gen-tool-binaries">
-<h1>Prebuilt cli_gen_tool Binaries<a class="headerlink" href="#prebuilt-cli-gen-tool-binaries" title="Link to this heading">#</a></h1>
-<p>Made with <a class="reference external" href="https://pyinstaller.org/en/stable/">PyInstaller</a></p>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/raw/binaries/latest/linux/cli_gen_tool.zip"><img alt="Download for linux" src="https://img.shields.io/badge/Download-for%20Linux-brightgreen?style=plastic&amp;amp;logo=linux" /></a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml"><img alt="build linux binary" src="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml/badge.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/raw/binaries/latest/macos/cli_gen_tool.zip"><img alt="Download for macos" src="https://img.shields.io/badge/Download-for%20macOS-brightgreen?style=plastic&amp;amp;logo=macos" /></a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml"><img alt="build macos binary" src="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml/badge.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/raw/binaries/latest/windows/cli_gen_tool.zip"><img alt="Download for windows" src="https://img.shields.io/badge/Download-for%20Windows-brightgreen?style=plastic&amp;amp;logo=windows" /></a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml"><img alt="build windows binary" src="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml/badge.svg" /></a>
 </section>
+<hr class="docutils" />
 <section id="design-goals">
-<h1>Design Goals<a class="headerlink" href="#design-goals" title="Link to this heading">#</a></h1>
-<p>Ease of use. <span class="raw-html-md"><br /></span>
-Implementation and platform flexibility. <span class="raw-html-md"><br /></span>
-Feature rich. <span class="raw-html-md"><br /></span>
-Low memory use. <span class="raw-html-md"><br /></span>
-Parse uint8_t, any value 0-255 char array. <span class="raw-html-md"><br /></span>
-Inter equipment interfacing. <span class="raw-html-md"><br /></span>
-Construct complex commands with subcommands, and enforce the input type. <span class="raw-html-md"><br /></span>
-Nested commands with no wildcards use 8 bytes or less of sram (avr).</p>
+<h2>Design Goals<a class="headerlink" href="#design-goals" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Efficiency:</strong> Low memory overhead and optimized string matching.</p></li>
+<li><p><strong>Flexibility:</strong> Parse <code class="docutils literal notranslate"><span class="pre">uint8_t</span></code> raw buffers or standard <code class="docutils literal notranslate"><span class="pre">Stream</span></code> objects.</p></li>
+<li><p><strong>Safety:</strong> Enforce strict type checking for all command arguments.</p></li>
+<li><p><strong>Clarity:</strong> Provide detailed diagnostic output when debug flags are enabled.</p></li>
+</ul>
 </section>
-<section id="news">
-<h1>News<a class="headerlink" href="#news" title="Link to this heading">#</a></h1>
-<p>See the releases’ descriptions on
-<a class="reference external" href="https://github.com/dstroy0/InputHandler/releases">the library’s release page</a> for a list of
-changes.</p>
-</section>
+<hr class="docutils" />
 <section id="supported-platforms">
-<h1>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Link to this heading">#</a></h1>
-<p>Not supported: <span class="raw-html-md"><br /></span>
-ATTiny85 – memory/flash <span class="raw-html-md"><br /></span>
-ATMegaNG – flash <span class="raw-html-md"><br /></span>
-adafruit:samd:adafruit_neotrinkey_m0 – doesn’t build <span class="raw-html-md"><br /></span>
-adafruit:samd:adafruit_pybadge_airlift_m4 – doesn’t build <span class="raw-html-md"><br /></span>
-arduino:samd:nano_33_iot – doesn’t build</p>
-<p>If your board is not listed as not supported open an issue if you’d like it added to build coverage.</p>
-<p>NOTE: <a class="reference external" href="https://en.cppreference.com/w/c/io/vfprintf">vsnprintf</a> and
-<a class="reference external" href="https://www.delftstack.com/howto/arduino/arduino-dtostrf/">dtostrf</a> implemented on the following platforms: <span class="raw-html-md"><br /></span>
-(see: <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/config/noedit.h">src/config/noedit.h</a> for your platform’s implementation) <span class="raw-html-md"><br /></span>
-SAMD, <span class="raw-html-md"><br /></span>
-MBED, <span class="raw-html-md"><br /></span>
-arduino DUE</p>
-<p>Build coverage: <span class="raw-html-md"><br /></span>
-<a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/supported_boards/arduino.txt">Arduino</a> <span class="raw-html-md"><br /></span>
-<a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/supported_boards/platformio.txt">platformIO</a></p>
+<h2>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Link to this heading">¶</a></h2>
+<p>The library is extensively tested on the following architectures:</p>
+<ul class="simple">
+<li><p><strong>AVR:</strong> Arduino Uno, Mega, Leonardo, etc.</p></li>
+<li><p><strong>SAMD:</strong> Arduino Zero, Adafruit Feather M0/M4.</p></li>
+<li><p><strong>ESP32 / ESP8266:</strong> All variants.</p></li>
+<li><p><strong>Teensy:</strong> 3.x and 4.x.</p></li>
+<li><p><strong>MBED:</strong> Arduino Nano 33 BLE, etc.</p></li>
+</ul>
+<p><em>Note: ATTiny85 and ATMegaNG are not currently supported due to flash/RAM constraints.</em></p>
 </section>
-<section id="inputhandler-library-documentation-note">
-<h1>InputHandler library documentation note<a class="headerlink" href="#inputhandler-library-documentation-note" title="Link to this heading">#</a></h1>
-<p>The docs use a feature not supported by every browser to jump to C++ source text. Source links will still take you to the source file, but to take advantage of <a class="reference external" href="https://caniuse.com/url-scroll-to-text-fragment">url-scroll-to-text-fragment</a> you need to use a supported browser, like chrome. Alternatively you can install an addon into firefox <a class="reference external" href="https://addons.mozilla.org/en-US/firefox/addon/auto-find-text-fragment/">auto find text fragment</a> to enable the functionality.</p>
+<hr class="docutils" />
+<section id="bug-reporting">
+<h2>Bug Reporting<a class="headerlink" href="#bug-reporting" title="Link to this heading">¶</a></h2>
+<p>Please report issues via <a class="reference external" href="https://github.com/dstroy0/InputHandler/blob/main/src/bug_report.md">bug_report.md</a> or join the discussion at the <a class="reference external" href="https://github.com/dstroy0/InputHandler/discussions/60">Bug Report Forum</a>.</p>
+</section>
+<hr class="docutils" />
+<section id="build-status">
+<h2>Build Status<a class="headerlink" href="#build-status" title="Link to this heading">¶</a></h2>
+</section>
+<hr class="docutils" />
+<section id="changelog">
+<h2>Changelog<a class="headerlink" href="#changelog" title="Link to this heading">¶</a></h2>
+<p><em>See `Releases &lt;https://github.com/dstroy0/InputHandler/releases&gt;`_ for full history.</em></p>
+<p><strong>v0.0.12 (2023-11-03)</strong></p>
+<ul class="simple">
+<li><p>Improved wildcard matching performance.</p></li>
+<li><p>Fixed subcommand traversal edge cases.</p></li>
+<li><p>Added comprehensive unit testing infrastructure.</p></li>
+</ul>
+</section>
 </section>
 
         </article>
@@ -428,15 +421,50 @@ arduino DUE</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">InputHandler</a><ul>
+<li><a class="reference internal" href="#core-features">Core Features</a></li>
+<li><a class="reference internal" href="#technical-overview">Technical Overview</a><ul>
+<li><a class="reference internal" href="#basic-initialization">Basic Initialization</a></li>
+<li><a class="reference internal" href="#advanced-configuration">Advanced Configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#unit-testing-verification">Unit Testing &amp; Verification</a><ul>
+<li><a class="reference internal" href="#test-structure">Test Structure</a></li>
+<li><a class="reference internal" href="#running-tests">Running Tests</a></li>
+<li><a class="reference internal" href="#coverage-highlights">Coverage Highlights</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#design-goals">Design Goals</a></li>
+<li><a class="reference internal" href="#supported-platforms">Supported Platforms</a></li>
+<li><a class="reference internal" href="#bug-reporting">Bug Reporting</a></li>
+<li><a class="reference internal" href="#build-status">Build Status</a></li>
+<li><a class="reference internal" href="#changelog">Changelog</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
   </div>
 </div><script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>
