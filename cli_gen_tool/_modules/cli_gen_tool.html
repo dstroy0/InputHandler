@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html">
 
-    <!-- Generated with Sphinx 7.4.7 and Furo 2025.12.19 -->
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>cli_gen_tool - cli_gen_tool documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
@@ -270,6 +270,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">qdarktheme</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QApplication</span>
@@ -280,6 +281,15 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">modules.mainwindow</span><span class="w"> </span><span class="kn">import</span> <span class="n">MainWindow</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">modules.widgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">RootWidget</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">modules.pathing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pathing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.data_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataModels</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.cli.readme</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReadMe</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.cli.header_files.config_h</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config_H</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.cli.header_files.cli_h</span><span class="w"> </span><span class="kn">import</span> <span class="n">CLI_H</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.cli.header_files.functions_h</span><span class="w"> </span><span class="kn">import</span> <span class="n">Functions_H</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.cli.header_files.parameters_h</span><span class="w"> </span><span class="kn">import</span> <span class="n">Parameters_H</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.cli.filestrings</span><span class="w"> </span><span class="kn">import</span> <span class="n">CLIFileStrings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.cli.parse_config</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParseInputHandlerConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.cli.cli_helper_methods</span><span class="w"> </span><span class="kn">import</span> <span class="n">CLIHelperMethods</span>
 
 
 <span class="c1">## tool version</span>
@@ -302,7 +312,8 @@
 <span class="sd">        object (object): base class extended</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_instance</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">init_instance</span><span class="o">.</span><span class="n">args</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">UserDialogs</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">FileManipulation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -360,23 +371,87 @@
 
 <div class="viewcode-block" id="Headless">
 <a class="viewcode-back" href="../modules/cli_gen_tool.html#cli_gen_tool.Headless">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">Headless</span><span class="p">(</span><span class="n">Pathing</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">FileManipulation</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Headless</span><span class="p">(</span>
+    <span class="n">ParseInputHandlerConfig</span><span class="p">,</span>
+    <span class="n">CLIFileStrings</span><span class="p">,</span>
+    <span class="n">ReadMe</span><span class="p">,</span>
+    <span class="n">Config_H</span><span class="p">,</span>
+    <span class="n">CLI_H</span><span class="p">,</span>
+    <span class="n">Functions_H</span><span class="p">,</span>
+    <span class="n">Parameters_H</span><span class="p">,</span>
+    <span class="n">CLIHelperMethods</span><span class="p">,</span>
+    <span class="n">Pathing</span><span class="p">,</span>
+    <span class="n">Logger</span><span class="p">,</span>
+    <span class="n">FileManipulation</span><span class="p">,</span>
+    <span class="nb">object</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;No Qt services loaded, completely headless use -h to see options when launching cli_gen_tool.py</span>
 
 <span class="sd">    Args:</span>
+<span class="sd">        ParseInputHandlerConfig (object): Parses config.h</span>
+<span class="sd">        CLIFileStrings (object): CLI template/license strings</span>
+<span class="sd">        ReadMe (object): readme generator</span>
+<span class="sd">        Config_H (object): config.h generator</span>
+<span class="sd">        CLI_H (object): cli.h generator</span>
+<span class="sd">        Functions_H (object): functions.h generator</span>
+<span class="sd">        Parameters_H (object): parameters.h generator</span>
+<span class="sd">        CLIHelperMethods (object): formatting helpers</span>
 <span class="sd">        Pathing (object): script/binary pathing</span>
 <span class="sd">        Logger (object): logging services</span>
 <span class="sd">        FileManipulation (object): cli file editing, cli settings json read</span>
 <span class="sd">        object (object): base class extended</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1">#TODO generate logic</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_instance</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">init_instance</span><span class="o">.</span><span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span> <span class="o">=</span> <span class="n">init_instance</span><span class="o">.</span><span class="n">cli_options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headless</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lib_version</span> <span class="o">=</span> <span class="s2">&quot;0.0.0&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_settings_tree_values</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;opt&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;cli_output_dir&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">destination_path</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        
         <span class="nb">super</span><span class="p">(</span><span class="n">Headless</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">FileManipulation</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">lib_root_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">library_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_pathing</span><span class="p">()</span>
+        
+        <span class="c1"># Reinstate versions now that pathing is set</span>
+        <span class="n">CLIFileStrings</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        
+        <span class="c1"># Initialize preview dict structure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code_preview_dict</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">DataModels</span><span class="o">.</span><span class="n">generated_filename_dict</span><span class="p">)</span>
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;creating cli with supplied arguments&quot;</span><span class="p">)</span>
         
+        <span class="c1"># Parse config.h</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
+            <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">config_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_config_header_file</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span>
+        
+        <span class="c1"># Run generation</span>
+        <span class="n">destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">destination_path</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_cli</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid output directory&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">result</span> <span class="o">==</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid InputHandler library directory&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">result</span> <span class="o">==</span> <span class="o">-</span><span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error creating directory &lt;CLI&gt;&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">result</span> <span class="o">==</span> <span class="o">-</span><span class="mi">4</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;File write error during CLI generation&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;CLI generated successfully!&quot;</span><span class="p">)</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 
 
@@ -401,11 +476,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">root_log_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_root_logger</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stream_log_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_stream_logger</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_args</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">headless</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cli_options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">cli_options_json</span>
-            <span class="n">Headless</span><span class="p">()</span>
+            <span class="n">Headless</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">GUI</span><span class="p">()</span></div>
+            <span class="n">GUI</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
 
@@ -453,8 +529,8 @@
     </aside>
   </div>
 </div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>
