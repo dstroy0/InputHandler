@@ -17,8 +17,11 @@ jobs:
         with:
           ref: main
           fetch-depth: 0 # Fetches all history and tags
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configuration
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm install -g auto-changelog
           git config user.name "dstroy0"

@@ -6,10 +6,6 @@ on:
     paths: |
       - '**/examples/**'
   workflow_dispatch:
-    branches:
-      - main
-    paths: |
-      - '**/examples/**'
 
 jobs:
   examples-linter:
@@ -17,6 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Lint examples
         uses: cpp-linter/cpp-linter-action@v2

@@ -8,17 +8,8 @@ on:
       - "**/examples/**"
       - "**/test_output_cli/**"
   workflow_dispatch:
-    branches:
-      - main
-    paths:
-      - "**/examples/**"
-      - "**/test_output_cli/**"
   release:
-    branches:
-      - release
-    paths:
-      - "**/examples/**"
-      - "**/test_output_cli/**"
+    types: [published]
 
 jobs:
   build:

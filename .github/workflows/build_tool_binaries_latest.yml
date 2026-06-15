@@ -8,10 +8,6 @@ on:
       - "**/cli_gen_tool_src/**"
 
   workflow_dispatch:
-    branches:
-      - main
-    paths:
-      - "**/cli_gen_tool_src/**"
 
 jobs:
   build-latest-linux-binary:
@@ -46,14 +42,16 @@ jobs:
           sudo apt-get -y install p7zip-full
 
       - name: get main
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: get binaries
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           ref: binaries
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and zip binary, push to binaries branch
         run: |
@@ -81,7 +79,7 @@ jobs:
     runs-on: macos-latest
     needs: build-latest-linux-binary
     steps:
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v6
         with:
           python-version: 3.9
 
@@ -96,14 +94,16 @@ jobs:
           pip freeze
 
       - name: get main
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: get binaries
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           ref: binaries
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and zip binary, push to binaries branch
         run: |
@@ -131,7 +131,7 @@ jobs:
     runs-on: windows-latest
     needs: build-latest-macos-binary
     steps:
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v6
         with:
           python-version: 3.9
 
@@ -144,14 +144,16 @@ jobs:
           pip freeze
 
       - name: get main
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: get binaries
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           ref: binaries
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and zip binary, push to binaries branch
         run: |
@@ -179,7 +181,12 @@ jobs:
   build-latest-binaries-success:
     runs-on: ubuntu-latest
     name: build-latest-binaries-success
-    needs: [build-latest-windows-binary, build-latest-macos-binary, build-latest-linux-binary]
+    needs:
+      [
+        build-latest-windows-binary,
+        build-latest-macos-binary,
+        build-latest-linux-binary,
+      ]
     steps:
       - name: echo
         run: echo Build latest cli_gen_tool binaries success!

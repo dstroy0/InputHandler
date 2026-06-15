@@ -8,7 +8,7 @@ on:
       - "**/src/**"
       - "**/docs/**"
       - "**/tools/cli_gen_tool_src/**"
-      - "README.md"      
+      - "README.md"
   pull_request:
     branches:
       - main
@@ -16,23 +16,10 @@ on:
       - "**/src/**"
       - "**/docs/**"
       - "**/tools/cli_gen_tool_src/**"
-      - "README.md"      
+      - "README.md"
   workflow_dispatch:
-    branches:
-      - main
-    paths:
-      - "**/src/**"
-      - "**/docs/**"
-      - "**/tools/cli_gen_tool_src/**"
-      - "README.md"      
   release:
-    branches:
-      - release
-    paths:
-      - "**/src/**"
-      - "**/docs/**"
-      - "**/tools/cli_gen_tool_src/**"
-      - "README.md"      
+    types: [published]
 
 jobs:
   build-and-deploy-docs:
@@ -48,6 +35,8 @@ jobs:
           sudo apt-get install clang
 
       - uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-python@v6
         with:
@@ -74,7 +63,7 @@ jobs:
           sphinx-build -b html ./docs/lib/source ./docs/build/lib
 
       - name: Deploy to gh-pages 🚀
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # build dir needs to contain redirect to either index.html
