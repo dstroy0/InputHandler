@@ -10,14 +10,18 @@ using namespace ih;
 static int val1 = 0;
 static float val2 = 0.0f;
 
-void arg_cb(Input* in) {
-    char* a1 = in->getArgument(1);
-    char* a2 = in->getArgument(2);
-    if (a1) val1 = atoi(a1);
-    if (a2) val2 = atof(a2);
+void arg_cb(Input *in)
+{
+    char *a1 = in->getArgument(1);
+    char *a2 = in->getArgument(2);
+    if (a1)
+        val1 = atoi(a1);
+    if (a2)
+        val2 = atof(a2);
 }
 
-void test_args() {
+void test_args()
+{
     std::cout << "Running test_args..." << std::endl;
     char output_buf[512] = {0};
     Input input(nullptr, output_buf, 512);
@@ -37,7 +41,8 @@ void test_args() {
     input.addCommand(cmd);
     input.begin();
 
-    val1 = 0; val2 = 0.0f;
+    val1 = 0;
+    val2 = 0.0f;
     uint8_t d1[] = "VAL -42 3.14";
     input.readCommandFromBuffer(d1, 12);
     assert(val1 == -42);
@@ -46,7 +51,8 @@ void test_args() {
     std::cout << "test_args passed." << std::endl;
 }
 
-int main() {
+int main()
+{
     test_args();
     return 0;
 }

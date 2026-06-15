@@ -7,7 +7,8 @@
 
 using namespace ih;
 
-Parameters create_params(void (*func)(Input*), const char* cmd, uint8_t id, uint8_t parent = root, uint8_t depth = 0) {
+Parameters create_params(void (*func)(Input *), const char *cmd, uint8_t id, uint8_t parent = root, uint8_t depth = 0)
+{
     Parameters p = {};
     p.function = func;
     p.has_wildcards = false;
@@ -24,11 +25,12 @@ Parameters create_params(void (*func)(Input*), const char* cmd, uint8_t id, uint
 }
 
 static int last_id = -1;
-void cmd_root_cb(Input* in) { last_id = 1; }
-void cmd_sub_cb(Input* in) { last_id = 2; }
-void cmd_subsub_cb(Input* in) { last_id = 3; }
+void cmd_root_cb(Input *in) { last_id = 1; }
+void cmd_sub_cb(Input *in) { last_id = 2; }
+void cmd_subsub_cb(Input *in) { last_id = 3; }
 
-void test_nested_commands() {
+void test_nested_commands()
+{
     std::cout << "Running test_nested_commands..." << std::endl;
     char output_buf[512] = {0};
     Input input(nullptr, output_buf, 512);
@@ -41,14 +43,15 @@ void test_nested_commands() {
     prms[2] = create_params(cmd_subsub_cb, "RED", 3, 2, 2);
 
     // tree_depth should be 2 (max depth)
-    Command cmd(prms, 3, 2); 
+    Command cmd(prms, 3, 2);
     input.addCommand(cmd);
     input.begin();
 
     last_id = -1;
     uint8_t d1[] = "LED ON RED";
     input.readCommandFromBuffer(d1, 10);
-    if (last_id != 3) {
+    if (last_id != 3)
+    {
         std::cerr << "Nested match FAILED. Expected 3, got " << last_id << std::endl;
         exit(1);
     }
@@ -56,7 +59,8 @@ void test_nested_commands() {
     last_id = -1;
     uint8_t d2[] = "LED ON";
     input.readCommandFromBuffer(d2, 6);
-    if (last_id != 2) {
+    if (last_id != 2)
+    {
         std::cerr << "Partial nested match FAILED. Expected 2, got " << last_id << std::endl;
         exit(1);
     }
@@ -64,7 +68,8 @@ void test_nested_commands() {
     std::cout << "test_nested_commands passed." << std::endl;
 }
 
-int main() {
+int main()
+{
     test_nested_commands();
     return 0;
 }

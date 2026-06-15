@@ -51,7 +51,7 @@
     #define LOCATION STR(LOC) ///< indirect stringified file and line macro
     // end file location directive
     // "auto" Type macro
-    #define UI_ALL_WCC_CMD /** @cond */ ((ih_auto::max_per_root_memcmp_ranges)-1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX is equal to ih_auto::max_per_root_memcmp_ranges - 1
+    #define UI_ALL_WCC_CMD /** @cond */ ((ih_auto::max_per_root_memcmp_ranges) - 1) /** @endcond */ ///< UI_ALL_WCC_CMD MAX is equal to ih_auto::max_per_root_memcmp_ranges - 1
     // clang-format off
     #define ih_pgm_read_dword(addr)                                                                                                                                                                                                            \
         ({                                                                                                                                                                                                                                     \

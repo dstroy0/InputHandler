@@ -96,7 +96,7 @@ typedef uint32_t max_cmds_per_tree;
 typedef uint32_t cmd_id_grp;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_COMMANDS_PER_TREE|max_cmds_per_tree, cmd_id_grp changed from uint8_t to uint32_t
-    #elif (IH_MAX_COMMANDS_PER_TREE > ((UINT32_MAX)-1))
+    #elif (IH_MAX_COMMANDS_PER_TREE > ((UINT32_MAX) - 1))
         #pragma message(" at " LOCATION)
         #warning IH_MAX_COMMANDS_PER_TREE greater than UINT32_MAX; behavior undefined, compilation should fail.
     #endif // end IH_MAX_COMMANDS_PER_TREE
@@ -127,7 +127,7 @@ typedef uint16_t max_args_per_cmd;
 typedef uint32_t max_args_per_cmd;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_ARGS_PER_COMMAND|max_args_per_cmd changed from uint8_t to uint32_t
-    #elif IH_MAX_ARGS_PER_COMMAND > ((UINT32_MAX)-1)
+    #elif IH_MAX_ARGS_PER_COMMAND > ((UINT32_MAX) - 1)
         #pragma message(" at " LOCATION)
         #warning IH_MAX_ARGS_PER_COMMAND greater than UINT32_MAX; behavior undefined, compilation should fail.
     #endif // end IH_MAX_ARGS_PER_COMMAND
@@ -159,7 +159,7 @@ typedef uint16_t max_tree_depth_per_cmd;
 typedef uint32_t max_tree_depth_per_cmd;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_TREE_DEPTH_PER_COMMAND|max_args_per_cmd changed from uint8_t to uint32_t
-    #elif (IH_MAX_TREE_DEPTH_PER_COMMAND > ((UINT32_MAX)-1))
+    #elif (IH_MAX_TREE_DEPTH_PER_COMMAND > ((UINT32_MAX) - 1))
         #pragma message(" at " LOCATION)
         #warning IH_MAX_TREE_DEPTH_PER_COMMAND cannot be greater than UINT32_MAX
     #endif // end IH_MAX_TREE_DEPTH_PER_COMMAND
@@ -190,7 +190,7 @@ typedef uint16_t max_num_child_cmds;
 typedef uint32_t max_num_child_cmds;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT|max_args_per_cmd changed from uint8_t to uint32_t
-    #elif (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT > ((UINT32_MAX)-1))
+    #elif (IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT > ((UINT32_MAX) - 1))
         #pragma message(" at " LOCATION)
         #warning IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT cannot be greater than UINT32_MAX
     #endif // end IH_MAX_NUM_CHILD_COMMANDS_PER_ROOT
@@ -225,7 +225,7 @@ typedef uint32_t max_cmd_str_len;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_CMD_STR_LEN|max_cmd_str_len changed from uint8_t to uint32_t
     #endif
-    #if (IH_MAX_CMD_STR_LEN > ((UINT32_MAX)-1))
+    #if (IH_MAX_CMD_STR_LEN > ((UINT32_MAX) - 1))
         #pragma message(" at " LOCATION)
         #warning IH_MAX_CMD_STR_LEN cannot be greater than UINT32_MAX
     #endif // end IH_MAX_CMD_STR_LEN
@@ -257,7 +257,7 @@ typedef uint16_t max_num_delim_seq;
 typedef uint32_t max_num_delim_seq;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_NUM_PROC_DELIM_SEQ|max_num_delim_seq changed from uint8_t to uint32_t
-    #elif (IH_MAX_NUM_PROC_DELIM_SEQ > ((UINT32_MAX)-1))
+    #elif (IH_MAX_NUM_PROC_DELIM_SEQ > ((UINT32_MAX) - 1))
         #pragma message(" at " LOCATION)
         #warning IH_MAX_NUM_PROC_DELIM_SEQ cannot be greater than UINT32_MAX
     #endif // end IH_MAX_NUM_PROC_DELIM_SEQ
@@ -289,7 +289,7 @@ typedef uint16_t max_num_start_stop_seq;
 typedef uint32_t max_num_start_stop_seq;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_NUM_START_STOP_SEQ|max_num_start_stop_seq changed from uint8_t to uint32_t
-    #elif (IH_MAX_NUM_START_STOP_SEQ > ((UINT32_MAX)-1))
+    #elif (IH_MAX_NUM_START_STOP_SEQ > ((UINT32_MAX) - 1))
         #pragma message(" at " LOCATION)
         #warning IH_MAX_NUM_START_STOP_SEQ cannot be greater than UINT32_MAX
     #endif // end IH_MAX_NUM_START_STOP_SEQ
@@ -321,7 +321,7 @@ typedef uint16_t max_proc_input_len;
 typedef uint32_t max_proc_input_len;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_PROC_INPUT_LEN|max_proc_input_len changed from uint8_t to uint32_t
-    #elif (IH_MAX_PROC_INPUT_LEN > ((UINT32_MAX)-1))
+    #elif (IH_MAX_PROC_INPUT_LEN > ((UINT32_MAX) - 1))
         #pragma message(" at " LOCATION)
         #warning IH_MAX_PROC_INPUT_LEN cannot be greater than UINT32_MAX
     #endif // end IH_MAX_PROC_INPUT_LEN
@@ -374,7 +374,7 @@ typedef uint32_t max_per_root_memcmp_ranges;
 typedef uint32_t memcmp_idx_t;
         #pragma message(" at " LOCATION)
         #warning IH_MAX_PER_ROOT_MEMCMP_RANGES|max_per_root_memcmp_ranges, memcmp_idx_t changed from uint8_t to uint32_t
-    #elif (IH_MAX_PER_ROOT_MEMCMP_RANGES > ((UINT32_MAX)-1))
+    #elif (IH_MAX_PER_ROOT_MEMCMP_RANGES > ((UINT32_MAX) - 1))
         #pragma message(" at " LOCATION)
         #warning IH_MAX_PER_ROOT_MEMCMP_RANGES cannot be greater than UINT32_MAX
     #endif // end IH_MAX_PER_ROOT_MEMCMP_RANGES
