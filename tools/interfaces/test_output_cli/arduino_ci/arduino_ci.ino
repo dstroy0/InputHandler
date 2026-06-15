@@ -8,7 +8,7 @@
    @copyright Copyright (c) 2022
 */
 
-#include "CLI/src/cli.h"
+#include "CLI/src/CLI.h"
 
 void setup() {
   delay(500); // startup delay for reprogramming

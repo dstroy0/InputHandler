@@ -54,18 +54,23 @@ class PreferencesDialog(object):
                 {self.builtin_methods[i]: {"cmb": cmb, "item": item}}
             )
 
-    # TODO
     def save_preferences(self):
         """save user preferences"""
         config_path = self.dlg.config_path_input.text()
+        output_path = self.dlg.output_path_input.text()
+        if config_path:
+            self.session["opt"]["inputhandler_config_file_path"] = config_path
+        if output_path:
+            self.session["opt"]["cli_output_dir"] = output_path
         PreferencesDialog.logger.info("preferences set")
         self.preferences.close()
 
-    # TODO
     def reset_preferences(self):
         """reset preferences to what they were before interaction"""
-        config_path = self.session["opt"]["save_filename"]
-        self.dlg.config_path_input.setText(str(config_path))
+        config_path = self.session["opt"]["inputhandler_config_file_path"]
+        output_path = self.session["opt"]["cli_output_dir"]
+        self.dlg.config_path_input.setText(str(config_path) if config_path else "")
+        self.dlg.output_path_input.setText(str(output_path) if output_path else "")
         PreferencesDialog.logger.info("preferences dialog cancelled")
         self.preferences.close()
 
@@ -82,11 +87,16 @@ class PreferencesDialog(object):
             f"Session log level set to : {Logger.level_lookup[index_val]}"
         )
 
-    # TODO
     def output_preferences(self):
         """set output preferences"""
         stream = self.dlg.default_stream.text()
         size = self.dlg.default_output_buffer_size.text()
+        if stream:
+            self.session["opt"]["output"]["stream"] = stream
+            self.cli_options["process output"]["var"]["output stream"] = stream
+        if size:
+            self.session["opt"]["output"]["buffer size"] = size
+            self.cli_options["process output"]["var"]["buffer size"] = size
 
     def set_builtin_preference(self, x: int, state: Qt.CheckState):
         """set builtin preferences

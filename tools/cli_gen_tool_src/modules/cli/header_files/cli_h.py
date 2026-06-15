@@ -63,7 +63,7 @@ class CLI_H(object):
             seqs = []
             for key in seq:
                 delim_str_len = 0
-                delim_str = str(seq[key]).replace("'", "").strip()
+                delim_str = str(seq[key]).replace("'", "")
                 p = 0
                 for i in range(len(delim_str)):
                     if delim_str[p] == "\\":

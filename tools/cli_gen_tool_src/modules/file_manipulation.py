@@ -183,7 +183,7 @@ class FileManipulation(object):
             return -1
 
         # get inputhandler src/ path
-        src = os.path.abspath(os.path.join(self.lib_root_path, "/src/"))
+        src = os.path.abspath(os.path.join(self.lib_root_path, "src"))
         if os.path.exists(os.path.abspath(os.path.join(src, "InputHandler.h"))):
             FileManipulation.logger.info("found library")
         else:
@@ -264,7 +264,7 @@ class FileManipulation(object):
             FileManipulation.logger.warning(
                 f"couldnt write library.properties, removing directory:\n{cli_path}"
             )
-            os.rmtree(cli_path)
+            shutil.rmtree(cli_path)
             return -4
 
         # write cli files to cli_path
@@ -282,7 +282,7 @@ class FileManipulation(object):
                 FileManipulation.logger.warning(
                     f"couldnt write {filename}, removing directory:\n{cli_path}"
                 )
-                os.rmtree(cli_path)
+                shutil.rmtree(cli_path)
                 return -4
 
     def write_cli_file(self, path: str, string_to_write: str) -> int:
@@ -293,20 +293,13 @@ class FileManipulation(object):
         Returns:
             int: the number of bytes written if successful else -1
         """
-        file = open(path, "w", encoding="utf-8")
         filename = os.path.basename(os.path.abspath(path))
-        if not file:
-            FileManipulation.logger.info(f"Save {filename} error.")
-            file.close()
-            return -1  # file error
-        # file object
-        out = bytearray(string_to_write)
-        size = file.write(out)
-        if size != -1:
-            FileManipulation.logger.info(f"wrote {size} bytes to {filename}")
-        else:
-            FileManipulation.logger.info(f"Write {filename} error.")
-            file.close()
+        try:
+            with open(path, "w", encoding="utf-8") as file:
+                size = file.write(string_to_write)
+            FileManipulation.logger.info(f"wrote {size} characters to {filename}")
+            return size
+        except Exception as e:
+            FileManipulation.logger.warning(f"Write {filename} error: {e}")
             return -1
-        file.close()
-        return size
+

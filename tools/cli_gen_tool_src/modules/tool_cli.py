@@ -111,32 +111,31 @@ class ToolCLI(object):
             return input()
 
     def get_library_path(self, args):
-        ip = None
-        path = None
-        if bool(args.library):
-            args.headless = True
-            path = os.path.abspath(str(args.library[0]))
-        else:
+        if not args.library:
             return None
+        args.headless = True
+        path = os.path.abspath(str(args.library[0]))
+        src = "src/InputHandler.h"
+        src_path = os.path.join(path, src)
+        
+        if os.path.exists(path) and os.path.exists(src_path):
+            return path
+            
+        ip = None
         while ip is None:
-            src = "src/InputHandler.h"
-            src_path = os.path.join(path, src)
-            if not os.path.exists(path) or not os.path.exists(src_path):
-                ip = self.user_interact(
-                    f"Invalid library path:\n{path}\nwould you like to select another?"
-                )
+            ip = self.user_interact(
+                f"Invalid library path:\n{path}\nwould you like to select another?"
+            )
             if ip is True:
                 path = self.user_interact("Enter a path: ", True)
                 if os.path.exists(os.path.abspath(path)):
                     src_path = os.path.abspath(os.path.join(path, src))
                     if os.path.exists(os.path.abspath(src_path)):
                         return path
-                else:
-                    ip = None
-            if ip is False:
+                ip = None
+            elif ip is False:
                 self.root_log_handler.info(f"User elected to exit.")
                 sys.exit(0)
-        return path
 
     def get_destination_path(self, args):
         ip = None
@@ -162,10 +161,8 @@ class ToolCLI(object):
                         os.mkdir(path)
                     break
                 except Exception as e:
-                    emsg = e.message
-                    eargs = e.args
                     ip = self.user_interact(
-                        f"Unable to create directory:\n{path}\nException:\n{emsg}\n{eargs}\nWould you like to try again?"
+                        f"Unable to create directory:\n{path}\nException:\n{e}\nWould you like to try again?"
                     )
             if ip is False:
                 self.root_log_handler.info("User elected to exit.")
@@ -173,117 +170,86 @@ class ToolCLI(object):
         return path
 
     def get_options_json(self, args):
-        ip = None
-        if bool(args.options):
-            args.headless = True
-            cli_options_path = os.path.abspath(str(args.options[0]))
-        else:
+        if not args.options:
             return None
-        filedata = None
-        while ip is None:
-            if (
-                ".json" not in cli_options_path
-                or not os.path.exists(cli_options_path)
-                and ip is None
-            ):
-                if ".json" not in cli_options_path:
-                    # no cliopt json
-                    self.root_log_handler.info(
-                        f"The path to the json is incorrect, did you forget the .json?"
-                    )
-                if not os.path.exists(cli_options_path):
-                    self.root_log_handler.warning(
-                        f"The path to the json does not exist."
-                    )
-                ip = self.user_interact(
-                    "Would you like to select another cli options json?"
-                )
-            if ip is True:
-                if os.path.exists(cli_options_path):
-                    try:
-                        with open(cli_options_path, "r") as file:
-                            filedata = file.read()
-                            file.close()
-                            try:
-                                filedata = json.loads(filedata)
-                                break
-                            except:
-                                # bad json
-                                self.root_log_handler.warning(f"Invalid json format")
-                                cli_options_path = ""
-                                ip = None
-                            if filedata["type"] != "cli options":
-                                # wrong json
-                                self.root_log_handler.warning(f"Invalid json type")
-                                cli_options_path = ""
-                                ip = None
-                    except Exception as e:
-                        emsg = e.message
-                        eargs = e.args
-                        self.root_log_handler.warning(
-                            f"Cannot open file:\n{cli_options_path}\nException:\n{emsg}\n{eargs}"
-                        )
-                        ip = None
-                        cli_options_path = ""
+        args.headless = True
+        cli_options_path = os.path.abspath(str(args.options[0]))
+        
+        def load_json(json_path):
+            try:
+                with open(json_path, "r") as file:
+                    data = json.loads(file.read())
+                if data.get("type") == "cli options":
+                    return data
                 else:
-                    cli_options_path = self.user_interact(
-                        "Enter the path to a cli options json: ", True
-                    )
-                    ip = None
-            if ip is False:
+                    self.root_log_handler.warning("Invalid json type")
+            except Exception as e:
+                self.root_log_handler.warning(f"Invalid json format or access error: {e}")
+            return None
+
+        if ".json" in cli_options_path and os.path.exists(cli_options_path):
+            data = load_json(cli_options_path)
+            if data is not None:
+                return data
+
+        ip = None
+        while ip is None:
+            if ".json" not in cli_options_path:
+                self.root_log_handler.info("The path to the json is incorrect, did you forget the .json?")
+            if not os.path.exists(cli_options_path):
+                self.root_log_handler.warning("The path to the json does not exist.")
+                
+            ip = self.user_interact("Would you like to select another cli options json?")
+            if ip is True:
+                cli_options_path = self.user_interact("Enter the path to a cli options json: ", True)
+                if os.path.exists(cli_options_path):
+                    data = load_json(cli_options_path)
+                    if data is not None:
+                        return data
+                ip = None
+            elif ip is False:
                 self.root_log_handler.info("User elected to exit.")
                 sys.exit(0)
-        return filedata
 
     def get_config(self, args):
-        ip = None
-        filedata = None
-        if bool(args.config):
-            args.headless = True
-            config_path = os.path.abspath(args.config[0])
-        else:
+        if not args.config:
             return None
+        args.headless = True
+        config_path = os.path.abspath(args.config[0])
+        
+        def load_config(path):
+            try:
+                with open(path, "r") as file:
+                    data = file.read()
+                if "#if !defined(__INPUTHANDLER_CONFIG_H__)" in data:
+                    return data
+                else:
+                    self.root_log_handler.warning("The .h file is not a valid config.h")
+            except Exception as e:
+                self.root_log_handler.warning(f"Cannot open config file: {e}")
+            return None
+
+        if ".h" in config_path and os.path.exists(config_path):
+            data = load_config(config_path)
+            if data is not None:
+                return data
+
+        ip = None
         while ip is None:
-            if (
-                not os.path.exists(config_path)
-                or ".h" not in config_path
-                and ip is None
-            ):
-                if not os.path.exists(config_path):
-                    self.root_log_handler.warning(
-                        f"The path to config.h is incorrect:\n{config_path}"
-                    )
-                if ".h" not in config_path:
-                    self.root_log_handler.warning("Did not find a header extension.")
-                ip = self.user_interact(
-                    "Would you like to enter a new path to config.h?"
-                )
+            if not os.path.exists(config_path):
+                self.root_log_handler.warning(f"The path to config.h is incorrect:\n{config_path}")
+            if ".h" not in config_path:
+                self.root_log_handler.warning("Did not find a header extension.")
+                
+            ip = self.user_interact("Would you like to enter a new path to config.h?")
             if ip is True:
                 config_path = os.path.abspath(
-                    self.user_interact(
-                        "Enter the path to the InputHandler config.h you want to use:",
-                        True,
-                    )
+                    self.user_interact("Enter the path to the InputHandler config.h you want to use:", True)
                 )
-                try:
-                    with open(config_path, "r") as file:
-                        filedata = file.read()
-                    file.close()
-                except Exception as e:
-                    emsg = e.message
-                    eargs = e.args
-                    self.root_log_handler.warning(
-                        f"Cannot open:\n{config_path}\nException:\n{emsg}\n{eargs}"
-                    )
-                    ip = None
-                if (
-                    "#if !defined(__INPUTHANDLER_CONFIG_H__)" not in filedata
-                    and ip is not None
-                ):
-                    ip = self.user_interact(
-                        f"The .h file at this path:\n{config_path}\nis not valid, would you like to select another?"
-                    )
-            if ip is False:
+                data = load_config(config_path)
+                if data is not None:
+                    return data
+                ip = None
+            elif ip is False:
                 self.root_log_handler.info("User elected to exit.")
                 sys.exit(0)
-        return filedata

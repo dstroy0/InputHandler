@@ -34,18 +34,30 @@ class Pathing(object):
         file.close()
         # TODO prompt for library root
         if "library version" not in firstline:
-            # bad config.h
-            self.root_log_handler.warning(
-                f"this .h file:\n<{str(self.args.config[0])}>\nis not a valid InputHandler.h, please enter the full path to a valid InputHandler.h"
+            # try to read from library.properties
+            lib_prop_path = os.path.join(self.lib_root_path, "library.properties")
+            found_version = False
+            if os.path.exists(lib_prop_path):
+                with open(lib_prop_path, "r") as file:
+                    for line in file:
+                        if line.startswith("version="):
+                            self.lib_version = line.split("=")[1].strip()
+                            found_version = True
+                            break
+            if not found_version:
+                config_file_msg = str(self.args.config[0]) if (hasattr(self, "args") and self.args and self.args.config) else "unknown"
+                self.root_log_handler.warning(
+                    f"this .h file:\n<{config_file_msg}>\nis not a valid InputHandler.h, please enter the full path to a valid InputHandler.h"
+                )
+                sys.exit(0)
+        else:
+            self.lib_version = (
+                firstline.strip()
+                .replace("/*", "")
+                .replace("*/", "")
+                .replace("library version", "")
+                .replace(" ", "")
             )
-            sys.exit(0)
-        self.lib_version = (
-            firstline.strip()
-            .replace("/*", "")
-            .replace("*/", "")
-            .replace("library version", "")
-            .replace(" ", "")
-        )
         # set save pathing and make save directories
         user_home_dir = os.path.expanduser("~")
         inputhandler_save_path = os.path.join(

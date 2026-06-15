@@ -35,7 +35,7 @@ const PROGMEM ih::WildcardChar process_wcc = "*"; // process wildcard char
 // data delimiter sequences
 const PROGMEM ih::DelimiterSequences pdelimseq = {
     2, // number of delimiter sequences
-    {0, 1}, // delimiter sequence lens
+    {1, 1}, // delimiter sequence lens
     {" ", ","} // delimiter sequences
 };
 

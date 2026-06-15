@@ -589,7 +589,7 @@ class MainWindow(
     def generate_cli_files(self):
         """generates cli files in self.session["opt"]["cli_output_dir"]"""
         MainWindow.logger.info("generate cli files")
-        self.generate_cli()
+        self.generate_cli(self.session["opt"]["cli_output_dir"])
 
     def gui_about(self):
         """opens an about dialog"""

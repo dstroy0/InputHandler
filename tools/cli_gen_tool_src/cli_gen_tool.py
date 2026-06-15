@@ -12,6 +12,7 @@
 
 import os
 import sys
+import copy
 import qdarktheme
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QApplication
@@ -22,6 +23,15 @@ from modules.user_dialogs import UserDialogs
 from modules.mainwindow import MainWindow
 from modules.widgets import RootWidget
 from modules.pathing import Pathing
+from modules.data_models import DataModels
+from modules.cli.readme import ReadMe
+from modules.cli.header_files.config_h import Config_H
+from modules.cli.header_files.cli_h import CLI_H
+from modules.cli.header_files.functions_h import Functions_H
+from modules.cli.header_files.parameters_h import Parameters_H
+from modules.cli.filestrings import CLIFileStrings
+from modules.cli.parse_config import ParseInputHandlerConfig
+from modules.cli.cli_helper_methods import CLIHelperMethods
 
 
 ## tool version
@@ -42,7 +52,8 @@ class GUI(Pathing, Logger, UserDialogs, FileManipulation, object):
         object (object): base class extended
     """
 
-    def __init__(self) -> None:
+    def __init__(self, init_instance) -> None:
+        self.args = init_instance.args
         super().__init__()
         UserDialogs.__init__(self)
         FileManipulation.__init__(self)
@@ -94,23 +105,87 @@ class GUI(Pathing, Logger, UserDialogs, FileManipulation, object):
             self.root_log_handler.info(f"InputHandler root path: {self.lib_root_path}")            
 
 
-class Headless(Pathing, Logger, FileManipulation, object):
+class Headless(
+    ParseInputHandlerConfig,
+    CLIFileStrings,
+    ReadMe,
+    Config_H,
+    CLI_H,
+    Functions_H,
+    Parameters_H,
+    CLIHelperMethods,
+    Pathing,
+    Logger,
+    FileManipulation,
+    object,
+):
     """No Qt services loaded, completely headless use -h to see options when launching cli_gen_tool.py
 
     Args:
+        ParseInputHandlerConfig (object): Parses config.h
+        CLIFileStrings (object): CLI template/license strings
+        ReadMe (object): readme generator
+        Config_H (object): config.h generator
+        CLI_H (object): cli.h generator
+        Functions_H (object): functions.h generator
+        Parameters_H (object): parameters.h generator
+        CLIHelperMethods (object): formatting helpers
         Pathing (object): script/binary pathing
         Logger (object): logging services
         FileManipulation (object): cli file editing, cli settings json read
         object (object): base class extended
     """
-    #TODO generate logic
-    def __init__(self) -> None:
+    def __init__(self, init_instance) -> None:
+        self.args = init_instance.args
+        self.cli_options = init_instance.cli_options
+        self.version = version
+        self.headless = True
+        self.lib_version = "0.0.0"
+        self.default_settings_tree_values = {}
+        self.session = {
+            "opt": {
+                "cli_output_dir": os.path.abspath(self.args.destination_path)
+            }
+        }
+        
         super(Headless, self).__init__()
         FileManipulation.__init__(self)
+        
         self.lib_root_path = os.path.abspath(self.args.library_path)
         self.set_pathing()
+        
+        # Reinstate versions now that pathing is set
+        CLIFileStrings.__init__(self)
+        
+        # Initialize preview dict structure
+        self.code_preview_dict = copy.deepcopy(DataModels.generated_filename_dict)
+        
         self.root_log_handler.info("creating cli with supplied arguments")
         
+        # Parse config.h
+        if self.args.config:
+            config_path = os.path.abspath(self.args.config[0])
+        else:
+            config_path = ""
+        self.parse_config_header_file(config_path)
+        
+        # Run generation
+        destination = os.path.abspath(self.args.destination_path)
+        result = self.generate_cli(destination)
+        if result == -1:
+            self.root_log_handler.error("Invalid output directory")
+            sys.exit(1)
+        elif result == -2:
+            self.root_log_handler.error("Invalid InputHandler library directory")
+            sys.exit(1)
+        elif result == -3:
+            self.root_log_handler.error("Error creating directory <CLI>")
+            sys.exit(1)
+        elif result == -4:
+            self.root_log_handler.error("File write error during CLI generation")
+            sys.exit(1)
+            
+        self.root_log_handler.info("CLI generated successfully!")
         sys.exit(0)
 
 
@@ -132,11 +207,12 @@ class Init(Pathing, Logger, ToolCLI, object):
         self.root_log_handler = self.get_root_logger()
         self.stream_log_handler = self.get_stream_logger()
         self.args = self.get_args()
+        self.version = version
         if self.args.headless:
             self.cli_options = self.args.cli_options_json
-            Headless()
+            Headless(self)
         else:
-            GUI()
+            GUI(self)
 
 
 def main():

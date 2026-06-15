@@ -278,7 +278,7 @@ const PROGMEM ih::Parameters {functionname}_param[1 /* root */ + {numberofchildr
     parameters_h_fs = """
 #if !defined(__PARAMETERS_H__)
     #define __PARAMETERS_H__
-    #include "cli.h"
+    #include "CLI.h"
     
 {parameters}
 #endif

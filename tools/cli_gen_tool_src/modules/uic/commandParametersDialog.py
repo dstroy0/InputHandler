@@ -101,7 +101,7 @@ class Ui_commandParametersDialog(object):
         self.label_14.setMaximumSize(QSize(150, 24))
         self.label_14.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
 
-        self.gridLayout_2.addWidget(self.label_14, 4, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_14, 3, 0, 1, 1)
 
         self.commandId = QLineEdit(self.parametersPane)
         self.commandId.setObjectName(u"commandId")
@@ -110,7 +110,7 @@ class Ui_commandParametersDialog(object):
         self.commandId.setMinimumSize(QSize(75, 24))
         self.commandId.setMaximumSize(QSize(16777215, 24))
 
-        self.gridLayout_2.addWidget(self.commandId, 4, 1, 1, 2)
+        self.gridLayout_2.addWidget(self.commandId, 3, 1, 1, 2)
 
         self.label_17 = QLabel(self.parametersPane)
         self.label_17.setObjectName(u"label_17")

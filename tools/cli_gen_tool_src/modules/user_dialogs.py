@@ -145,7 +145,6 @@ class UserDialogs(object):
         ret = dlg.exec()  # return the dialog exit code
         return ret
 
-    # TODO fix icon
     def create_file_error_qdialog(self, error_type: str, qfile: QFile):
         """creates an error dialog
 
@@ -161,7 +160,7 @@ class UserDialogs(object):
             str(f"{error_type} {qfile.fileName()} error."),
             None,
             None,
-            self.ui.messageBoxCriticalIcon,
+            QStyle.StandardPixmap.SP_MessageBoxCritical,
         )
 
     def get_project_dir(self) -> str:
@@ -192,7 +191,6 @@ class UserDialogs(object):
             buttons = [b.Ok, b.Close]
             button_text = ["Select output directory", "Cancel"]
             result = self.create_qdialog(
-                self._parent,
                 "You must select an output directory to generate files.",
                 Qt.AlignCenter,
                 Qt.NoTextInteraction,
@@ -255,7 +253,6 @@ class UserDialogs(object):
                 buttons = [b.Ok, b.Close]
                 button_text = ["Save", "Cancel"]
                 result = self.create_qdialog(
-                    self._parent,
                     "Do you want to save your current work?",
                     Qt.AlignCenter,
                     Qt.NoTextInteraction,
