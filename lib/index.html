@@ -203,7 +203,6 @@
 <li class="toctree-l1"><a class="reference internal" href="README.html#news">News</a></li>
 <li class="toctree-l1"><a class="reference internal" href="README.html#supported-platforms">Supported Platforms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="README.html#inputhandler-library-documentation-note">InputHandler library documentation note</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#changelog">Changelog</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/dstroy0/InputHandler">InputHandler github</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://dstroy0.github.io/InputHandler/cli_gen_tool/index.html">cli_gen_tool docs</a></li>
 </ul>
@@ -287,12 +286,12 @@
 <p>Default InputHandler Input constructor initialization with output buffer:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
 <span class="cm">  InputHandler default Input constructor uses InputParameters variables defined in the namespace ihc src/config/utility/namespace.h</span>
-<span class="cm">  This constructor will output messages into `output_buffer`, you can check to see if there&#39;s a message with ih::Input::isOutputAvailable()</span>
+<span class="cm">  This constructor will output messages into `output_buffer`, you can check to see if there&#39;s a message with ih::Input::outputIsAvailable()</span>
 <span class="cm">*/</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;InputHandler.h&gt;</span>
 <span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">ih</span><span class="p">;</span>
 <span class="kt">char</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">[</span><span class="mi">512</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;\0&#39;</span><span class="p">};</span><span class="w"> </span><span class="c1">//  output buffer</span>
-<span class="n">Input</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffsz</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">));</span><span class="w"> </span><span class="c1">// Input constructor with output buffer and buffer length</span>
+<span class="n">Input</span><span class="w"> </span><span class="nf">inputHandler</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">output_buffer</span><span class="p">,</span><span class="w"> </span><span class="n">buffsz</span><span class="p">(</span><span class="n">output_buffer</span><span class="p">));</span><span class="w"> </span><span class="c1">// Input constructor with output buffer and buffer length</span>
 </pre></div>
 </div>
 <p>Many aspects of <a class="reference external" href="https://dstroy0.github.io/InputHandler/lib/src/config/utility/namespace_h_docs.html#_CPPv4N2ih15InputParametersE">InputParameters</a> are customizable:</p>
@@ -351,7 +350,7 @@ y*ur_co***** ...
 </pre></div>
 </div>
 <p>or, you can check to see if ihout output is available with:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">ih::Input::outputIsAvailable</span><span class="p">();</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span><span class="w"> </span><span class="nf">ih::Input::outputIsAvailable</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>and then when you are done with the output buffer, it needs to be reinitialized with:</p>
@@ -365,12 +364,12 @@ y*ur_co***** ...
 </section>
 <section id="library-build-status">
 <h1>Library Build Status<a class="headerlink" href="#library-build-status" title="Link to this heading">¶</a></h1>
-<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml:alt:Adafruitplatforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml:alt:Adafruitplatforms:raw-html-md:`&lt;br/&gt;`" />
-<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml:alt:Arduinoplatforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml:alt:Arduinoplatforms:raw-html-md:`&lt;br/&gt;`" />
-<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml:alt:ESP32platforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml:alt:ESP32platforms:raw-html-md:`&lt;br/&gt;`" />
-<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml:alt:ESP8266platforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml:alt:ESP8266platforms:raw-html-md:`&lt;br/&gt;`" />
-<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml:alt:RPiplatforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml:alt:RPiplatforms:raw-html-md:`&lt;br/&gt;`" />
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/teensyduino_platforms.yml"><img alt="Teensyduino platforms" src="https://github.com/dstroy0/InputHandler/actions/workflows/teensyduino_platforms.yml/badge.svg" />
+<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/build_adafruit.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/build_adafruit.yml:alt:Adafruitplatforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_adafruit.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/build_adafruit.yml:alt:Adafruitplatforms:raw-html-md:`&lt;br/&gt;`" />
+<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino.yml:alt:Arduinoplatforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino.yml:alt:Arduinoplatforms:raw-html-md:`&lt;br/&gt;`" />
+<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp32.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/build_esp32.yml:alt:ESP32platforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp32.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/build_esp32.yml:alt:ESP32platforms:raw-html-md:`&lt;br/&gt;`" />
+<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp8266.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/build_esp8266.yml:alt:ESP8266platforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_esp8266.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/build_esp8266.yml:alt:ESP8266platforms:raw-html-md:`&lt;br/&gt;`" />
+<img alt="https://github.com/dstroy0/InputHandler/actions/workflows/build_rpi.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/build_rpi.yml:alt:RPiplatforms:raw-html-md:`&lt;br/&gt;`" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_rpi.yml/badge.svg:target:https://github.com/dstroy0/InputHandler/actions/workflows/build_rpi.yml:alt:RPiplatforms:raw-html-md:`&lt;br/&gt;`" />
+<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_teensyduino.yml"><img alt="Teensyduino platforms" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_teensyduino.yml/badge.svg" />
 </a>
 </section>
 <section id="docs-build-status">
@@ -380,7 +379,7 @@ y*ur_co***** ...
 </section>
 <section id="source-format-conformity">
 <h1>Source Format Conformity<a class="headerlink" href="#source-format-conformity" title="Link to this heading">¶</a></h1>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml"><img alt="src-cpp-linter CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg" />
+<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/lint_src_contributions.yml"><img alt="src-cpp-linter CI" src="https://github.com/dstroy0/InputHandler/actions/workflows/lint_src_contributions.yml/badge.svg" />
 </a>
 </section>
 <section id="prebuilt-cli-gen-tool-binaries">
@@ -388,15 +387,15 @@ y*ur_co***** ...
 <p>Made with <a class="reference external" href="https://pyinstaller.org/en/stable/">PyInstaller</a></p>
 <a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/raw/binaries/latest/linux/cli_gen_tool.zip"><img alt="Download for linux" src="https://img.shields.io/badge/Download-for%20Linux-brightgreen?style=plastic&amp;logo=linux" />
 </a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml"><img alt="build linux binary" src="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml/badge.svg" />
+<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml"><img alt="build linux binary" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml/badge.svg" />
 </a>
 <a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/raw/binaries/latest/macos/cli_gen_tool.zip"><img alt="Download for macos" src="https://img.shields.io/badge/Download-for%20macOS-brightgreen?style=plastic&amp;logo=macos" />
 </a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml"><img alt="build macos binary" src="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml/badge.svg" />
+<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml"><img alt="build macos binary" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml/badge.svg" />
 </a>
 <a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/raw/binaries/latest/windows/cli_gen_tool.zip"><img alt="Download for windows" src="https://img.shields.io/badge/Download-for%20Windows-brightgreen?style=plastic&amp;logo=windows" />
 </a>
-<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml"><img alt="build windows binary" src="https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml/badge.svg" />
+<a class="reference external image-reference" href="https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml"><img alt="build windows binary" src="https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml/badge.svg" />
 </a>
 </section>
 <section id="design-goals">
@@ -438,22 +437,6 @@ arduino DUE</p>
 <section id="inputhandler-library-documentation-note">
 <h1>InputHandler library documentation note<a class="headerlink" href="#inputhandler-library-documentation-note" title="Link to this heading">¶</a></h1>
 <p>The docs use a feature not supported by every browser to jump to C++ source text. Source links will still take you to the source file, but to take advantage of <a class="reference external" href="https://caniuse.com/url-scroll-to-text-fragment">url-scroll-to-text-fragment</a> you need to use a supported browser, like chrome. Alternatively you can install an addon into firefox <a class="reference external" href="https://addons.mozilla.org/en-US/firefox/addon/auto-find-text-fragment/">auto find text fragment</a> to enable the functionality.</p>
-</section>
-<section id="changelog">
-<h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading">¶</a></h1>
-<p>All notable changes to this project will be documented in this file.</p>
-<p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
-and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
-<p>Generated by <span class="raw-html-md"><a href="https://github.com/CookPete/auto-changelog"><code class="docutils literal"><span class="pre">auto-changelog</span></code></a></span>.</p>
-<section id="id10">
-<h2><a class="reference external" href="https://github.com/dstroy0/InputHandler/compare/v0.0.18...HEAD">Unreleased</a><a class="headerlink" href="#id10" title="Link to this heading">¶</a></h2>
-<section id="commits">
-<h3>Commits<a class="headerlink" href="#commits" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>lint new source files <span class="raw-html-md"><a href="https://github.com/dstroy0/InputHandler/commit/ab3e7f2035709c40b5f46173989aa57d985da1a6"><code class="docutils literal"><span class="pre">ab3e7f2</span></code></a></span></p></li>
-</ul>
-</section>
-</section>
 </section>
 
         </article>
