@@ -59,4 +59,4 @@ jobs:
     with:
       boards: ${{ needs.get-platformio-build.outputs.boards }}
       examples: ${{ needs.get-platformio-build.outputs.test-cli }}
-      lib-path: "$GITHUB_WORKSPACE/tests/tools/interfaces/test_output_cli/pio_ci/lib/CLI"
+      lib-path: "$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI"

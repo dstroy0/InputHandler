@@ -61,5 +61,5 @@ jobs:
           do
             example_src=${item//\"/}
             echo "Compiling $example_src for ${{matrix.boards}}"
-            pio ci --lib=${{inputs.lib-path}} --board="${{matrix.boards}}" --verbose "$GITHUB_WORKSPACE/$example_src"
+            pio ci --lib=${{inputs.lib-path}} --board="${{matrix.boards}}" --verbose "$GITHUB_WORKSPACE/$example_src" --path "$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI"
           done
