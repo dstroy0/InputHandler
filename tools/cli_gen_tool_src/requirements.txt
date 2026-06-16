@@ -1,0 +1,4 @@
+PyQtDarkTheme-fork
+PySide6
+IceSpringPySideStubs-PySide6
+pyinstaller
