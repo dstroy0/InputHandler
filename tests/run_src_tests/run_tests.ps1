@@ -1,10 +1,10 @@
 # Test runner script for Windows (PowerShell)
-# Standard location: tools/run_tests.ps1
+# Standard location: tests/run_src_tests/run_tests.ps1
 
 # Set the location to the directory where the script is located
 Set-Location $PSScriptRoot
 
-$testFiles = Get-ChildItem -Path ../tests/cases/*.cpp
+$testFiles = Get-ChildItem -Path ../cases/*.cpp
 
 $failed = 0
 $passed = 0
@@ -12,13 +12,12 @@ $passed = 0
 foreach ($file in $testFiles) {
     $name = $file.BaseName
     Write-Host "Compiling $name..." -ForegroundColor Cyan
-    # Note: Updated include paths for reorganization
-    & g++ -std=c++11 -I../tests/mocks -I../src $file.FullName -o "$name.exe"
-    
+    & g++ -std=c++11 -I../mocks -I../../src $file.FullName -o "$name.exe"
+
     if ($LASTEXITCODE -eq 0) {
         Write-Host "Running $name..." -ForegroundColor Cyan
         & "./$name.exe"
-        
+
         if ($LASTEXITCODE -eq 0) {
             Write-Host "$name PASSED" -ForegroundColor Green
             $passed++
@@ -26,7 +25,7 @@ foreach ($file in $testFiles) {
             Write-Host "$name FAILED" -ForegroundColor Red
             $failed++
         }
-        
+
         # Cleanup executable
         Remove-Item "$name.exe"
     } else {
