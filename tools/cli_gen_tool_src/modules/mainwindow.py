@@ -223,7 +223,7 @@ class MainWindow(
             else:
                 windowtitle = f"{windowtitle} - "
             if self.session["opt"]["save_file_path"]:
-                regexp = QRegularExpression("[^\/]*$")
+                regexp = QRegularExpression(r"[^\/]*$")
                 match = regexp.match(str(self.session["opt"]["save_file_path"]))
                 if match.hasMatch():
                     windowtitle = f"{windowtitle} {str(match.captured(0))}"

@@ -245,7 +245,7 @@ class UserDialogs(object):
 
         if read_json_result[0] >= 0 and read_json_result[1]["type"] == "cli options":
             if self._parent.prompt_to_save == True:
-                regexp = QRegularExpression("[^\/]*$")
+                regexp = QRegularExpression(r"[^\/]*$")
                 match = regexp.match(path)
                 if match.hasMatch():
                     filename = str(match.captured(0))
