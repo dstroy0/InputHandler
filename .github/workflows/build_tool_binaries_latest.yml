@@ -85,12 +85,9 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          python -VV          
+          python -VV
           pip install -r https://raw.githubusercontent.com/dstroy0/InputHandler/main/tools/cli_gen_tool_src/requirements.txt
-          pip install PyQt6-WebEngine
-          pip3 install PyQt6-WebEngine
           pip3 install Pillow
-          pip3 install PyQt6-WebEngine
           pip freeze
 
       - name: get main
@@ -117,7 +114,7 @@ jobs:
           git add docs/img
           git commit -m "pull tools folder to binaries branch"          
 
-          pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./latest/macos/
+          pyinstaller -y -F -w -i ./docs/img/Icon.ico --exclude-module PyQt6 ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./latest/macos/
           7z a -tzip './latest/macos/cli_gen_tool.zip' './latest/macos/cli_gen_tool'
           7z t './latest/macos/cli_gen_tool.zip' *.               
 
@@ -140,7 +137,6 @@ jobs:
           python -VV          
           pip install wheel
           pip install -r https://raw.githubusercontent.com/dstroy0/InputHandler/main/tools/cli_gen_tool_src/requirements.txt
-          pip install PyQt6-WebEngine
           pip freeze
 
       - name: get main
@@ -167,7 +163,7 @@ jobs:
           git add docs/img
           git commit -m "pull tools folder to binaries branch"          
 
-          pyinstaller --paths './tools/resources/' -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./latest/windows/
+          pyinstaller --paths './tools/resources/' -y -F -w -i ./docs/img/Icon.ico --exclude-module PyQt6 ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./latest/windows/
           7z a -tzip './latest/windows/cli_gen_tool.zip' './latest/windows/cli_gen_tool.exe'
           7z t './latest/windows/cli_gen_tool.zip' *. -r          
 
