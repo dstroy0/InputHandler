@@ -26,14 +26,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Update linux and install docs build dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install libegl1
-          sudo apt-get install graphviz
-          sudo apt-get install graphviz-dev       
-          sudo apt-get install clang
-
       - uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -41,10 +33,20 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: 3.12
+          cache: 'pip'
+          cache-dependency-path: docs/build/requirements.txt
+
+      - name: Update linux and install docs build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libegl1
+          sudo apt-get install graphviz
+          sudo apt-get install graphviz-dev
+          sudo apt-get install clang
 
       - name: Install Python dependencies
         run: |
-          python -VV          
+          python -VV
           pip install -r ./docs/build/requirements.txt
           pip freeze
 

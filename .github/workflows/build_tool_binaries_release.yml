@@ -11,21 +11,29 @@ jobs:
     runs-on: ubuntu-release
 
     steps:
+      - name: get main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/setup-python@v6
         with:
           python-version: 3.14
+          cache: 'pip'
+          cache-dependency-path: tools/cli_gen_tool_src/requirements.txt
 
       - name: Install Python dependencies
         run: |
-          python -VV          
-          pip install -r https://raw.githubusercontent.com/dstroy0/InputHandler/main/tools/cli_gen_tool_src/requirements.txt
+          python -VV
+          pip install -r tools/cli_gen_tool_src/requirements.txt
           pip freeze
 
       - name: Update linux and install build dependencies
         run: |
           sudo add-apt-repository -y "deb http://cz.archive.ubuntu.com/ubuntu jammy main universe"
           sudo add-apt-repository -y "deb http://mirror.math.princeton.edu/pub/ubuntu/ jammy main universe"
-          sudo apt-get -q update           
+          sudo apt-get -q update
           sudo apt-get -y install libegl1
           sudo apt-get -y install libxkbcommon0
           sudo apt-get -y install libxkbcommon-x11-dev
@@ -33,65 +41,10 @@ jobs:
           sudo apt-get -y install libx11-xcb-dev
           sudo apt-get -y install libglu1-mesa-dev
           sudo apt-get -y install libxrender-dev
-          sudo apt-get -y install libxkbcommon-dev                
-          sudo apt-get -y install libicu70          
+          sudo apt-get -y install libxkbcommon-dev
+          sudo apt-get -y install libicu70
           sudo apt-get -y install qt6-webengine-dev
           sudo apt-get -y install p7zip-full
-
-      - name: get main
-        uses: actions/checkout@v6
-        with:
-          ref: main
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: get binaries
-        uses: actions/checkout@v6
-        with:
-          ref: binaries
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and zip binary, push to binaries branch
-        run: |
-          git config user.name "dstroy0"
-          git config user.email "dstroy0@users.noreply.github.com"                                               
-
-          git checkout origin/binaries
-          git checkout origin/main -- tools
-          git checkout origin/main -- docs/img
-          git add tools
-          git add docs/img
-          git commit -m "pull tools folder to binaries branch"          
-
-          pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./release/linux/
-          7z a -tzip './release/linux/cli_gen_tool.zip' './release/linux/cli_gen_tool'
-          7z t './release/linux/cli_gen_tool.zip' *.
-
-          git rm -r tools                
-          git rm -r docs  
-          git add release/linux/cli_gen_tool.zip
-          git commit -m "built release linux binary" -a
-          git push origin HEAD:binaries
-
-  build-release-macos-binary:
-    runs-on: macos-release
-    needs: build-release-linux-binary
-    steps:
-      - uses: actions/setup-python@v6
-        with:
-          python-version: 3.9
-
-      - name: Install Python dependencies
-        run: |
-          python -VV          
-          pip install -r https://raw.githubusercontent.com/dstroy0/InputHandler/main/tools/cli_gen_tool_src/requirements.txt
-          pip3 install Pillow
-          pip freeze
-
-      - name: get main
-        uses: actions/checkout@v6
-        with:
-          ref: main
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: get binaries
         uses: actions/checkout@v6
@@ -111,37 +64,39 @@ jobs:
           git add docs/img
           git commit -m "pull tools folder to binaries branch"
 
-          pip uninstall -y PyQt6 PyQt6-sip PyQt6-Qt6 PyQt6-WebEngine || true
-          pyinstaller -y -F -w -i ./docs/img/Icon.ico --exclude-module PyQt6 ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./release/macos/
-          7z a -tzip './release/macos/cli_gen_tool.zip' './release/macos/cli_gen_tool'
-          7z t './release/macos/cli_gen_tool.zip' *.               
+          pyinstaller -y -F -w -i ./docs/img/Icon.ico ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./release/linux/
+          7z a -tzip './release/linux/cli_gen_tool.zip' './release/linux/cli_gen_tool'
+          7z t './release/linux/cli_gen_tool.zip' *.
 
-          git rm -r tools                  
+          git rm -r tools
           git rm -r docs
-          git add release/macos/cli_gen_tool.zip
-          git commit -m "built release macos binary" -a
+          git add release/linux/cli_gen_tool.zip
+          git commit -m "built release linux binary" -a
           git push origin HEAD:binaries
 
-  build-release-windows-binary:
-    runs-on: windows-release
-    needs: build-release-macos-binary
+  build-release-macos-binary:
+    runs-on: macos-release
+    needs: build-release-linux-binary
     steps:
-      - uses: actions/setup-python@v6
-        with:
-          python-version: 3.9
-
-      - name: Install Python dependencies
-        run: |
-          python -VV          
-          pip install wheel
-          pip install -r https://raw.githubusercontent.com/dstroy0/InputHandler/main/tools/cli_gen_tool_src/requirements.txt
-          pip freeze
-
       - name: get main
         uses: actions/checkout@v6
         with:
           ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.9
+          cache: 'pip'
+          cache-dependency-path: tools/cli_gen_tool_src/requirements.txt
+
+      - name: Install Python dependencies
+        run: |
+          python -VV
+          pip uninstall -y PyQt6 PyQt6-sip PyQt6-Qt6 PyQt6-WebEngine || true
+          pip install -r tools/cli_gen_tool_src/requirements.txt
+          pip3 install Pillow
+          pip freeze
 
       - name: get binaries
         uses: actions/checkout@v6
@@ -152,21 +107,72 @@ jobs:
       - name: Build and zip binary, push to binaries branch
         run: |
           git config user.name "dstroy0"
-          git config user.email "dstroy0@users.noreply.github.com"                                               
+          git config user.email "dstroy0@users.noreply.github.com"
+
+          git checkout origin/binaries
+          git checkout origin/main -- tools
+          git checkout origin/main -- docs/img
+          git add tools
+          git add docs/img
+          git commit -m "pull tools folder to binaries branch"
+
+          pyinstaller -y -F -w -i ./docs/img/Icon.ico --exclude-module PyQt6 ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./release/macos/
+          7z a -tzip './release/macos/cli_gen_tool.zip' './release/macos/cli_gen_tool'
+          7z t './release/macos/cli_gen_tool.zip' *.
+
+          git rm -r tools
+          git rm -r docs
+          git add release/macos/cli_gen_tool.zip
+          git commit -m "built release macos binary" -a
+          git push origin HEAD:binaries
+
+  build-release-windows-binary:
+    runs-on: windows-release
+    needs: build-release-macos-binary
+    steps:
+      - name: get main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: 3.9
+          cache: 'pip'
+          cache-dependency-path: tools/cli_gen_tool_src/requirements.txt
+
+      - name: Install Python dependencies
+        run: |
+          python -VV
+          pip install wheel
+          pip install -r tools/cli_gen_tool_src/requirements.txt
+          pip freeze
+
+      - name: get binaries
+        uses: actions/checkout@v6
+        with:
+          ref: binaries
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and zip binary, push to binaries branch
+        run: |
+          git config user.name "dstroy0"
+          git config user.email "dstroy0@users.noreply.github.com"
 
           git checkout binaries
           git checkout main -- tools
           git checkout main -- docs/img
           git add tools
           git add docs/img
-          git commit -m "pull tools folder to binaries branch"          
+          git commit -m "pull tools folder to binaries branch"
 
           pyinstaller --paths './tools/resources/' -y -F -w -i ./docs/img/Icon.ico --exclude-module PyQt6 ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./release/windows/
           7z a -tzip './release/windows/cli_gen_tool.zip' './release/windows/cli_gen_tool.exe'
-          7z t './release/windows/cli_gen_tool.zip' *. -r          
+          7z t './release/windows/cli_gen_tool.zip' *. -r
 
-          git rm -r tools 
-          git rm -r docs                 
+          git rm -r tools
+          git rm -r docs
           git add release/windows/cli_gen_tool.zip
           git commit -m "built release windows binary" -a
           git push origin HEAD:binaries
