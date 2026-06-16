@@ -112,8 +112,9 @@ jobs:
           git checkout origin/main -- docs/img
           git add tools
           git add docs/img
-          git commit -m "pull tools folder to binaries branch"          
+          git commit -m "pull tools folder to binaries branch"
 
+          pip uninstall -y PyQt6 PyQt6-sip PyQt6-Qt6 PyQt6-WebEngine || true
           pyinstaller -y -F -w -i ./docs/img/Icon.ico --exclude-module PyQt6 ./tools/cli_gen_tool_src/cli_gen_tool.py --distpath ./latest/macos/
           7z a -tzip './latest/macos/cli_gen_tool.zip' './latest/macos/cli_gen_tool'
           7z t './latest/macos/cli_gen_tool.zip' *.               
