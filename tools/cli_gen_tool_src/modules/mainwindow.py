@@ -545,7 +545,7 @@ class MainWindow(
         fileName = dlg.getSaveFileName(
             self,
             "Save file name",
-            "./tools/interfaces/",
+            self.interfaces_path,
             "*.json",
             options=QFileDialog.DontUseNativeDialog,
         )

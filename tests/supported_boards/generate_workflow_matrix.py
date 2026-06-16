@@ -36,8 +36,8 @@ platforms = {
 examples = [
     "examples/all_platforms/advanced/GetCommandFromStream/GetCommandFromStream.ino",
 ]
-arduino_test_cli = "tools/interfaces/test_output_cli/arduino_ci/arduino_ci.ino"
-platformio_test_cli = "tools/interfaces/test_output_cli/pio_ci/src/main.cpp"
+arduino_test_cli = "tests/test_output_cli/arduino_ci/arduino_ci.ino"
+platformio_test_cli = "tests/test_output_cli/pio_ci/src/main.cpp"
 
 
 def open_supported_boards_file(compiler: str) -> list:

@@ -134,7 +134,7 @@ This makes debugging commands easy, it is trivial to disable output after verify
     rdme_gen_inst = "## generated code"
     rdme_include_inst = """
 // copy/paste these preprocessor statements into your include section or at the top of your *.ino
-#include "CLI/setup.h" """
+#include "cli/setup.h" """
 
     rdme_copy_inst = "Copy/Paste these functions into your code before setup():"
     rdme_function_inst = "These are wrappers generated for argument retrieval, or to put custom statements that run on command entry."
@@ -278,7 +278,7 @@ const PROGMEM ih::Parameters {functionname}_param[1 /* root */ + {numberofchildr
     parameters_h_fs = """
 #if !defined(__PARAMETERS_H__)
     #define __PARAMETERS_H__
-    #include "CLI.h"
+    #include "cli.h"
     
 {parameters}
 #endif
@@ -308,7 +308,7 @@ void {functionname}(ih::Input* _{objectname})
                 }
             }
         },
-        "CLI": {
+        "cli": {
             "h": {
                 "filestring components": {
                     "arduino compatibility": '\n    #include "InputHandler.cpp"\n',

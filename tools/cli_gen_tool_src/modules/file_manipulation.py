@@ -206,38 +206,38 @@ class FileManipulation(object):
         # detect output type
         if self.detect_output_type(project_path):
             # arduino
-            cli_path = os.path.join(project_path, "CLI")
+            cli_path = os.path.join(project_path, "cli")
             cli_src_path = os.path.join(cli_path, "src")
             cli_config_h_path = os.path.join(cli_src_path, "config/config.h")
         else:
             # platformio
-            cli_path = os.path.join(project_path, "lib", "CLI")
+            cli_path = os.path.join(project_path, "lib", "cli")
             cli_src_path = cli_path  # os.path.join(cli_path, "src")
             cli_config_h_path = os.path.join(cli_src_path, "config/config.h")
 
         # Create CLI file structure
         # Create in project dir
-        # /CLI/
-        # copy /InputHandler/src/ to project_path/CLI/src/
+        # /cli/
+        # copy /InputHandler/src/ to project_path/cli/src/
         # remove original config.h
         if not os.path.exists(cli_path):
             FileManipulation.logger.info(
-                f"Creating dir <CLI> in <{str(project_path)}>"
+                f"Creating dir <cli> in <{str(project_path)}>"
             )
             shutil.copytree(src_path, cli_src_path)
             os.remove(cli_config_h_path)
             if os.path.exists(cli_src_path):
                 FileManipulation.logger.info(
-                    f"Directory <CLI> created in <{str(project_path)}>"
+                    f"Directory <cli> created in <{str(project_path)}>"
                 )
             else:
                 FileManipulation.logger.info(
-                    f"Error creating directory <CLI> in <{str(project_path)}> aborting generation!"
+                    f"Error creating directory <cli> in <{str(project_path)}> aborting generation!"
                 )
                 return -3
         else:
             FileManipulation.logger.info(
-                f"Directory <CLI> already exists in <{str(project_path)}>"
+                f"Directory <cli> already exists in <{str(project_path)}>"
             )
             shutil.rmtree(cli_path)
             shutil.copytree(src_path, cli_src_path)

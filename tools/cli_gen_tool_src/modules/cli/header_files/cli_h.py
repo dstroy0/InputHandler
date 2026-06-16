@@ -100,25 +100,25 @@ class CLI_H(object):
         buffer_size = self.cli_options["process output"]["var"]["buffer size"]
         buffer_char = "{'\\0'}"
         object_name = "inputHandler"
-        output_buffer = self.fsdb["CLI"]["h"]["filestring components"][
+        output_buffer = self.fsdb["cli"]["h"]["filestring components"][
             "outputbuffer"
         ].format(
             outputbuffername=output_buffer_name,
             buffersize=buffer_size,
             bufferchar=buffer_char,
         )
-        class_output = self.fsdb["CLI"]["h"]["filestring components"][
+        class_output = self.fsdb["cli"]["h"]["filestring components"][
             "classoutput"
         ].format(input_prm="input_prm", outputbuffer="InputHandler_output_buffer")
 
-        class_constructor = self.fsdb["CLI"]["h"]["filestring components"][
+        class_constructor = self.fsdb["cli"]["h"]["filestring components"][
             "constructor"
         ].format(objectname=object_name, classoutput=class_output)
         if buffer_size == "":
             buffer_size = 0
         if int(buffer_size) == 0:
             output_buffer = ""
-            class_constructor = self.fsdb["CLI"]["h"]["filestring components"][
+            class_constructor = self.fsdb["cli"]["h"]["filestring components"][
                 "constructor"
             ].format(objectname=object_name, classoutput="")
 
@@ -159,7 +159,7 @@ class CLI_H(object):
                     self.command_index[root_command_index]["parameters key"]
                 ]["functionName"]
                 command_parameters_name = f"{fn}_"
-                command_list_string += self.fsdb["CLI"]["h"]["filestring components"][
+                command_list_string += self.fsdb["cli"]["h"]["filestring components"][
                     "addCommand"
                 ]["call"].format(
                     objectname=object_name,
@@ -179,7 +179,7 @@ class CLI_H(object):
             _ls = f"\n  {object_name}.listSettings(); // prints InputHandler settings"
 
         if stream_string != "" and stream_string != None and int(buffer_size) != 0:
-            setup_function_entry = self.fsdb["CLI"]["h"]["filestring components"][
+            setup_function_entry = self.fsdb["cli"]["h"]["filestring components"][
                 "setup function output"
             ]["stream"]["entry"].format(
                 stream=stream_string,
@@ -187,7 +187,7 @@ class CLI_H(object):
                 ls=_ls,
                 lc=_lc,
             )
-            setup_function_exit = self.fsdb["CLI"]["h"]["filestring components"][
+            setup_function_exit = self.fsdb["cli"]["h"]["filestring components"][
                 "setup function output"
             ]["stream"]["exit"].format(
                 stream=stream_string,
@@ -198,7 +198,7 @@ class CLI_H(object):
             )
 
         elif stream_string == "" or stream_string == None and int(buffer_size) != 0:
-            setup_function_entry = self.fsdb["CLI"]["h"]["filestring components"][
+            setup_function_entry = self.fsdb["cli"]["h"]["filestring components"][
                 "setup function output"
             ]["buffer"]["entry"].format(
                 outputbuffer=output_buffer_name,
@@ -206,7 +206,7 @@ class CLI_H(object):
                 ls=_ls,
                 lc=_lc,
             )
-            setup_function_exit = self.fsdb["CLI"]["h"]["filestring components"][
+            setup_function_exit = self.fsdb["cli"]["h"]["filestring components"][
                 "setup function output"
             ]["buffer"]["exit"].format(
                 outputbuffer=output_buffer_name,
@@ -217,17 +217,17 @@ class CLI_H(object):
 
         default_function_string = ""
         if self.cli_options["builtin methods"]["var"]["defaultFunction"] == True:
-            default_function_string = self.fsdb["CLI"]["h"]["filestring components"][
+            default_function_string = self.fsdb["cli"]["h"]["filestring components"][
                 "defaultFunction"
             ]["call"].format(objectname=object_name, defaultfunctionname="unrecognized")
 
-        begin_string = self.fsdb["CLI"]["h"]["filestring components"]["begin"][
+        begin_string = self.fsdb["cli"]["h"]["filestring components"]["begin"][
             "call"
         ].format(objectname=object_name)
 
         options_string = ""
 
-        setup_function = self.fsdb["CLI"]["h"]["filestring components"][
+        setup_function = self.fsdb["cli"]["h"]["filestring components"][
             "setup function"
         ].format(
             setupfunctionentry=setup_function_entry,
@@ -244,14 +244,14 @@ class CLI_H(object):
             and stream_string != ""
             and stream_string != None
         ):
-            loop_statements = self.fsdb["CLI"]["h"]["filestring components"][
+            loop_statements = self.fsdb["cli"]["h"]["filestring components"][
                 "getCommandFromStream"
             ]["call"].format(objectname=object_name, stream=stream_string)
-            loop_statements += self.fsdb["CLI"]["h"]["filestring components"][
+            loop_statements += self.fsdb["cli"]["h"]["filestring components"][
                 "outputToStream"
             ]["call"].format(objectname=object_name, stream=stream_string)
 
-            loop_function = self.fsdb["CLI"]["h"]["filestring components"][
+            loop_function = self.fsdb["cli"]["h"]["filestring components"][
                 "loop function"
             ].format(loopstatements=loop_statements)
 
@@ -263,7 +263,7 @@ class CLI_H(object):
             if file_structure:
                 compatibility = '\n    #include "InputHandler.cpp"'
 
-        setup_h = self.fsdb["CLI"]["h"]["filestring"].format(
+        setup_h = self.fsdb["cli"]["h"]["filestring"].format(
             arduino_compatibility=compatibility,
             objectname=object_name,
             outputbuffer=output_buffer,

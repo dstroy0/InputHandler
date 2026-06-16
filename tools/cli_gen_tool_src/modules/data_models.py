@@ -39,7 +39,7 @@ class DataModels(object):
     pio_structure = {
         "project_directory": {
             "lib": {
-                "CLI": {
+                "cli": {
                     "config": {
                         "files": ["config.h", "noedit.h"],
                         "utility": {"files": ["freeRam.h", "vsnprintf.h"]},
@@ -60,7 +60,7 @@ class DataModels(object):
     ## arduino file structure
     arduino_structure = {
         "project_directory": {
-            "CLI": {
+            "cli": {
                 "config": {
                     "files": ["config.h", "noedit.h"],
                     "utility": {"files": ["freeRam.h", "vsnprintf.h"]},

@@ -14,6 +14,10 @@ on:
       examples:
         required: true
         type: string
+      libraries:
+        required: false
+        type: string
+        default: ""
 
 jobs:
   build:
@@ -40,6 +44,8 @@ jobs:
           # get extra platform packages here
           platforms: |
             ${{ inputs.platform-packages }}
+          libraries: |
+            ${{ inputs.libraries }}
 
       - name: Compile using arduino (no platform package)
         uses: arduino/compile-sketches@main
@@ -49,3 +55,5 @@ jobs:
           sketch-paths: ${{ inputs.examples }}
           # get fqbn from build-arduino.strategy.matrix.boards
           fqbn: ${{ matrix.boards }}
+          libraries: |
+            ${{ inputs.libraries }}

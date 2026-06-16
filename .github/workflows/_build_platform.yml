@@ -44,6 +44,8 @@ jobs:
         ${{ inputs.platform-packages }}
       boards: ${{ needs.get-arduino-build.outputs.boards }}
       examples: ${{ needs.get-arduino-build.outputs.test-cli }}
+      libraries: |
+        - source-path: .
 
   build-library-platformio:
     needs: get-platformio-build
@@ -51,7 +53,6 @@ jobs:
     with:
       boards: ${{ needs.get-platformio-build.outputs.boards }}
       examples: ${{ needs.get-platformio-build.outputs.examples }}
-      lib-path: "."
 
   build-test-cli-platformio:
     needs: get-platformio-build
@@ -59,4 +60,4 @@ jobs:
     with:
       boards: ${{ needs.get-platformio-build.outputs.boards }}
       examples: ${{ needs.get-platformio-build.outputs.test-cli }}
-      lib-path: "$GITHUB_WORKSPACE/tools/interfaces/test_output_cli/pio_ci/lib/CLI"
+      lib-path: "$GITHUB_WORKSPACE/tests/test_output_cli/pio_ci/lib/cli"

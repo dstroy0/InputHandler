@@ -9,8 +9,9 @@ on:
         required: true
         type: string
       lib-path:
-        required: true
+        required: false
         type: string
+        default: ""
 
 jobs:
   build:
@@ -61,5 +62,7 @@ jobs:
           do
             example_src=${item//\"/}
             echo "Compiling $example_src for ${{matrix.boards}}"
-            pio ci --lib=${{inputs.lib-path}} --board="${{matrix.boards}}" --verbose "$GITHUB_WORKSPACE/$example_src"
+            lib_extra=""
+            if [ -n "${{ inputs.lib-path }}" ]; then lib_extra="--lib=${{ inputs.lib-path }}"; fi
+            pio ci --lib="$GITHUB_WORKSPACE" $lib_extra --board="${{matrix.boards}}" --verbose "$GITHUB_WORKSPACE/$example_src"
           done

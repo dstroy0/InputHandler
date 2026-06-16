@@ -179,7 +179,7 @@ class Headless(
             self.root_log_handler.error("Invalid InputHandler library directory")
             sys.exit(1)
         elif result == -3:
-            self.root_log_handler.error("Error creating directory <CLI>")
+            self.root_log_handler.error("Error creating directory <cli>")
             sys.exit(1)
         elif result == -4:
             self.root_log_handler.error("File write error during CLI generation")

@@ -20,7 +20,7 @@
 
 #if !defined(__FUNCTIONS_H__)
     #define __FUNCTIONS_H__
-    #include "InputHandler.h"    
+    #include <InputHandler.h>
 
 
 /* InputHandler user return function prototypes */
