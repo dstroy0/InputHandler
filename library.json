@@ -25,7 +25,7 @@
     "espressif8266"
   ],
   "auto-changelog": {
-    "output": "docs/LIB_CHANGELOG.md",
+    "output": "CHANGELOG.md",
     "template": "docs/changelog/template.hbs",
     "unreleased": true,
     "commitLimit": false

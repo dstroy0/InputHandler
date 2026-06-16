@@ -41,12 +41,12 @@ Default InputHandler Input constructor initialization with output buffer:
 ```cpp
 /*
   InputHandler default Input constructor uses InputParameters variables defined in the namespace ihc src/config/utility/namespace.h
-  This constructor will output messages into `output_buffer`, you can check to see if there's a message with ih::Input::isOutputAvailable()
+  This constructor will output messages into `output_buffer`, you can check to see if there's a message with ih::Input::outputIsAvailable()
 */
 #include <InputHandler.h>
 using namespace ih;
 char output_buffer[512] = {'\0'}; //  output buffer
-Input inputHandler(output_buffer, buffsz(output_buffer)); // Input constructor with output buffer and buffer length
+Input inputHandler(NULL, output_buffer, buffsz(output_buffer)); // Input constructor with output buffer and buffer length
 ```
 
 Many aspects of [InputParameters](https://dstroy0.github.io/InputHandler/lib/src/config/utility/namespace_h_docs.html#_CPPv4N2ih15InputParametersE) are customizable:
@@ -117,7 +117,7 @@ void ih::Input::outputToStream(Stream &stream);
 or, you can check to see if ihout output is available with:
 
 ```cpp
-bool ih::Input::outputIsAvailable();
+size_t ih::Input::outputIsAvailable();
 ```
 
 and then when you are done with the output buffer, it needs to be reinitialized with:
@@ -132,12 +132,12 @@ Please report any bugs in InputHandler/src/ using [bug_report.md](https://github
 
 # Library Build Status
 
-[![Adafruit platforms](https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/adafruit_platforms.yml)  
-[![Arduino platforms](https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/arduino_platforms.yml)  
-[![ESP32 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/esp32_platforms.yml)  
-[![ESP8266 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/esp8266_platforms.yml)  
-[![RPi platforms](https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/rpi_platforms.yml)  
-[![Teensyduino platforms](https://github.com/dstroy0/InputHandler/actions/workflows/teensyduino_platforms.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/teensyduino_platforms.yml)
+[![Adafruit platforms](https://github.com/dstroy0/InputHandler/actions/workflows/build_adafruit.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_adafruit.yml)  
+[![Arduino platforms](https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_arduino.yml)  
+[![ESP32 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/build_esp32.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_esp32.yml)  
+[![ESP8266 platforms](https://github.com/dstroy0/InputHandler/actions/workflows/build_esp8266.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_esp8266.yml)  
+[![RPi platforms](https://github.com/dstroy0/InputHandler/actions/workflows/build_rpi.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_rpi.yml)  
+[![Teensyduino platforms](https://github.com/dstroy0/InputHandler/actions/workflows/build_teensyduino.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_teensyduino.yml)
 
 # Docs Build Status
 
@@ -145,17 +145,17 @@ Please report any bugs in InputHandler/src/ using [bug_report.md](https://github
 
 # Source Format Conformity
 
-[![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lib_cpp_linter.yml)
+[![src-cpp-linter CI](https://github.com/dstroy0/InputHandler/actions/workflows/lint_src_contributions.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/lint_src_contributions.yml)
 
 # Prebuilt cli_gen_tool Binaries
 
 Made with [PyInstaller](https://pyinstaller.org/en/stable/)
 
-[![Download for linux](https://img.shields.io/badge/Download-for%20Linux-brightgreen?style=plastic&logo=linux)](https://github.com/dstroy0/InputHandler/raw/binaries/latest/linux/cli_gen_tool.zip)[![build linux binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_linux_latest.yml)  
+[![Download for linux](https://img.shields.io/badge/Download-for%20Linux-brightgreen?style=plastic&logo=linux)](https://github.com/dstroy0/InputHandler/raw/binaries/latest/linux/cli_gen_tool.zip)[![build linux binary](https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml)  
 
-[![Download for macos](https://img.shields.io/badge/Download-for%20macOS-brightgreen?style=plastic&logo=macos)](https://github.com/dstroy0/InputHandler/raw/binaries/latest/macos/cli_gen_tool.zip)[![build macos binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_macos_latest.yml)  
+[![Download for macos](https://img.shields.io/badge/Download-for%20macOS-brightgreen?style=plastic&logo=macos)](https://github.com/dstroy0/InputHandler/raw/binaries/latest/macos/cli_gen_tool.zip)[![build macos binary](https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml)  
 
-[![Download for windows](https://img.shields.io/badge/Download-for%20Windows-brightgreen?style=plastic&logo=windows)](https://github.com/dstroy0/InputHandler/raw/binaries/latest/windows/cli_gen_tool.zip)[![build windows binary](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/bld_tool_bin_windows_latest.yml)
+[![Download for windows](https://img.shields.io/badge/Download-for%20Windows-brightgreen?style=plastic&logo=windows)](https://github.com/dstroy0/InputHandler/raw/binaries/latest/windows/cli_gen_tool.zip)[![build windows binary](https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml/badge.svg)](https://github.com/dstroy0/InputHandler/actions/workflows/build_tool_binaries_latest.yml)
 
 # Design Goals
 
@@ -198,17 +198,3 @@ Build coverage:
 # InputHandler library documentation note
 
 The docs use a feature not supported by every browser to jump to C++ source text. Source links will still take you to the source file, but to take advantage of [url-scroll-to-text-fragment](https://caniuse.com/url-scroll-to-text-fragment) you need to use a supported browser, like chrome. Alternatively you can install an addon into firefox [auto find text fragment](https://addons.mozilla.org/en-US/firefox/addon/auto-find-text-fragment/) to enable the functionality.
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-Generated by [`auto-changelog`](https://github.com/CookPete/auto-changelog).
-
-## [Unreleased](https://github.com/dstroy0/InputHandler/compare/v0.0.19...HEAD)
-
-### Commits
-
-- update .clang-format rules, reformat C/C++ [`882f39a`](https://github.com/dstroy0/InputHandler/commit/882f39aace4321d0e258b6919878251b435ae255)
