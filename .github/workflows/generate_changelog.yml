@@ -28,6 +28,7 @@ jobs:
 
       - name: Generate changelog
         run: |
+          git pull --rebase origin main
           npx auto-changelog --output CHANGELOG.md --commit-limit false --unreleased-only false --template keepachangelog
 
       - name: Commit changelog update (push event)
